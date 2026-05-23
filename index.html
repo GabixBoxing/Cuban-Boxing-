@@ -39,7 +39,7 @@ var ai=document.createElement("link");ai.rel="apple-touch-icon";ai.href="data:im
 <div id="pg-tactics" class="page"></div>
 <div id="pg-nutrition" class="page"></div>
 <div id="pg-store" class="page"></div>
-<div id="pg-notes" class="page"></div>
+<div id="pg-notes" class="page"></div><div id="pg-pricing" class="page"></div>
 </div>
 <nav id="nav"></nav>
 </div>
@@ -56,7 +56,8 @@ document.body.innerHTML = '<div style="background:#070d1a;color:#fff;padding:20p
 return true;
 };
 try {
-let ST={lang:"es",tab:"home",athletes:[],fights:[],user:null,isCoach:false,athFilter:"Todos",openPhase:null,openWeek:null,openDay:null,trainPick:null,trainDay:null,openStyle:null,openNut:"n1"};
+
+let ST={lang:"es",tab:"home",athletes:[],fights:[],user:null,proUser:null,proAthletes:[],isCoach:false,athFilter:"Todos",openPhase:null,openWeek:null,openDay:null,trainPick:null,trainDay:null,openStyle:null,openNut:"n1",openProPhase:1,openProWeek:1};
 const PC={1:"#1a4a7a",2:"#1a6b3c",3:"#5b2c8d",4:"#8b1a1a",5:"#4a4a1a"};
 const AVC=["#1a4a7a","#1a6b3c","#5b2c8d","#8b1a1a","#4a3a1a"];
 const DA=[
@@ -463,14 +464,126 @@ const d=document.getElementById("hdr-date");
 const u=document.getElementById("hdr-user");
 const lb=document.getElementById("lang-btn");
 if(d)d.textContent=new Date().toLocaleDateString(ST.lang==="es"?"es-ES":"en-US",{weekday:"short",day:"2-digit",month:"short"}).toUpperCase();
-if(u)u.textContent=ST.isCoach?L("COACH OSVIMER","COACH OSVIMER"):(ST.user?ST.user.name.split(" ")[0].toUpperCase():"");
+if(u)u.textContent=ST.isCoach?L("COACH OSVIMER","COACH OSVIMER"):(ST.proUser?"PRO: "+(ST.proUser.name.split(" ")[0].toUpperCase()):(ST.user?ST.user.name.split(" ")[0].toUpperCase():""));
 if(lb)lb.textContent=ST.lang==="es"?"EN":"ES";
 const icons=["🏠","🥊","📋","🏆","🎯","🥗","🛒","💬"];
 const nav=document.getElementById("nav");
 if(nav)nav.innerHTML=["home","athletes","training","fights","tactics","nutrition","store","notes"].map((id,i)=>`<button class="nb${ST.tab===id?" on":""}" id="nb-${id}" onclick="goTab('${id}')"><span class="ic">${icons[i]}</span><span>${t().nav[i]}</span>${ST.tab===id?'<div class="bar"></div>':""}</button>`).join("");
 }
 function toggleLang(){const nl=ST.lang==="es"?"en":"es";ST.lang=nl;sv("cba_lang",nl);updateHdr();reRender();}
+
+function renderProWeeklyPlan() {
+  if (!ST.proUser || ST.proUser.isCoachPro) return "<div class='card'>Acceso solo para atletas PRO</div>";
+  const fase = ST.proUser.proPhase || 1;
+  const semana = ST.proUser.proWeek || 1;
+  let progreso;
+  try { progreso = JSON.parse(localStorage.getItem("pro_progress_" + ST.proUser.id)) || { completados: [] }; }
+  catch(e) { progreso = { completados: [] }; }
+  const phase = ProPhases.find(p=>p.id===fase)||ProPhases[0];
+  let html = `<div class="card" style="background:#0a1628;margin-bottom:16px;">
+    <div style="font-size:18px;font-weight:900;color:#D4A017;">📅 SEMANA ${semana} · FASE ${fase} — ${esc(phase.name)}</div>
+    <div style="font-size:12px;color:#fff;font-family:Barlow;margin-top:4px;">🎯 ${esc(phase.focus)}</div>
+    <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;">
+      <span style="background:#1e3050;padding:4px 12px;border-radius:20px;font-size:11px;">🇨🇺 Técnica Sagarra</span>
+      <span style="background:#1e3050;padding:4px 12px;border-radius:20px;font-size:11px;">🇺🇸 Potencia/Sparring</span>
+      <span style="background:#1e3050;padding:4px 12px;border-radius:20px;font-size:11px;">🇲🇽 Cuerpo/Presión</span>
+    </div>
+    <div style="font-size:11px;color:#D4A017;margin-top:6px;">✅ 4 días: LUN · MAR · JUE · VIE</div>
+  </div>`;
+  const days = ["mon","tue","thu","fri"];
+  const dayNames = {mon:"🗓 LUN",tue:"🗓 MAR",thu:"🗓 JUE",fri:"🗓 VIE"};
+  days.forEach(d=>{
+    const session = phase.sessions&&phase.sessions[d];
+    const completado = progreso.completados.includes(d);
+    if(!session)return;
+    html += `<div class="card" style="margin-bottom:12px;border-left:4px solid ${completado?"#1a8f4c":phase.color};">
+      <div style="font-weight:800;font-size:17px;color:#fff;">${dayNames[d]} · ${esc(session.title)}</div>
+      <div style="font-size:11px;color:#7a9ab5;font-family:Barlow;">~${session.dur||90} min · 🇨🇺🇺🇸🇲🇽</div>
+      <div style="background:#0a1628;border-radius:8px;margin-top:8px;">`;
+    session.blocks.forEach((b,i)=>{
+      html+=`<div style="display:flex;gap:10px;padding:7px 10px;border-top:${i>0?"1px solid #0f1e35":"none"};">
+        <div style="width:46px;text-align:right;font-size:11px;color:#D4A017;font-weight:700;flex-shrink:0;">${esc(b.t)}</div>
+        <div><div style="font-weight:700;font-size:13px;color:#fff;">${esc(b.n)}</div>
+        <div style="font-size:11px;color:#7a9ab5;font-family:Barlow;">${esc(b.d||"")}</div></div></div>`;
+    });
+    html+=`</div>
+      <div style="display:flex;justify-content:space-between;padding-top:8px;margin-top:4px;border-top:1px solid #1e3050;">
+        <span style="font-size:12px;color:#7a9ab5;font-weight:700;">TOTAL</span>
+        <span style="font-size:14px;color:#D4A017;font-weight:800;">${session.dur||90} min</span>
+      </div>
+      <button class="btn btn-gr" style="margin-top:8px;padding:8px;font-size:12px;" onclick="marcarEntrenoPro('${d}')">
+        ${completado?"✅ COMPLETADO":"○ MARCAR COMO HECHO"}
+      </button></div>`;
+  });
+  html+=`<div class="card" style="background:linear-gradient(135deg,#1a1a2e,#0a0a18);margin-top:8px;">
+    <div style="font-size:14px;font-weight:900;color:#D4A017;margin-bottom:8px;">🌎 METODOLOGÍA (CUB · USA · MEX)</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <div style="flex:1;background:#0a1628;border-radius:10px;padding:10px;"><div style="font-weight:800;color:#e74c3c;">🇨🇺 CUBA</div><div style="font-size:11px;color:#fff;font-family:Barlow;">Técnica Sagarra, sombra, movimiento.</div></div>
+      <div style="flex:1;background:#0a1628;border-radius:10px;padding:10px;"><div style="font-weight:800;color:#3b82f6;">🇺🇸 USA</div><div style="font-size:11px;color:#fff;font-family:Barlow;">Sparring condicionado, potencia.</div></div>
+      <div style="flex:1;background:#0a1628;border-radius:10px;padding:10px;"><div style="font-weight:800;color:#f59e0b;">🇲🇽 MX</div><div style="font-size:11px;color:#fff;font-family:Barlow;">Cuerpo, presión, corazón.</div></div>
+    </div></div>`;
+  return html;
+}
+function marcarEntrenoPro(dia) {
+  if (!ST.proUser) return;
+  let progreso;
+  try { progreso = JSON.parse(localStorage.getItem("pro_progress_" + ST.proUser.id)) || { completados: [] }; }
+  catch(e) { progreso = { completados: [] }; }
+  if (!progreso.completados.includes(dia)) {
+    progreso.completados.push(dia);
+    localStorage.setItem("pro_progress_" + ST.proUser.id, JSON.stringify(progreso));
+    const phrases = ["💪 ¡Sesión completada!","🔥 Un día más hacia el título","🥊 El trabajo no miente","⭐ Excelente sesión","🇨🇺🇺🇸🇲🇽 Sistema en acción"];
+    const toast = document.createElement("div");
+    toast.textContent = phrases[Math.floor(Math.random()*phrases.length)];
+    toast.style.cssText = "position:fixed;bottom:70px;left:20px;right:20px;background:#D4A017;color:#070d1a;padding:12px;border-radius:12px;font-weight:900;z-index:200;text-align:center;font-size:13px;";
+    document.body.appendChild(toast);
+    setTimeout(()=>toast.remove(), 3000);
+  }
+  const container = document.getElementById("proContent");
+  if (container) container.innerHTML = renderProWeeklyPlan();
+}
+function setProTab(tab) {
+  ST.proSubTab = tab;
+  const container = document.getElementById("proContent");
+  if (!container) return;
+  if (tab === "semana") container.innerHTML = renderProWeeklyPlan();
+  else if (tab === "fisico") {
+    openProPhysModal(ST.proUser.proPhase||1);
+    container.innerHTML = `<div class="card" style="text-align:center;"><button onclick="openProPhysModal(${ST.proUser.proPhase||1})" class="btn btn-g" style="margin-top:10px;">🏋️ VER PLAN FÍSICO PRO</button></div>`;
+  }
+  else if (tab === "tactica") container.innerHTML = renderTactics();
+  else if (tab === "nutricion") container.innerHTML = renderNutrition();
+}
+function renderHomePro(){
+const ath=ST.proUser;
+if(!ath)return"";
+if(ath.isCoachPro){
+const pa=ST.proAthletes||[];
+let h=`<div style="background:linear-gradient(135deg,#1a0000,#0f1e35);border:2px solid #e74c3c;border-radius:14px;padding:16px;margin-bottom:14px;text-align:center;"><div style="font-size:22px;font-weight:900;color:#e74c3c;margin-bottom:4px;">🥊 MÓDULO PRO</div><div style="font-size:12px;color:#fff;font-family:Barlow;">Coach Osvimer Rodriguez — Nemea Boxing</div></div>`;
+h+=`<div style="font-size:11px;font-weight:700;color:#D4A017;letter-spacing:1px;margin-bottom:10px;">ATLETAS PRO (${pa.length})</div>`;
+if(!pa.length){h+=`<div style="text-align:center;padding:30px;color:#4a6a8a;font-family:Barlow;">Sin atletas pro.</div>`;}
+else pa.forEach(a=>{h+=`<div class="card" style="border-left:3px solid #e74c3c;cursor:pointer;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;" onclick="openEditProAth('${a.id}')"><div><div style="font-weight:800;font-size:15px;color:#fff;">${esc(a.name)}</div><div style="font-size:11px;color:#7a9ab5;font-family:Barlow;">${a.weight||""}lb · Fase ${a.proPhase||1} · PIN: ${esc(a.pin||"")}</div></div><div><span style="color:#1a8f4c;">${a.wins||0}V</span> <span style="color:#c0392b;">${a.losses||0}D</span></div></div>`;});
+h+=`<button onclick="openAddProAth()" class="btn btn-r" style="margin-top:10px;">+ REGISTRAR ATLETA PRO</button>`;
+h+=`<button onclick="showSwitchModal()" class="btn btn-d" style="margin-top:8px;">SALIR</button>`;
+return h;
+}
+const phase=ProPhases.find(p=>p.id===(ath.proPhase||1))||ProPhases[0];
+const subTab=ST.proSubTab||"semana";
+let html=`<div class="card" style="border-color:#e74c3c;background:linear-gradient(135deg,#1a0000,#0f1e35);margin-bottom:14px;"><div style="display:flex;justify-content:space-between;align-items:center;"><div><div style="font-size:20px;font-weight:900;color:#fff;">🥊 ${esc(ath.name)}</div><div style="font-size:11px;color:#e74c3c;">ATLETA PRO · ${ath.weight||""} lb</div></div><div style="background:#8b1a1a;border-radius:8px;padding:6px 12px;text-align:center;"><div style="font-size:20px;font-weight:900;color:#fff;">${ath.wins||0}V</div><div style="font-size:10px;color:rgba(255,255,255,.6);">${ath.losses||0}D ${ath.draws||0}E</div></div></div><div style="background:#0a1628;border-radius:8px;padding:10px;margin-top:10px;"><div style="font-size:10px;color:#e74c3c;font-weight:700;">FASE ${ath.proPhase||1} — ${esc(phase.name)}</div><div style="font-size:12px;color:#fff;font-family:Barlow;">⚡ Semana ${ath.proWeek||1} · 4 días (LUN · MAR · JUE · VIE)</div></div></div>`;
+const tabs=[{id:"semana",label:"📅 SEMANA",color:"#e74c3c"},{id:"fisico",label:"💪 FÍSICO",color:"#D4A017"},{id:"tactica",label:"🎯 TÁCTICA",color:"#3b82f6"},{id:"nutricion",label:"🥗 NUTRICIÓN",color:"#1a6b3c"}];
+html+=`<div style="display:flex;gap:4px;background:#0a1628;border-radius:40px;padding:6px;margin-bottom:16px;">`;
+tabs.forEach(tab=>{
+const active=subTab===tab.id;
+html+=`<button onclick="setProTab('${tab.id}')" style="flex:1;background:${active?tab.color:"#1e3050"};color:${active&&tab.id==="fisico"?"#070d1a":"#fff"};border:none;border-radius:30px;padding:8px 2px;font-size:10px;font-weight:700;cursor:pointer;">${tab.label}</button>`;
+});
+html+=`</div><div id="proContent"></div>`;
+  html+=`<button onclick="showSwitchModal()" style="width:100%;background:none;border:2px solid #8b1a1a;color:#e74c3c;border-radius:10px;padding:12px;font-weight:700;cursor:pointer;margin-top:8px;">⇄ CAMBIAR DE USUARIO</button>`;
+setTimeout(()=>{const el=document.getElementById("proContent");if(el)el.innerHTML=renderProWeeklyPlan();},20);
+return html;
+}
+
 function renderHome(){
+if(ST.proUser)return renderHomePro();
 const tl=t();
 const visible=ST.isCoach?ST.athletes:ST.athletes.filter(a=>a.id===ST.user?.id);
 const active=ST.isCoach?ST.athletes.filter(a=>a.status==="Activo"||a.status==="Active"):visible;
@@ -523,11 +636,19 @@ h+=`</div>`;
 if(ST.isCoach){
 h+=sh(tl.act,"⚡");
 h+=`<div class="g2">${[{l:L("Agregar Atleta","Add Athlete"),i:"➕",c:"#1a4a7a",a:"openM('addAthlete')"},{l:L("Registrar Pelea","Log Fight"),i:"🥊",c:"#8b1a1a",a:"openM('addFight')"},{l:L("Ver Atletas","View Athletes"),i:"👥",c:"#1a6b3c",a:"goTab('athletes')"},{l:L("Ver Fases","View Phases"),i:"📊",c:"#5b2c8d",a:"goTab('tactics')"}].map(x=>`<button onclick="${x.a}" style="background:${x.c};border:none;color:#fff;border-radius:10px;padding:14px 10px;font-weight:700;font-size:13px;letter-spacing:1px;display:flex;align-items:center;gap:8px"><span style="font-size:18px">${x.i}</span>${x.l.toUpperCase()}</button>`).join("")}</div>`;
+  h+=`<div class="g2" style="margin-top:8px">
+    <button onclick="showReporteRendimiento()" style="background:#1a3050;border:2px solid #D4A017;color:#D4A017;border-radius:10px;padding:12px 6px;font-weight:700;font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px">📊 CONTROL DIARIO</button>
+    <button onclick="showSemaforoPeso()" style="background:#1a3050;border:2px solid #27ae60;color:#27ae60;border-radius:10px;padding:12px 6px;font-weight:700;font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px">⚖️ SEMÁFORO PESO</button>
+  </div>`;
 } else {
 h+=`<div style="display:flex;flex-direction:column;gap:8px">`;
 h+=`<button onclick="goTab('training')" class="btn btn-g" style="margin-bottom:8px">${L("VER MI ENTRENAMIENTO","VIEW MY TRAINING")} 📋</button>`;
 if(ST.user){const blkNum=getPhysBlock(ST.user.phase,ST.user.week);h+=`<button onclick="openPhysModal(${ST.user.phase},${ST.user.week},'${ST.user.group||"Mayores 16"}')" class="btn btn-d" style="margin-bottom:8px">🏋️ ${L("PLAN FÍSICO — BLOQUE","PHYSICAL PLAN — BLOCK")} ${blkNum}</button>`;}
 h+=`<button onclick="goTab('notes')" class="btn btn-d">${L("MIS NOTAS Y PREGUNTAS","MY NOTES & QUESTIONS")} 💬</button>`;
+  h+=`<div class="g2" style="margin-top:8px">
+    <button onclick="showReporteRendimiento()" style="background:#1a3050;border:2px solid #D4A017;color:#D4A017;border-radius:10px;padding:12px 6px;font-weight:700;font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px">📊 MI REPORTE</button>
+    <button onclick="showSemaforoPeso()" style="background:#1a3050;border:2px solid #27ae60;color:#27ae60;border-radius:10px;padding:12px 6px;font-weight:700;font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px">⚖️ MI PESO</button>
+  </div>`;
 h+=`</div>`;
 h+=`<button onclick="showSwitchModal()" style="width:100%;background:none;border:2px solid #8b1a1a;color:#e74c3c;border-radius:10px;padding:12px;font-weight:700;font-size:13px;cursor:pointer;margin-top:8px">⇄ ${L("CAMBIAR / SALIR","SWITCH / EXIT")}</button>`;
 }
@@ -780,565 +901,4 @@ document.getElementById("modal-wrap").innerHTML=mwrap(h);
 function renderNutrition(){
 let h="";
 h+=sh(L("NUTRICION DE COMPETENCIA","COMPETITION NUTRITION"),"🥗");
-h+=`<div class="card card-g" style="background:linear-gradient(135deg,#0a1628,#162540);margin-bottom:14px"><div style="font-size:10px;color:#D4A017;letter-spacing:2px;margin-bottom:6px">⚠ IMPORTANTE</div><div style="font-size:12px;color:#fff;font-family:Barlow;line-height:1.6">${L("Plan basado en ciencia deportiva y boxeo de élite. Consulta con Coach Osvimer antes de cambios.","Plan based on sports science and elite boxing. Consult Coach Osvimer before changes.")}</div></div>`;
-const phases=[
-{id:"n1",color:"#1a6b3c",title:L("8 SEMANAS — BASE","8 WEEKS — BASE"),icon:"💪",
-meals:[
-{t:L("DESAYUNO 7:00 AM","BREAKFAST 7:00 AM"),items:["2 huevos revueltos con espinaca","1 taza avena + plátano","Jugo naranja natural","Agua:500ml"],cal:"550-600 kcal",mac:"Carbs:65g Prot:32g Grasa:12g"},
-{t:L("MERIENDA 10:00 AM","SNACK 10:00 AM"),items:["1 manzana","30g almendras","1 yogur griego sin azúcar"],cal:"280 kcal",mac:"Carbs:28g Prot:15g Grasa:12g"},
-{t:L("ALMUERZO 1:00 PM","LUNCH 1:00 PM"),items:["180g pollo a la plancha","1 taza arroz integral","Ensalada:pepino, tomate, zanahoria","Agua:500ml"],cal:"620 kcal",mac:"Carbs:72g Prot:48g Grasa:12g"},
-{t:L("PRE-ENTRENO (2 hrs)","PRE-WORKOUT (2 hrs)"),items:["1 banana","30g avena con agua","Agua:400ml"],cal:"280 kcal",mac:"Carbs:58g Prot:8g"},
-{t:L("POST-ENTRENO (30 min)","POST-WORKOUT (30 min)"),items:["30g proteína whey + 1 banana + 250ml leche","Agua:500ml"],cal:"380 kcal",mac:"Carbs:55g Prot:38g Grasa:5g"},
-{t:L("CENA 7:00 PM","DINNER 7:00 PM"),items:["200g salmón o atún a la plancha","2 tazas brócoli + coliflor al vapor","1 camote mediano","Agua:500ml"],cal:"480 kcal",mac:"Carbs:42g Prot:52g Grasa:10g"},
-],total:"2590-2640 kcal/día",nota:L("HIDRATACIÓN:3-4L agua/día. Sin bebidas azucaradas.","HYDRATION:3-4L water/day. No sugary drinks.")},
-{id:"n2",color:"#D4A017",title:L("4 SEMANAS — CORTE","4 WEEKS — CUT"),icon:"⚖️",
-meals:[
-{t:L("DESAYUNO","BREAKFAST"),items:["3 claras + 1 huevo entero","½ taza avena con canela sin azúcar","½ taza arándanos","Agua:500ml"],cal:"420 kcal",mac:"Carbs:42g Prot:30g Grasa:8g"},
-{t:L("MERIENDA","SNACK"),items:["20g proteína whey con agua","1 manzana pequeña"],cal:"190 kcal",mac:"Carbs:20g Prot:22g"},
-{t:L("ALMUERZO","LUNCH"),items:["200g pechuga pollo hervida","½ taza arroz integral","Ensalada solo limón","Agua:500ml"],cal:"480 kcal",mac:"Carbs:38g Prot:52g Grasa:6g"},
-{t:L("PRE-ENTRENO","PRE-WORKOUT"),items:["1 banana mediana","Agua:400ml"],cal:"105 kcal",mac:"Carbs:27g"},
-{t:L("POST-ENTRENO","POST-WORKOUT"),items:["30g proteína whey con agua fría","Agua:600ml"],cal:"120 kcal",mac:"Prot:30g"},
-{t:L("CENA LIGERA","LIGHT DINNER"),items:["150g atún en agua","2 tazas vegetales verdes","½ aguacate","Agua:500ml"],cal:"320 kcal",mac:"Carbs:18g Prot:38g Grasa:10g"},
-],total:"1635-1700 kcal/día",nota:L("ELIMINAR:sodio, harinas blancas, azúcar, frituras, alcohol.","ELIMINATE:sodium, white flour, sugar, fried food, alcohol.")},
-{id:"n3",color:"#c0392b",title:L("1 SEMANA — CORTE ACTIVO","1 WEEK — ACTIVE CUT"),icon:"🎯",
-meals:[
-{t:L("DESAYUNO DÍAS -7 A -4","BREAKFAST DAYS -7 TO -4"),items:["4 claras huevo hervidas","½ taza avena con agua sin sal","Té verde sin azúcar","Agua:300ml"],cal:"280 kcal",mac:"Carbs:28g Prot:26g"},
-{t:L("MERIENDA","SNACK"),items:["20g proteína whey con agua","Pepino sin sal"],cal:"120 kcal",mac:"Prot:22g"},
-{t:L("ALMUERZO","LUNCH"),items:["150g pollo SIN SAL","1 taza arroz blanco (días -7 a -5)","Lechuga, pepino, limón","Agua:400ml"],cal:"380 kcal",mac:"Carbs:35g Prot:40g"},
-{t:L("PRE-ENTRENO","PRE-WORKOUT"),items:["½ banana","Agua:300ml"],cal:"55 kcal",mac:"Carbs:14g"},
-{t:L("POST-ENTRENO","POST-WORKOUT"),items:["25g proteína whey con agua","Agua:400ml"],cal:"100 kcal",mac:"Prot:25g"},
-{t:L("CENA LIGERA","LIGHT DINNER"),items:["100g atún en agua","Espinaca con limón","Agua:300ml"],cal:"180 kcal",mac:"Carbs:8g Prot:28g"},
-],total:"1115-1200 kcal/día",nota:L("⚠ SODIO MÍNIMO. Agua:2L días -7 a -4, luego reducir. Ver al coach diariamente.","⚠ MINIMUM SODIUM. Water:2L days -7 to -4, then reduce. See coach daily.")},
-{id:"n4",color:"#5b2c8d",title:L("DÍA PESAJE","WEIGH-IN DAY"),icon:"⚡",
-meals:[
-{t:L("MAÑANA DEL PESAJE","WEIGH-IN MORNING"),items:[L("Pequeños sorbos agua si falta <1lb","Small sips water if <1lb to cut"),L("Nada sólido si >1lb diferencia","Nothing solid if >1lb to cut")],cal:"0-50 kcal",mac:L("Solo si necesario","Only if needed")},
-{t:L("INMEDIATO POST-PESAJE (30 min)","IMMEDIATE POST WEIGH-IN"),items:["1L Gatorade o Pedialyte","2 bananas","2 rebanadas pan blanco con miel"],cal:"580 kcal",mac:"Carbs:120g Prot:8g"},
-{t:L("2 HORAS POST-PESAJE","2 HOURS AFTER"),items:["200g arroz blanco","150g pollo hervido","1 banana","500ml Gatorade"],cal:"680 kcal",mac:"Carbs:110g Prot:40g"},
-{t:L("6 HORAS POST-PESAJE","6 HOURS AFTER"),items:["30g proteína whey","1 taza arroz","Fruta de temporada","Agua:500ml"],cal:"480 kcal",mac:"Carbs:72g Prot:38g"},
-{t:L("CENA NOCHE ANTES","DINNER NIGHT BEFORE"),items:["200g pasta o arroz blanco","100g pollo a la plancha","Salsa de tomate simple","Agua:500ml SIN gaseosas"],cal:"620 kcal",mac:"Carbs:98g Prot:36g"},
-],total:"2520 kcal — RECARGA ACTIVA",nota:L("OBJETIVO:recuperar glucógeno y líquidos. EVITAR alimentos nuevos o muy condimentados.","GOAL:restore glycogen and fluids. AVOID new or heavily spiced foods.")},
-{id:"n5",color:"#1a4a7a",title:L("DÍA DE PELEA","FIGHT DAY"),icon:"🥊",
-meals:[
-{t:L("DESAYUNO (3-4 hrs antes)","BREAKFAST (3-4 hrs before)"),items:["200g arroz blanco con miel","2 huevos revueltos","1 banana","Té o café sin azúcar","Agua:500ml"],cal:"580 kcal",mac:"Carbs:90g Prot:24g Grasa:8g"},
-{t:L("2 HORAS ANTES","2 HOURS BEFORE"),items:["1 banana","1 gel energía (si se usa habitualmente)","Agua:300ml"],cal:"150 kcal",mac:"Carbs:38g"},
-{t:L("1 HORA ANTES","1 HOUR BEFORE"),items:[L("Agua con pizca sal y azúcar (200ml)","Water with pinch salt and sugar (200ml)"),L("Si nervioso:solo líquidos","If nervous:liquids only")],cal:"30 kcal",mac:L("Electrolitos","Electrolytes")},
-{t:L("ENTRE ASALTOS","BETWEEN ROUNDS"),items:[L("Pequeños sorbos Gatorade","Small sips Gatorade"),L("Trozo naranja o banana","Orange slice or banana")],cal:"60-80 kcal",mac:L("Carbos rápidos","Fast carbs")},
-{t:L("INMEDIATO POST-PELEA","IMMEDIATE POST-FIGHT"),items:["30g proteína whey","1 banana","Agua:500ml REHIDRATACIÓN"],cal:"280 kcal",mac:"Carbs:42g Prot:32g"},
-{t:L("CENA POST-PELEA","POST-FIGHT DINNER"),items:[L("Comida que te guste — no es momento de dieta","Food you enjoy — not time for diet"),L("Dormir bien — la recuperación es esta noche","Sleep well — recovery is tonight")],cal:L("Libre","Free"),mac:L("Recuperación total","Full recovery")},
-],total:"1100-1200 kcal antes de pelea",nota:L("⚠ NO comer nada nuevo el día de pelea. HIDRATACIÓN constante.","⚠ NO new foods on fight day. Constant HYDRATION.")}
-];
-const SUPS=[
-{n:"Proteína Whey",w:"Post-entreno",d:"25-30g",r:L("Recuperación muscular","Muscle recovery")},
-{n:"Creatina",w:L("Diariamente","Daily"),d:"3-5g",r:L("Fuerza y potencia","Strength and power")},
-{n:L("Multivitamínico","Multivitamin"),w:L("Con desayuno","With breakfast"),d:"1 cáps",r:L("Déficit en corte","Deficit in cut")},
-{n:"Omega-3",w:L("Con cena","With dinner"),d:"2-3g",r:L("Inflamación, articulaciones","Inflammation, joints")},
-{n:"Magnesio",w:L("Antes de dormir","Before sleep"),d:"300-400mg",r:L("Sueño y recuperación","Sleep and recovery")},
-{n:"Vitamina D3",w:L("Con desayuno","With breakfast"),d:"2000-4000 UI",r:L("Rendimiento e inmunidad","Performance and immunity")},
-{n:"Electrolitos",w:L("Durante entreno","During training"),d:"1 sobre",r:L("Hidratación y calambres","Hydration and cramps")},
-{n:L("Cafeína (opcional)","Caffeine (optional)"),w:L("60 min antes","60 min before"),d:"100-200mg",r:L("Solo si acostumbrado","Only if used to it")}
-];
-const CUT=[
-{s:"8+sem",t:L("Corte Natural","Natural Cut"),d:L("Dieta limpia + entreno. Max 0.5kg/sem.","Clean diet + training. Max 0.5kg/week."),c:"#1a6b3c"},
-{s:"4-2sem",t:L("Corte Calórico","Caloric Cut"),d:L("Reducir 300-500 kcal/día. Sin sodio, azúcar, alcohol.","Reduce 300-500 kcal/day. No sodium, sugar, alcohol."),c:"#D4A017"},
-{s:"1sem",t:L("Reducción Sodio","Sodium Reduction"),d:L("Sodio <1000mg/día. Carbos -50%. Agua:2L/día.","Sodium <1000mg/day. Carbs -50%. Water:2L/day."),c:"#c0392b"},
-{s:"2-3días",t:L("Reducción Agua","Water Cut"),d:L("Agua 1L/día. Sauna max 15 min. SIEMPRE supervisado.","Water 1L/day. Sauna max 15 min. ALWAYS supervised."),c:"#8b1a1a"},
-{s:"Post-pesaje",t:"REPOSICIÓN",d:L("Min 1.5L bebida deportiva en 1ra hora.","Min 1.5L sports drink in 1st hour."),c:"#5b2c8d"}
-];
-const selPhase=ST.openNut||"n1";
-h+=`<div style="display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;margin-bottom:14px">`;
-phases.forEach(p=>{h+=`<button onclick="setNutPhase('${p.id}')" style="white-space:nowrap;background:${selPhase===p.id?p.color:"#0f1e35"};border:2px solid ${p.color};color:${selPhase===p.id?"#fff":"#7a9ab5"};border-radius:20px;padding:6px 12px;font-size:11px;font-weight:700;cursor:pointer">${p.icon} ${p.title.split("—")[0].trim()}</button>`;});
-h+=`</div>`;
-const ph=phases.find(p=>p.id===selPhase)||phases[0];
-if(ph){
-h+=`<div style="background:${ph.color};border-radius:14px 14px 0 0;padding:14px"><div style="font-size:16px;font-weight:900;color:#fff">${ph.icon} ${ph.title}</div></div>`;
-h+=`<div style="background:#0f1e35;border-radius:0 0 14px 14px;padding:14px;margin-bottom:14px;border:1px solid ${ph.color};border-top:none">`;
-ph.meals.forEach(m=>{
-h+=`<div style="background:#070d1a;border-radius:10px;padding:12px;margin-bottom:8px;border-left:3px solid #D4A017">`;
-h+=`<div style="font-size:11px;font-weight:900;color:#D4A017;letter-spacing:1px;margin-bottom:6px">${esc(m.t)}</div>`;
-h+=`<ul style="list-style:none;padding:0">`;m.items.forEach(item=>{h+=`<li style="font-size:12px;color:#fff;font-family:Barlow;padding:2px 0"><span style="color:#D4A017">• </span>${esc(item)}</li>`;});h+=`</ul>`;
-h+=`<div style="display:flex;justify-content:space-between;margin-top:8px;padding-top:6px;border-top:1px solid #1e3050"><span style="font-size:11px;color:#D4A017;font-weight:700">${esc(m.cal)}</span><span style="font-size:10px;color:#7a9ab5;font-family:Barlow">${esc(m.mac)}</span></div></div>`;
-});
-h+=`<div style="background:linear-gradient(135deg,${ph.color},#070d1a);border-radius:8px;padding:10px"><div style="font-size:13px;font-weight:800;color:#fff;margin-bottom:4px">TOTAL</div><div style="font-size:15px;font-weight:900;color:#D4A017">${ph.total}</div><div style="font-size:11px;color:rgba(255,255,255,.8);font-family:Barlow;margin-top:6px;line-height:1.4">${ph.nota}</div></div></div>`;
-}
-h+=sh(L("BAJADA DE PESO","WEIGHT CUT"),"⚖️");
-h+=`<div style="background:#0f1e35;border-radius:12px;overflow:hidden;margin-bottom:10px">`;
-CUT.forEach(s=>{h+=`<div style="display:flex;gap:10px;padding:10px 14px;border-bottom:1px solid #070d1a"><div style="flex-shrink:0"><div style="background:${s.c};border-radius:5px;padding:2px 6px;font-size:9px;font-weight:700;color:#fff">${s.s}</div></div><div><div style="font-size:13px;font-weight:800;color:#fff">${s.t}</div><div style="font-size:11px;color:#7a9ab5;font-family:Barlow;line-height:1.4">${s.d}</div></div></div>`;});
-h+=`</div><div style="background:#1a0000;border:2px solid #c0392b;border-radius:10px;padding:12px;margin-bottom:14px"><div style="font-size:12px;color:#ff9999;font-family:Barlow;line-height:1.5">⚠ NUNCA bajar más del 8-10% del peso corporal. Bajar más de 5kg en agua es PELIGROSO. Siempre supervisado por el coach.</div></div>`;
-h+=sh(L("SUPLEMENTACIÓN","SUPPLEMENTATION"),"💊");
-h+=`<div style="background:#0f1e35;border-radius:12px;padding:14px;margin-bottom:14px">`;
-SUPS.forEach(s=>{h+=`<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #0a1628"><div style="flex:1"><div style="font-size:13px;font-weight:700;color:#fff">${esc(s.n)}</div><div style="font-size:11px;color:#7a9ab5;font-family:Barlow">${esc(s.r)}</div></div><div style="text-align:right;flex-shrink:0;margin-left:10px"><div style="font-size:12px;color:#D4A017;font-weight:700">${esc(s.d)}</div><div style="font-size:10px;color:#4a6a8a;font-family:Barlow">${esc(s.w)}</div></div></div>`;});
-h+=`</div>`;
-return h;
-}
-function setNutPhase(id){ST.openNut=id;reRender();}
-function renderStore(){
-const TAG="osvimerboxing-20";
-const amz=q=>"https://www.amazon.com/s?k="+encodeURIComponent(q)+"&tag="+TAG;
-const cats=[
-{ic:"🥊",n:"Guantes de Boxeo",b:["Everlast","Adidas","Hayabusa","Venum","Rival","Ringside","Title","Cleto Reyes","Fairtex","RDX"]},
-{ic:"🪖",n:"Cascos",b:["Everlast","Adidas","Rival","Ringside","Title","Hayabusa","Venum"]},
-{ic:"🩹",n:"Vendas",b:["Everlast","Adidas","Rival","Title","Ringside","Venum"]},
-{ic:"👟",n:"Calzado Boxeo",b:["Adidas","Nike","Everlast","Title","Rival"]},
-{ic:"👕",n:"Shorts / Ropa",b:["Everlast","Adidas","Nike","Venum","Rival","Title"]},
-{ic:"🎯",n:"Sacos",b:["Everlast","Title","Ringside","Rival","RDX"]},
-{ic:"🤜",n:"Mitts / Pads",b:["Cleto Reyes","Winning","Everlast","Title","Rival"]},
-{ic:"🛡️",n:"Protectores",b:["Everlast","Adidas","Title","Rival","RDX"]},
-{ic:"🏃",n:"Zapatos Correr",b:["Nike","Adidas","Brooks","New Balance","ASICS","Saucony","Hoka"]},
-{ic:"🥤",n:"Nutrición",b:["Optimum Nutrition","BSN","Dymatize","Muscle Milk","Gatorade","Clif Bar"]},
-{ic:"💊",n:"Suplementos",b:["ON Creatine","NOW Omega-3","Life Extension Magnesium","NatureWise Vitamin D3"]},
-{ic:"🧴",n:"Recuperación",b:["Biofreeze","Tiger Balm","Theragun","Hyperice","RumbleRoller"]},
-];
-let h=sh(L("TIENDA DE BOXEO","BOXING STORE"),"🛒");
-h+=`<div class="card card-g" style="text-align:center;margin-bottom:14px"><div style="font-size:11px;color:#D4A017;margin-bottom:4px">AMAZON ASSOCIATES</div><div style="font-size:13px;color:#fff">Coach Osvimer Rodriguez • Tag: ${TAG}</div></div>`;
-cats.forEach(cat=>{
-h+=`<div style="margin-bottom:14px"><div style="font-size:12px;font-weight:900;color:#D4A017;margin-bottom:8px">${cat.ic} ${cat.n.toUpperCase()}</div><div class="g2">`;
-cat.b.forEach(b=>{h+=`<div style="background:#0f1e35;border:1px solid #1e3050;border-radius:10px;padding:10px;cursor:pointer" onclick="window.open('${amz(b+" "+cat.n+" boxing")}','_blank')"><div style="font-size:12px;font-weight:700;color:#fff;margin-bottom:4px">${esc(b)}</div><div style="font-size:9px;color:#D4A017;font-weight:700">VER EN AMAZON ↗</div></div>`;});
-h+=`</div></div>`;
-});
-return h;
-}
-function renderNotes(){
-const tl=t();
-if(ST.isCoach) return renderCoachNotes();
-if(!ST.user) return ec(L("Inicia sesión primero","Please log in first"));
-const msgs=ld(MESSAGES_KEY+ST.user.id,[]);
-const today=new Date().toISOString().split("T")[0];
-const todayNote=msgs.find(m=>m.type==="note"&&m.date===today);
-let h=`<div style="margin-bottom:20px">`;
-h+=sh(tl.myNotes,"📝");
-h+=`<div class="card" style="margin-bottom:10px">`;
-if(todayNote){h+=`<div style="font-size:13px;color:#fff;font-family:Barlow;line-height:1.5;white-space:pre-wrap">${esc(todayNote.text)}</div><div style="font-size:10px;color:#7a9ab5;margin-top:8px;font-family:Barlow">${fD(todayNote.date)}</div>`;}
-else{h+=`<div style="font-size:12px;color:#7a9ab5;font-family:Barlow">${tl.noNotes}</div>`;}
-h+=`</div>`;
-h+=`<textarea id="note-txt" class="note-area" rows="4" placeholder="${esc(tl.writeNote)}">${todayNote?esc(todayNote.text):""}</textarea>`;
-h+=`<button onclick="saveNote()" class="btn btn-g" style="margin-top:8px">${tl.saveNote}</button>`;
-h+=`</div>`;
-h+=sh(tl.myQ,"❓");
-const coachReplies=msgs.filter(m=>m.type==="reply");
-if(coachReplies.length>0){
-h+=`<div style="margin-bottom:12px">`;
-coachReplies.slice(-3).reverse().forEach(m=>{
-h+=`<div class="card msg-coach" style="margin-bottom:8px"><div style="font-size:11px;color:#D4A017;font-weight:700;margin-bottom:4px">Coach Osvimer</div><div style="font-size:12px;color:#fff;font-family:Barlow">${esc(m.text)}</div><div style="font-size:10px;color:rgba(255,255,255,.5);margin-top:4px">${fD(m.date)}</div></div>`;
-});
-h+=`</div>`;
-}
-h+=`<textarea id="q-txt" class="note-area" rows="3" placeholder="${esc(tl.writeNote)}"></textarea>`;
-h+=`<button onclick="sendQ()" class="btn btn-g" style="margin-top:8px;background:#1a4a7a;color:#fff">${tl.sendQ}</button>`;
-return h;
-}
-function renderCoachNotes(){
-const tl=t();
-let h=sh(L("COMUNICACIÓN CON ATLETAS","ATHLETE COMMUNICATIONS"),"💬");
-ST.athletes.forEach(a=>{
-const msgs=ld(MESSAGES_KEY+a.id,[]);
-const qs=msgs.filter(m=>m.type==="question");
-const notes=msgs.filter(m=>m.type==="note");
-if(qs.length===0&&notes.length===0)return;
-h+=`<div class="card" style="margin-bottom:12px">`;
-h+=`<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">${av(a.name,36)}<div style="font-weight:700;font-size:16px;color:#fff">${esc(a.name)}</div></div>`;
-if(notes.length>0){
-h+=`<div style="font-size:11px;color:#D4A017;font-weight:700;margin-bottom:4px">${L("NOTAS DE HOY","TODAY'S NOTES")}</div>`;
-notes.slice(-1).forEach(n=>{h+=`<div style="font-size:12px;color:#fff;font-family:Barlow;background:#0a1628;border-radius:6px;padding:8px;margin-bottom:8px;white-space:pre-wrap">${esc(n.text)}</div>`;});
-}
-if(qs.length>0){
-h+=`<div style="font-size:11px;color:#c0392b;font-weight:700;margin-bottom:4px">${L("PREGUNTAS","QUESTIONS")} (${qs.length})</div>`;
-qs.slice(-2).forEach(q=>{h+=`<div style="font-size:12px;color:#fff;font-family:Barlow;background:#1a1a2e;border-radius:6px;padding:8px;margin-bottom:6px">${esc(q.text)}<div style="font-size:10px;color:#7a9ab5;margin-top:4px">${fD(q.date)}</div></div>`;});
-h+=`<textarea id="rep-${a.id}" class="note-area" rows="2" placeholder="${esc(L("Responder...","Reply..."))}"></textarea>`;
-h+=`<button onclick="sendReply('${a.id}')" class="btn btn-gr" style="margin-top:6px;font-size:12px;padding:8px">${L("ENVIAR RESPUESTA","SEND REPLY")}</button>`;
-}
-h+=`</div>`;
-});
-if(h===sh(L("COMUNICACIÓN CON ATLETAS","ATHLETE COMMUNICATIONS"),"💬"))h+=ec(L("Sin mensajes todavía.","No messages yet."));
-return h;
-}
-function openAth(id){
-const a=ST.athletes.find(x=>x.id===id);
-if(!a)return;
-const maxW=WP[a.phase]?Object.keys(WP[a.phase]).length:4;
-const grp=a.group||"Mayores 16";
-const tS=getSessData(a.phase,a.week,new Date().getDay(),grp);
-const tmS=getSessData(a.phase,a.week,(new Date().getDay()+1)%7,grp);
-const prog=Math.round((a.week/maxW)*100);
-const tl=t();
-const vals=[fD(a.dob),a.category||"—",a.group||"—",a.weight?a.weight+" lb":"—",a.status||"—",a.notes||"—"];
-const flds=[L("Nacimiento","Birth"),L("Categoría","Category"),L("Grupo","Group"),L("Peso","Weight"),L("Estado","Status"),L("Notas","Notes")];
-let h=`<div style="display:flex;gap:14px;align-items:center;margin-bottom:16px">${av(a.name,64)}<div style="flex:1"><div style="font-weight:900;font-size:22px;color:#fff">${esc(a.name)}</div><div style="font-size:12px;color:#7a9ab5;font-family:Barlow">${age(a.dob)} ${tl.yrs} • ${a.weight||"—"} lb</div>${sdot(a.status||tl.sts[0])}</div><button onclick="openM('editAth','${a.id}')" style="background:#1e3050;border:none;color:#D4A017;border-radius:8px;padding:8px 12px;font-weight:700;font-size:12px">${L("EDITAR","EDIT")}</button></div>`;
-h+=`<div class="g3" style="margin-bottom:14px">${[[a.wins||0,"#1a8f4c",tl.w],[a.losses||0,"#c0392b",tl.l],[a.draws||0,"#7a9ab5",tl.d]].map(([v,c,lb])=>`<div class="card" style="text-align:center"><div style="font-size:28px;font-weight:900;color:${c}">${v}</div><div style="font-size:9px;color:#7a9ab5;letter-spacing:1px">${esc(lb).toUpperCase()}</div></div>`).join("")}</div>`;
-h+=`<div class="card" style="margin-bottom:12px"><div style="font-size:13px;color:#D4A017;letter-spacing:1px;margin-bottom:8px">${L("DATOS","INFO")}</div>${flds.map((lb,i)=>`<div style="display:flex;justify-content:space-between;border-bottom:1px solid #1e3050;padding:5px 0"><span style="font-size:11px;color:#7a9ab5;font-family:Barlow">${esc(lb)}</span><span style="font-size:11px;color:#fff;font-family:Barlow;text-align:right;max-width:55%">${esc(vals[i])}</span></div>`).join("")}</div>`;
-h+=`<div class="card" style="margin-bottom:12px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><div style="font-size:13px;color:#D4A017;letter-spacing:1px">${L("FASE ACTUAL","CURRENT PHASE")}</div><button onclick="advAth('${a.id}')" class="btn btn-gr" style="width:auto;padding:4px 10px;font-size:11px">${L("AVANZAR ▶","ADVANCE ▶")}</button></div>${badge(a.phase,a.week,false)}<div class="prog-wrap" style="margin-top:8px"><div class="prog-fill" style="width:${prog}%"></div></div><div style="font-size:10px;color:#7a9ab5;margin-top:4px;font-family:Barlow">${tl.wk} ${a.week} ${tl.of} ${maxW} — ${prog}%</div></div>`;
-h+=`<div style="font-size:13px;color:#D4A017;letter-spacing:1px;margin-bottom:6px">${L("HOY","TODAY")} — ${esc(tS.title).toUpperCase()}</div><div class="card" style="margin-bottom:8px"><div style="font-size:12px;color:#fff;font-family:Barlow;font-weight:600">${esc(tS.el||tS.title)}</div><div style="font-size:11px;color:#7a9ab5;font-family:Barlow">${esc(tS.ri||"")}</div></div>`;
-h+=`<div style="font-size:13px;color:#7a9ab5;letter-spacing:1px;margin-bottom:6px">${L("MAÑANA","TOMORROW")}</div><div class="card"><div style="font-size:12px;color:#fff;font-family:Barlow;font-weight:600">${esc(tmS.el||tmS.title)}</div><div style="font-size:11px;color:#7a9ab5;font-family:Barlow">${esc(tmS.title)}</div></div>`;
-document.getElementById("modal-wrap").innerHTML=mwrap(h);
-}
-let _fres=0;
-function openM(type,id){
-const tl=t();
-let h="";
-if(type==="addAthlete"||type==="editAth"){
-const a=id?ST.athletes.find(x=>x.id===id):null;
-h+=`<div style="font-size:20px;font-weight:800;color:#D4A017;letter-spacing:1px;margin-bottom:16px">${a?L("EDITAR ATLETA","EDIT ATHLETE"):L("NUEVO ATLETA","NEW ATHLETE")}</div>`;
-h+=inp(L("Nombre","Name"),"name","text",a?.name);
-h+=inp(L("Fecha Nacimiento","Date of Birth"),"dob","date",a?.dob);
-h+=inp(L("Peso (lb)","Weight (lb)"),"wt","number",a?.weight);
-h+=sel(L("Categoría","Category"),"cat",tl.cats,a?.category||tl.cats[0]);
-h+=sel(L("Grupo","Group"),"grp",tl.grps,a?.group||tl.grps[0]);
-h+=sel(L("Estado","Status"),"st",tl.sts,a?.status||tl.sts[0]);
-h+=`<div class="frow">${inp(L("Fase","Phase"),"ph","number",a?.phase||1,"min='1' max='5'")}${inp(L("Semana","Week"),"wk","number",a?.week||1,"min='1' max='12'")}</div>`;
-h+=`<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:10px">${inp(tl.w,"wn","number",a?.wins||0,"min='0'")}${inp(tl.l,"wl","number",a?.losses||0,"min='0'")}${inp(tl.d,"wd","number",a?.draws||0,"min='0'")}</div>`;
-h+=inp(L("PIN atleta (4 dígitos)","Athlete PIN (4 digits)"),"pin","text",a?.pin||"1234","maxlength='4' pattern='[0-9]*'");
-h+=`<div style="margin-bottom:14px"><label class="lbl">${L("NOTAS","NOTES")}</label><textarea class="note-area" id="f-nt" rows="2">${esc(a?.notes||"")}</textarea></div>`;
-h+=`<button onclick="saveAth('${a?.id||""}')" class="btn btn-g">${tl.saveNote.replace("NOTA","")+"GUARDAR"}</button>`;
-} else if(type==="addFight"){
-h+=`<div style="font-size:20px;font-weight:800;color:#D4A017;letter-spacing:1px;margin-bottom:16px">${L("REGISTRAR PELEA","LOG A FIGHT")}</div>`;
-h+=`<div style="margin-bottom:10px"><label class="lbl">${L("ATLETA","ATHLETE")}</label><select class="inp" id="f-ath"><option value="">${L("Seleccionar...","Select...")}</option>${ST.athletes.map(a=>`<option value="${a.id}">${esc(a.name)}</option>`).join("")}</select></div>`;
-h+=inp(L("Rival","Opponent"),"opp","text");h+=inp(L("Fecha","Date"),"date","date");h+=inp(L("Categoría Peso","Weight Class"),"wc","text");h+=inp(L("Evento","Event"),"ev","text");
-h+=`<div style="margin-bottom:10px"><label class="lbl">${L("RESULTADO","RESULT")}</label><div style="display:flex;gap:6px">${(tl.lang==="es"?["Victoria","Derrota","Empate","Próxima"]:["Win","Loss","Draw","Upcoming"]).map((r,i)=>{const cs=["#1a6b3c","#8b1a1a","#4a4a1a","#1a4a7a"];return`<button onclick="setFR(${i})" id="fr${i}" style="flex:1;background:${i===0?cs[0]:"#0f1e35"};border:none;color:#fff;border-radius:8px;padding:10px 4px;font-weight:700;font-size:11px">${esc(r).toUpperCase()}</button>`}).join("")}</div></div>`;
-h+=`<div style="margin-bottom:14px"><label class="lbl">${L("NOTAS","NOTES")}</label><textarea class="note-area" id="f-fn" rows="2"></textarea></div>`;
-h+=`<button onclick="saveFight()" class="btn btn-g">${L("GUARDAR PELEA","SAVE FIGHT")}</button>`;
-} else if(type==="editAth"&&id){
-openAth(id);return;
-}
-document.getElementById("modal-wrap").innerHTML=mwrap(h);
-}
-function closeM(){document.getElementById("modal-wrap").innerHTML="";}
-function closeMBG(e){if(e.target.classList.contains("modal-bg"))closeM();}
-function setFR(i){_fres=i;[0,1,2,3].forEach(j=>{const b=document.getElementById("fr"+j);if(b)b.style.background=j===i?["#1a6b3c","#8b1a1a","#4a4a1a","#1a4a7a"][j]:"#0f1e35";});}
-function gv(id){const e=document.getElementById(id);return e?e.value:"";}
-function saveAth(existId){
-const a={name:gv("f-name"),dob:gv("f-dob"),weight:parseFloat(gv("f-wt"))||0,category:gv("f-cat"),group:gv("f-grp"),status:gv("f-st"),notes:gv("f-nt"),phase:parseInt(gv("f-ph"))||1,week:parseInt(gv("f-wk"))||1,wins:parseInt(gv("f-wn"))||0,losses:parseInt(gv("f-wl"))||0,draws:parseInt(gv("f-wd"))||0,pin:gv("f-pin")||"1234"};
-if(!a.name.trim()){alert(L("Ingresa un nombre","Enter a name"));return;}
-if(existId){ST.athletes=ST.athletes.map(x=>x.id===existId?{...x,...a}:x);}
-else{ST.athletes=[...ST.athletes,{...a,id:uid()}];}
-sv("cba_athletes",ST.athletes);closeM();reRender();
-}
-function saveFight(){
-const results=L(["Victoria","Derrota","Empate","Próxima"],["Win","Loss","Draw","Upcoming"]);
-const f={athleteId:gv("f-ath"),opponent:gv("f-opp"),date:gv("f-date"),result:results[_fres]||results[0],weightClass:gv("f-wc"),event:gv("f-ev"),notes:gv("f-fn"),id:uid()};
-ST.fights=[...ST.fights,f];sv("cba_fights",ST.fights);closeM();reRender();
-}
-function advAth(id){
-const a=ST.athletes.find(x=>x.id===id);if(!a)return;
-const mw=WP[a.phase]?Object.keys(WP[a.phase]).length:4;
-let np=a.phase,nw=a.week+1;
-if(nw>mw){nw=1;np=Math.min(np+1,5);}
-ST.athletes=ST.athletes.map(x=>x.id===id?{...x,phase:np,week:nw}:x);
-sv("cba_athletes",ST.athletes);closeM();reRender();
-}
-function setTP(id){ST.trainPick=id;renderTab("training");}
-function setTD(d){ST.trainDay=d;renderTab("training");}
-function setOP(p){ST.openPhase=ST.openPhase===p?null:p;ST.openWeek=null;ST.openDay=null;renderTab("tactics");}
-function setOW(k){ST.openWeek=ST.openWeek===k?null:k;ST.openDay=null;renderTab("tactics");}
-function setOD(k){ST.openDay=ST.openDay===k?null:k;renderTab("tactics");}
-function setOS(i){ST.openStyle=ST.openStyle===i?null:i;renderTab("tactics");}
-function saveNote(){
-if(!ST.user)return;
-const txt=gv("note-txt");if(!txt.trim())return;
-const msgs=ld(MESSAGES_KEY+ST.user.id,[]);
-const today=new Date().toISOString().split("T")[0];
-const filtered=msgs.filter(m=>!(m.type==="note"&&m.date===today));
-filtered.push({type:"note",text:txt,date:today,from:"athlete"});
-sv(MESSAGES_KEY+ST.user.id,filtered);renderTab("notes");
-}
-function sendQ(){
-if(!ST.user)return;
-const txt=gv("q-txt");if(!txt.trim())return;
-const msgs=ld(MESSAGES_KEY+ST.user.id,[]);
-msgs.push({type:"question",text:txt,date:new Date().toISOString().split("T")[0],from:"athlete",read:false});
-sv(MESSAGES_KEY+ST.user.id,msgs);
-const msg=encodeURIComponent(`Hola Coach Osvimer, soy ${ST.user.name}: ${txt}`);
-window.open(`https://wa.me/17027234009?text=${msg}`,"_blank");
-renderTab("notes");
-}
-function sendReply(athId){
-const txt=document.getElementById("rep-"+athId);if(!txt||!txt.value.trim())return;
-const msgs=ld(MESSAGES_KEY+athId,[]);
-msgs.push({type:"reply",text:txt.value,date:new Date().toISOString().split("T")[0],from:"coach"});
-sv(MESSAGES_KEY+athId,msgs);renderTab("notes");
-}
-let _pinBuf="",_pinMode="",_pinAthId="";
-const COACH_PIN_KEY="cba_coach_pin";
-function showLogin(){
-const tl=t();
-const coachPin=ld(COACH_PIN_KEY,"1967");
-const app=document.getElementById("app");
-const shell=document.getElementById("main-shell");
-app.style.display="block";shell.style.display="none";
-app.innerHTML=`<div style="min-height:100vh;background:#070d1a;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px">
-${logoSVG(100)}
-<div style="font-weight:900;font-size:26px;letter-spacing:3px;color:#fff;margin-top:16px">CUBAN BOXING</div>
-<div style="font-size:13px;color:#D4A017;letter-spacing:2px;font-weight:700;margin-bottom:30px">OSVIMER COACH</div>
-<div style="width:100%;max-width:340px">
-<div class="g2" style="margin-bottom:20px">
-<button onclick="startLogin('coach')" class="btn btn-g" style="padding:16px">${tl.coachMode}</button>
-<button onclick="startLogin('athlete')" class="btn btn-d" style="padding:16px">${tl.athMode}</button>
-</div>
-<div style="text-align:center;margin-bottom:10px">
-<button onclick="toggleLang()" style="background:none;border:1px solid #D4A017;color:#D4A017;border-radius:20px;padding:8px 20px;font-weight:800;font-size:13px;letter-spacing:1px">${ST.lang==="es"?"🇺🇸 ENGLISH":"🇪🇸 ESPAÑOL"}</button>
-</div>
-<div style="text-align:center;font-size:10px;color:#4a6a8a;font-family:Barlow">${L("Basado en Metodología Sagarra — 30+ años","Based on Sagarra Methodology — 30+ years")}</div>
-</div></div>`;
-}
-function startLogin(mode){
-const tl=t();
-const app=document.getElementById("app");
-_pinBuf="";_pinMode=mode;_pinAthId="";
-let content="";
-if(mode==="athlete"){
-content=`<div style="margin-bottom:16px"><label class="lbl" style="text-align:center;display:block;font-size:14px">${tl.selectAth}</label>
-<select class="inp" id="ath-sel" style="border-color:#D4A017;font-size:16px">${ST.athletes.map(a=>`<option value="${a.id}">${esc(a.name)}</option>`).join("")}</select></div>`;
-}
-content+=`<div style="font-size:14px;color:#7a9ab5;text-align:center;margin-bottom:8px;font-family:Barlow">${mode==="coach"?tl.enterCoachPin:tl.enterPin}</div>`;
-content+=`<div class="pin-box" id="pin-display">${[0,1,2,3].map(()=>`<div class="pin-dot"></div>`).join("")}</div>`;
-content+=`<div class="pin-num-grid">${[1,2,3,4,5,6,7,8,9,"",0,"⌫"].map(n=>`<button class="pin-btn" onclick="pinInput('${n}')">${n}</button>`).join("")}</div>`;
-content+=`<div id="pin-err" style="text-align:center;color:#c0392b;font-size:13px;margin-top:8px;height:20px"></div>`;
-content+=`<button onclick="showLogin()" style="width:100%;background:none;border:none;color:#7a9ab5;margin-top:16px;font-size:13px;font-family:Barlow;cursor:pointer">← ${L("Volver","Back")}</button>`;
-app.innerHTML=`<div style="min-height:100vh;background:#070d1a;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px">${logoSVG(70)}<div style="font-weight:900;font-size:20px;color:#fff;margin:12px 0 24px;letter-spacing:2px">${mode==="coach"?tl.coachMode:tl.athMode}</div><div style="width:100%;max-width:320px">${content}</div></div>`;
-}
-function pinInput(v){
-if(v==="")return;
-if(v==="⌫"){_pinBuf=_pinBuf.slice(0,-1);}
-else if(_pinBuf.length<4){_pinBuf+=String(v);}
-const dots=document.querySelectorAll(".pin-dot");
-dots.forEach((d,i)=>d.classList.toggle("filled",i<_pinBuf.length));
-if(_pinBuf.length===4)setTimeout(checkPin,150);
-}
-function checkPin(){
-const tl=t();
-const err=document.getElementById("pin-err");
-if(_pinMode==="coach"){
-const coachPin=ld(COACH_PIN_KEY,"1967");
-if(_pinBuf===coachPin){loginCoach();}
-else{if(err)err.textContent=tl.wrongPin;_pinBuf="";document.querySelectorAll(".pin-dot").forEach(d=>d.classList.remove("filled"));}
-} else {
-const athSel=document.getElementById("ath-sel");
-const athId=athSel?athSel.value:ST.athletes[0]?.id;
-const ath=ST.athletes.find(a=>a.id===athId);
-if(ath&&_pinBuf===(ath.pin||"1234")){loginAthlete(ath);}
-else{if(err)err.textContent=tl.wrongPin;_pinBuf="";document.querySelectorAll(".pin-dot").forEach(d=>d.classList.remove("filled"));}
-}
-}
-function loginCoach(){
-ST.isCoach=true;ST.user=null;
-sv("cba_session",{isCoach:true,userId:null});
-launchApp();
-}
-function loginAthlete(ath){
-ST.isCoach=false;ST.user=ath;
-sv("cba_session",{isCoach:false,userId:ath.id});
-launchApp();
-}
-function launchApp(){
-const app=document.getElementById("app");
-const shell=document.getElementById("main-shell");
-app.style.display="none";shell.style.display="block";
-injectLogo();
-updateHdr();goTab("home");
-}
-function showSwitchModal(){
-const who=ST.isCoach?"COACH":ST.user?ST.user.name.split(" ")[0]:"";
-document.getElementById("modal-wrap").innerHTML=mwrap(`<div style="text-align:center">
-<div style="font-size:36px;margin-bottom:12px">⇄</div>
-<div style="font-size:18px;font-weight:900;color:#e74c3c;margin-bottom:6px">${L("CAMBIAR USUARIO","SWITCH USER")}</div>
-<div style="font-size:13px;color:#7a9ab5;font-family:Barlow;margin-bottom:20px">${L("Sesión:","Session:")} <span style="color:#D4A017;font-weight:700">${esc(who)}</span></div>
-<div style="display:flex;flex-direction:column;gap:10px">
-<button onclick="logout()" class="btn btn-r">${L("🔓 SALIR Y CAMBIAR","🔓 EXIT & SWITCH")}</button>
-<button onclick="closeM()" class="btn btn-d">${L("← CANCELAR","← CANCEL")}</button>
-</div>
-</div>`);
-}
-function logout(){sv("cba_session",null);ST.user=null;ST.isCoach=false;showLogin();}
-function logoSVG(sz){
-return`<svg width="${sz}" height="${sz}" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" style="border-radius:${sz*.18}px;overflow:hidden">
-<defs><clipPath id="rnd"><rect width="512" height="512" rx="90"/></clipPath><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#0d1f3c"/><stop offset="100%" stop-color="#060e1c"/></linearGradient><linearGradient id="gld" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#f5c842"/><stop offset="100%" stop-color="#c48b00"/></linearGradient></defs>
-<rect width="512" height="512" rx="90" fill="url(#bg)"/>
-<g clip-path="url(#rnd)" opacity="0.3"><rect y="0" width="512" height="103" fill="#1356A2"/><rect y="103" width="512" height="103" fill="#fff"/><rect y="206" width="512" height="100" fill="#1356A2"/><rect y="306" width="512" height="103" fill="#fff"/><rect y="409" width="512" height="103" fill="#1356A2"/></g>
-<polygon points="0,0 0,512 215,256" fill="#CF142B" clip-path="url(#rnd)" opacity="0.95"/>
-<polygon points="73,214 83,242.2 112.9,243 89.2,261.3 97.7,290 73,273 48.3,290 56.8,261.3 33.1,243 63,242.2" fill="#fff"/>
-<rect x="200" y="0" width="312" height="512" fill="rgba(5,12,25,0.5)" clip-path="url(#rnd)"/>
-<rect x="210" y="125" width="260" height="3" rx="1.5" fill="url(#gld)" opacity="0.8"/>
-<text x="342" y="295" font-family="'Arial Black',Impact,sans-serif" font-size="168" font-weight="900" fill="url(#gld)" text-anchor="middle" letter-spacing="-4">CBA</text>
-<text x="342" y="338" font-family="Arial,sans-serif" font-size="28" font-weight="700" fill="#fff" text-anchor="middle" letter-spacing="5">CUBAN BOXING</text>
-<text x="342" y="370" font-family="Arial,sans-serif" font-size="20" font-weight="400" fill="#D4A017" text-anchor="middle" letter-spacing="6" opacity="0.9">OSVIMER COACH</text>
-<rect x="210" y="385" width="260" height="3" rx="1.5" fill="url(#gld)" opacity="0.8"/>
-<rect width="512" height="512" rx="90" fill="none" stroke="rgba(212,160,23,0.3)" stroke-width="5"/>
-</svg>`;
-}
-function injectLogo(){const el=document.getElementById("hdr-logo");if(el)el.innerHTML=logoSVG(42);}
-function init(){
-const a=ld("cba_athletes",[]);
-const f=ld("cba_fights",[]);
-ST.athletes=a.length>0?a:DA;
-ST.fights=f.length>0?f:DF;
-if(a.length===0)sv("cba_athletes",DA);
-if(f.length===0)sv("cba_fights",DF);
-ST.lang=ld("cba_lang","es")||"es";
-const sess=ld("cba_session",null);
-if(sess&&sess.isCoach){ST.isCoach=true;ST.user=null;launchApp();}
-else if(sess&&sess.userId){const ath=ST.athletes.find(a=>a.id===sess.userId);if(ath){ST.isCoach=false;ST.user=ath;launchApp();}else showLogin();}
-else{showLogin();}
-}
-window.addEventListener("DOMContentLoaded",init);
-} catch(e) { window.onerror(e.message,'runtime',0,0,e); }</script>
-</body>
-</html>
-
-<div id="extension-rendimiento-atleta" style="margin-top: 20px; padding: 15px; border: 1px solid #ccc; border-radius: 8px; background-color: #f9f9f9; font-family: sans-serif;">
-    <h3 style="margin-top: 0; color: #333; border-bottom: 2px solid #0056b3; padding-bottom: 5px;">🥊 Control Diario de Rendimiento (Coach Control)</h3>
-    
-    <form id="form-rendimiento-diario">
-        <div style="margin-bottom: 15px;">
-            <label style="display: block; font-weight: bold; margin-bottom: 5px;">Peso de hoy (libras / kg):</label>
-            <input type="number" id="peso-atleta" step="0.1" placeholder="Ej: 147.5" required style="width: 100%; padding: 8px; border: 1px solid #aaa; border-radius: 4px; box-sizing: border-box;">
-        </div>
-
-        <div style="margin-bottom: 15px;">
-            <label style="display: block; font-weight: bold; margin-bottom: 5px;">Horas de sueño anoche:</label>
-            <input type="number" id="sueno-atleta" min="0" max="24" placeholder="Ej: 8" required style="width: 100%; padding: 8px; border: 1px solid #aaa; border-radius: 4px; box-sizing: border-box;">
-        </div>
-
-        <div style="margin-bottom: 15px;">
-            <label style="display: block; font-weight: bold; margin-bottom: 5px;">Nivel de Fatiga Corporal:</label>
-            <select id="fatiga-atleta" style="width: 100%; padding: 8px; border: 1px solid #aaa; border-radius: 4px; box-sizing: border-box;">
-                <option value="1">1 - Fresco / Listo para la guerra</option>
-                <option value="2">2 - Normal</option>
-                <option value="3">3 - Cansancio moderado</option>
-                <option value="4">4 - Muy fatigado (Sacos pesados)</option>
-                <option value="5">5 - Agotamiento extremo / Riesgo de lesión</option>
-            </select>
-        </div>
-
-        <button type="submit" style="width: 100%; background-color: #0056b3; color: white; border: none; padding: 10px; font-size: 16px; font-weight: bold; border-radius: 4px; cursor: pointer;">
-            Enviar Reporte al Coach
-        </button>
-    </form>
-</div>
-
-<script>
-    document.getElementById('form-rendimiento-diario').addEventListener('submit', function(e) {
-        e.preventDefault();
-
-        // Captura de los datos ingresados por el atleta
-        const datosReporte = {
-            peso: document.getElementById('peso-atleta').value,
-            horasSueno: document.getElementById('sueno-atleta').value,
-            nivelFatiga: document.getElementById('fatiga-atleta').value,
-            fecha: new Date().toISOString().split('T')[0] // Guarda la fecha actual (Año-Mes-Día)
-        };
-
-        // ENLACE CON TU BACKEND / FIREBASE:
-        // Aquí es donde el bloque procesa la información de forma automática.
-        if (typeof db !== 'undefined') {
-            // Si usas Firebase Firestore estándar en tu código anterior, se añade a la colección:
-            db.collection("reportes_atletas").add(datosReporte)
-            .then(() => {
-                alert("¡Reporte enviado con éxito, Coach! A romper los sacos hoy.");
-                document.getElementById('form-rendimiento-diario').reset();
-            })
-            .catch((error) => {
-                console.error("Error al guardar el reporte: ", error);
-            });
-        } else {
-            // Copia de respaldo local si el internet o la base de datos no cargan a tiempo
-            console.log("Datos del atleta listos para registrar:", datosReporte);
-            alert("Reporte registrado localmente en la app.");
-        }
-    });
-</script>
-
-<div id="extension-semaforo-peso" style="margin-top: 20px; padding: 15px; border: 1px solid #ccc; border-radius: 8px; background-color: #ffffff; font-family: sans-serif;">
-    <h3 style="margin-top: 0; color: #333; border-bottom: 2px solid #dc3545; padding-bottom: 5px;">⚖️ Control de Categoría y Peso de Pelea</h3>
-    
-    <div style="margin-bottom: 15px; background-color: #f8f9fa; padding: 10px; border-radius: 5px;">
-        <label style="display: block; font-weight: bold; margin-bottom: 5px; font-size: 14px;">Tu Peso Objetivo de Pelea (Lbs):</label>
-        <input type="number" id="peso-objetivo" value="147" style="width: 100%; padding: 6px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
-    </div>
-
-    <div style="margin-bottom: 15px;">
-        <label style="display: block; font-weight: bold; margin-bottom: 5px;">Ingresa tu Peso de Hoy (Lbs):</label>
-        <input type="number" id="peso-actual-evaluar" step="0.1" placeholder="Ej: 151.2" style="width: 100%; padding: 8px; border: 1px solid #aaa; border-radius: 4px; box-sizing: border-box;">
-    </div>
-
-    <button type="button" onclick="evaluarPesoAtleta()" style="width: 100%; background-color: #dc3545; color: white; border: none; padding: 10px; font-size: 16px; font-weight: bold; border-radius: 4px; cursor: pointer;">
-        Evaluar Estado de Categoría
-    </button>
-
-    <div id="resultado-semaforo" style="display: none; margin-top: 15px; padding: 15px; border-radius: 6px; text-align: center; font-weight: bold; font-size: 16px;">
-        </div>
-</div>
-
-<script>
-function evaluarPesoAtleta() {
-    const pesoObjetivo = parseFloat(document.getElementById('peso-objetivo').value);
-    const pesoActual = parseFloat(document.getElementById('peso-actual-evaluar').value);
-    const contenedorResultado = document.getElementById('resultado-semaforo');
-
-    if (!pesoActual || isNaN(pesoActual)) {
-        alert("Por favor, ingresa tu peso actual primero.");
-        return;
-    }
-<div id="extension-semaforo-peso" style="margin-top: 25px; padding: 15px; border: 1px solid #ccc; border-radius: 8px; background-color: #ffffff; font-family: sans-serif; margin-bottom: 80px;">
-    <h3 style="margin-top: 0; color: #222222 !important; border-bottom: 2px solid #dc3545; padding-bottom: 5px;">⚖️ Control de Categoría y Peso de Pelea</h3>
-    
-    <div style="margin-bottom: 15px; background-color: #f8f9fa; padding: 10px; border-radius: 5px;">
-        <label style="display: block; font-weight: bold; margin-bottom: 5px; font-size: 14px; color: #222222 !important;">Tu Peso Objetivo de Pelea (Lbs):</label>
-        <input type="number" id="peso-objetivo" value="147" style="width: 100%; padding: 6px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; color: #000000 !important;">
-    </div>
-
-    <div style="margin-bottom: 15px;">
-        <label style="display: block; font-weight: bold; margin-bottom: 5px; font-size: 14px; color: #222222 !important;">Ingresa tu Peso de Hoy (Lbs):</label>
-        <input type="number" id="peso-actual-evaluar" step="0.1" placeholder="Ej: 151.2" style="width: 100%; padding: 8px; border: 1px solid #aaa; border-radius: 4px; box-sizing: border-box; color: #000000 !important;">
-    </div>
-
-    <button type="button" onclick="evaluarPesoAtleta()" style="width: 100%; background-color: #dc3545; color: white !important; border: none; padding: 12px; font-size: 16px; font-weight: bold; border-radius: 4px; cursor: pointer; display: block !important;">
-        Evaluar Estado de Categoría
-    </button>
-
-    <div id="resultado-semaforo" style="display: none; margin-top: 15px; padding: 15px; border-radius: 6px; text-align: center; font-weight: bold; font-size: 16px;"></div>
-</div>
-
-<script>
-function evaluarPesoAtleta() {
-    const pesoObjetivo = parseFloat(document.getElementById('peso-objetivo').value);
-    const pesoActual = parseFloat(document.getElementById('peso-actual-evaluar').value);
-    const contenedorResultado = document.getElementById('resultado-semaforo');
-
-    if (!pesoActual || isNaN(pesoActual)) {
-        alert("Por favor, ingresa tu peso actual primero.");
-        return;
-    }
-
-    const diferencia = pesoActual - pesoObjetivo;
-    contenedorResultado.style.display = "block";
-
-    if (diferencia <= 2 && diferencia >= -2) {
-        contenedorResultado.style.backgroundColor = "#d4edda";
-        contenedorResultado.style.color = "#155724";
-        contenedorResultado.style.border = "1px solid #c3e6cb";
-        contenedorResultado.innerHTML = `🟢 ESTADO: EN CATEGORÍA (${pesoActual} Lbs)<br><br>
-        <span style="font-weight: normal; font-size: 14px; color: #155724 !important;">"¡Excelente trabajo! Estás en la zona. Mantén la dieta y la intensidad. ¡Listo para la báscula!"</span>`;
-        
-    } else if (diferencia > 2 && diferencia <= 6) {
-        contenedorResultado.style.backgroundColor = "#fff3cd";
-        contenedorResultado.style.color = "#856404";
-        contenedorResultado.style.border = "1px solid #ffeeba";
-        contenedorResultado.innerHTML = `🟡 ESTADO: ALERTA DE PESO (+${diferencia.toFixed(1)} Lbs arriba)<br><br>
-        <span style="font-weight: normal; font-size: 14px; color: #856404 !important;">"Cuidado, estás por encima de tu categoría. Ajusta el trabajo de cardio al final de la sesión y cuida el consumo de agua hoy."</span>`;
-        
-    } else if (diferencia > 6) {
-        contenedorResultado.style.backgroundColor = "#f8d7da";
-        contenedorResultado.style.color = "#721c24";
-        contenedorResultado.style.border = "1px solid #f5c6cb";
-        contenedorResultado.innerHTML = `🔴 ESTADO: FUERA DE CATEGORÍA (+${diferencia.toFixed(1)} Lbs arriba)<br><br>
-        <span style="font-weight: normal; font-size: 14px; color: #721c24 !important;">"¡Alerta! Estás muy arriba del peso pactado. Hoy toca doble sesión de sacos, soga extra y revisión estricta de tu plan alimentario."</span>`;
-        
-    } else {
-        contenedorResultado.style.backgroundColor = "#e2e3e5";
-        contenedorResultado.style.color = "#383d41";
-        contenedorResultado.style.border = "1px solid #d6d8db";
-        contenedorResultado.innerHTML = `🔵 ESTADO: DEBAJO DEL PESO PACTADO (${diferencia.toFixed(1)} Lbs)<br><br>
-        <span style="font-weight: normal; font-size: 14px; color: #383d41 !important;">"Estás por debajo del peso objetivo. Revisa tus niveles de energía y asegúrate de cargar carbohidratos limpios."</span>`;
-    }
-}
-</script>
-
-
+h+=`<div class="card card-g" styl
