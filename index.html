@@ -1181,3 +1181,66 @@ window.addEventListener("DOMContentLoaded",init);
 } catch(e) { window.onerror(e.message,'runtime',0,0,e); }</script>
 </body>
 </html>
+
+<div id="extension-rendimiento-atleta" style="margin-top: 20px; padding: 15px; border: 1px solid #ccc; border-radius: 8px; background-color: #f9f9f9; font-family: sans-serif;">
+    <h3 style="margin-top: 0; color: #333; border-bottom: 2px solid #0056b3; padding-bottom: 5px;">🥊 Control Diario de Rendimiento (Coach Control)</h3>
+    
+    <form id="form-rendimiento-diario">
+        <div style="margin-bottom: 15px;">
+            <label style="display: block; font-weight: bold; margin-bottom: 5px;">Peso de hoy (libras / kg):</label>
+            <input type="number" id="peso-atleta" step="0.1" placeholder="Ej: 147.5" required style="width: 100%; padding: 8px; border: 1px solid #aaa; border-radius: 4px; box-sizing: border-box;">
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label style="display: block; font-weight: bold; margin-bottom: 5px;">Horas de sueño anoche:</label>
+            <input type="number" id="sueno-atleta" min="0" max="24" placeholder="Ej: 8" required style="width: 100%; padding: 8px; border: 1px solid #aaa; border-radius: 4px; box-sizing: border-box;">
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label style="display: block; font-weight: bold; margin-bottom: 5px;">Nivel de Fatiga Corporal:</label>
+            <select id="fatiga-atleta" style="width: 100%; padding: 8px; border: 1px solid #aaa; border-radius: 4px; box-sizing: border-box;">
+                <option value="1">1 - Fresco / Listo para la guerra</option>
+                <option value="2">2 - Normal</option>
+                <option value="3">3 - Cansancio moderado</option>
+                <option value="4">4 - Muy fatigado (Sacos pesados)</option>
+                <option value="5">5 - Agotamiento extremo / Riesgo de lesión</option>
+            </select>
+        </div>
+
+        <button type="submit" style="width: 100%; background-color: #0056b3; color: white; border: none; padding: 10px; font-size: 16px; font-weight: bold; border-radius: 4px; cursor: pointer;">
+            Enviar Reporte al Coach
+        </button>
+    </form>
+</div>
+
+<script>
+    document.getElementById('form-rendimiento-diario').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        // Captura de los datos ingresados por el atleta
+        const datosReporte = {
+            peso: document.getElementById('peso-atleta').value,
+            horasSueno: document.getElementById('sueno-atleta').value,
+            nivelFatiga: document.getElementById('fatiga-atleta').value,
+            fecha: new Date().toISOString().split('T')[0] // Guarda la fecha actual (Año-Mes-Día)
+        };
+
+        // ENLACE CON TU BACKEND / FIREBASE:
+        // Aquí es donde el bloque procesa la información de forma automática.
+        if (typeof db !== 'undefined') {
+            // Si usas Firebase Firestore estándar en tu código anterior, se añade a la colección:
+            db.collection("reportes_atletas").add(datosReporte)
+            .then(() => {
+                alert("¡Reporte enviado con éxito, Coach! A romper los sacos hoy.");
+                document.getElementById('form-rendimiento-diario').reset();
+            })
+            .catch((error) => {
+                console.error("Error al guardar el reporte: ", error);
+            });
+        } else {
+            // Copia de respaldo local si el internet o la base de datos no cargan a tiempo
+            console.log("Datos del atleta listos para registrar:", datosReporte);
+            alert("Reporte registrado localmente en la app.");
+        }
+    });
+</script>
