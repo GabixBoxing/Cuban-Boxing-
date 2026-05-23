@@ -1277,40 +1277,68 @@ function evaluarPesoAtleta() {
         return;
     }
 
+<div id="extension-semaforo-peso" style="margin-top: 25px; padding: 15px; border: 1px solid #ccc; border-radius: 8px; background-color: #ffffff; font-family: sans-serif; margin-bottom: 80px;">
+    <h3 style="margin-top: 0; color: #222222 !important; border-bottom: 2px solid #dc3545; padding-bottom: 5px;">⚖️ Control de Categoría y Peso de Pelea</h3>
+    
+    <div style="margin-bottom: 15px; background-color: #f8f9fa; padding: 10px; border-radius: 5px;">
+        <label style="display: block; font-weight: bold; margin-bottom: 5px; font-size: 14px; color: #222222 !important;">Tu Peso Objetivo de Pelea (Lbs):</label>
+        <input type="number" id="peso-objetivo" value="147" style="width: 100%; padding: 6px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; color: #000000 !important;">
+    </div>
+
+    <div style="margin-bottom: 15px;">
+        <label style="display: block; font-weight: bold; margin-bottom: 5px; font-size: 14px; color: #222222 !important;">Ingresa tu Peso de Hoy (Lbs):</label>
+        <input type="number" id="peso-actual-evaluar" step="0.1" placeholder="Ej: 151.2" style="width: 100%; padding: 8px; border: 1px solid #aaa; border-radius: 4px; box-sizing: border-box; color: #000000 !important;">
+    </div>
+
+    <button type="button" onclick="evaluarPesoAtleta()" style="width: 100%; background-color: #dc3545; color: white !important; border: none; padding: 12px; font-size: 16px; font-weight: bold; border-radius: 4px; cursor: pointer; display: block !important;">
+        Evaluar Estado de Categoría
+    </button>
+
+    <div id="resultado-semaforo" style="display: none; margin-top: 15px; padding: 15px; border-radius: 6px; text-align: center; font-weight: bold; font-size: 16px;"></div>
+</div>
+
+<script>
+function evaluarPesoAtleta() {
+    const pesoObjetivo = parseFloat(document.getElementById('peso-objetivo').value);
+    const pesoActual = parseFloat(document.getElementById('peso-actual-evaluar').value);
+    const contenedorResultado = document.getElementById('resultado-semaforo');
+
+    if (!pesoActual || isNaN(pesoActual)) {
+        alert("Por favor, ingresa tu peso actual primero.");
+        return;
+    }
+
     const diferencia = pesoActual - pesoObjetivo;
     contenedorResultado.style.display = "block";
 
     if (diferencia <= 2 && diferencia >= -2) {
-        // 🟢 VERDE: EN PESO
         contenedorResultado.style.backgroundColor = "#d4edda";
         contenedorResultado.style.color = "#155724";
         contenedorResultado.style.border = "1px solid #c3e6cb";
         contenedorResultado.innerHTML = `🟢 ESTADO: EN CATEGORÍA (${pesoActual} Lbs)<br><br>
-        <span style="font-weight: normal; font-size: 14px;">"¡Excelente trabajo! Estás en la zona. Mantén la dieta y la intensidad. ¡Listo para la báscula!"</span>`;
+        <span style="font-weight: normal; font-size: 14px; color: #155724 !important;">"¡Excelente trabajo! Estás en la zona. Mantén la dieta y la intensidad. ¡Listo para la báscula!"</span>`;
         
     } else if (diferencia > 2 && diferencia <= 6) {
-        // 🟡 AMARILLO: ALERTA
         contenedorResultado.style.backgroundColor = "#fff3cd";
         contenedorResultado.style.color = "#856404";
         contenedorResultado.style.border = "1px solid #ffeeba";
         contenedorResultado.innerHTML = `🟡 ESTADO: ALERTA DE PESO (+${diferencia.toFixed(1)} Lbs arriba)<br><br>
-        <span style="font-weight: normal; font-size: 14px;">"Cuidado, estás por encima de tu categoría. Ajusta el trabajo de cardio al final de la sesión y cuida el consumo de agua hoy."</span>`;
+        <span style="font-weight: normal; font-size: 14px; color: #856404 !important;">"Cuidado, estás por encima de tu categoría. Ajusta el trabajo de cardio al final de la sesión y cuida el consumo de agua hoy."</span>`;
         
     } else if (diferencia > 6) {
-        // 🔴 ROJO: FUERA DE PESO
         contenedorResultado.style.backgroundColor = "#f8d7da";
         contenedorResultado.style.color = "#721c24";
         contenedorResultado.style.border = "1px solid #f5c6cb";
         contenedorResultado.innerHTML = `🔴 ESTADO: FUERA DE CATEGORÍA (+${diferencia.toFixed(1)} Lbs arriba)<br><br>
-        <span style="font-weight: normal; font-size: 14px;">"¡Alerta! Estás muy arriba del peso pactado. Hoy toca doble sesión de sacos, soga extra y revisión estricta de tu plan alimentario con el Coach."</span>`;
+        <span style="font-weight: normal; font-size: 14px; color: #721c24 !important;">"¡Alerta! Estás muy arriba del peso pactado. Hoy toca doble sesión de sacos, soga extra y revisión estricta de tu plan alimentario."</span>`;
         
     } else {
-        // 🔵 AZUL: POR DEBAJO
         contenedorResultado.style.backgroundColor = "#e2e3e5";
         contenedorResultado.style.color = "#383d41";
         contenedorResultado.style.border = "1px solid #d6d8db";
         contenedorResultado.innerHTML = `🔵 ESTADO: DEBAJO DEL PESO PACTADO (${diferencia.toFixed(1)} Lbs)<br><br>
-        <span style="font-weight: normal; font-size: 14px;">"Estás por debajo del peso objetivo. Revisa tus niveles de energía y asegúrate de cargar carbohidratos limpios antes de entrenar."</span>`;
+        <span style="font-weight: normal; font-size: 14px; color: #383d41 !important;">"Estás por debajo del peso objetivo. Revisa tus niveles de energía y asegúrate de cargar carbohidratos limpios."</span>`;
     }
 }
 </script>
+
