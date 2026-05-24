@@ -1,0 +1,1964 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#070d1a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Cuban Boxing">
+<title>Cuban Boxing App</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Barlow:wght@400;600&display=swap" rel="stylesheet">
+<style>*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}body{background:#070d1a;color:#fff;font-family:'Barlow Condensed','Impact',sans-serif;min-height:100vh;overflow-x:hidden}#root{max-width:480px;margin:0 auto;position:relative}input,select,textarea{font-family:'Barlow',sans-serif;font-size:14px}button{cursor:pointer;font-family:'Barlow Condensed',sans-serif;transition:all .12s}button:active{transform:scale(.96);opacity:.82}.page{display:none;padding:14px 14px 90px;animation:fi .25s ease}.page.on{display:block}@keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}#hdr{background:linear-gradient(135deg,#0a1628,#0f1e35);border-bottom:2px solid #D4A017;padding:11px 16px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}#nav{position:fixed;bottom:0;left:0;right:0;background:#0a1628;border-top:2px solid #D4A017;display:flex;z-index:50;max-width:480px;margin:0 auto}.nb{flex:1;background:none;border:none;color:#4a6a8a;padding:10px 4px 6px;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:9px;font-weight:700;letter-spacing:1px}.nb.on{color:#D4A017}.nb .ic{font-size:20px;line-height:1}.nb .bar{width:24px;height:2px;background:#D4A017;border-radius:1px;margin-top:2px}.card{background:#0f1e35;border-radius:12px;padding:14px;margin-bottom:10px;border:1px solid #1e3050}.card-g{border-color:#D4A017}.btn{width:100%;border:none;border-radius:10px;padding:13px;font-weight:800;font-size:15px;letter-spacing:1px;cursor:pointer}.btn-g{background:#D4A017;color:#070d1a}.btn-d{background:#1e3050;color:#D4A017}.btn-gr{background:#1a6b3c;color:#fff}.btn-r{background:#8b1a1a;color:#fff}.inp{width:100%;background:#0f1e35;border:1px solid #1e3050;border-radius:8px;padding:10px 12px;color:#fff;font-size:14px;outline:none}.inp:focus{border-color:#D4A017}.lbl{font-size:11px;color:#7a9ab5;display:block;margin-bottom:4px;letter-spacing:.5px;font-family:'Barlow'}.av{border-radius:25%;display:flex;align-items:center;justify-content:center;font-weight:900;color:#fff;flex-shrink:0}.sh{display:flex;align-items:center;gap:8px;margin-bottom:8px}.sh span:first-child{font-size:14px}.sh .st{font-size:13px;color:#D4A017;font-weight:800;letter-spacing:2px}.sh .sl{flex:1;height:1px;background:#1e3050}.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:100;display:flex;align-items:flex-end}.modal-box{background:#0a1628;border-radius:20px 20px 0 0;padding:20px 16px;width:100%;max-height:92vh;overflow-y:auto;border:1px solid #1e3050;animation:fi .2s ease}.prog-wrap{background:#1e3050;border-radius:4px;height:6px;overflow:hidden}.prog-fill{height:100%;background:#D4A017;border-radius:4px}.frow{display:flex;gap:8px;margin-bottom:10px}.fcol{flex:1}.g2{display:grid;grid-template-columns:1fr 1fr;gap:8px}.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}.filter-row{display:flex;gap:6px;margin-bottom:14px;overflow-x:auto;padding-bottom:4px}.fb{border:none;border-radius:20px;padding:5px 12px;font-size:11px;font-weight:700;white-space:nowrap;cursor:pointer}.pin-box{display:flex;justify-content:center;gap:8px;margin:16px 0}.pin-dot{width:16px;height:16px;border-radius:50%;background:#1e3050;border:2px solid #D4A017;transition:background .15s}.pin-dot.filled{background:#D4A017}.pin-num-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;max-width:260px;margin:0 auto}.pin-btn{background:#0f1e35;border:1px solid #1e3050;border-radius:12px;padding:18px;font-size:24px;font-weight:800;color:#fff;cursor:pointer}.pin-btn:active{background:#D4A017;color:#070d1a}.style-card{border-left:4px solid;margin-bottom:8px}.style-hdr{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;cursor:pointer}.style-body{padding:0 14px 12px;display:none}.style-body.on{display:block}.note-area{width:100%;background:#0a1628;border:1px solid #1e3050;border-radius:8px;padding:10px;color:#fff;resize:none;font-family:'Barlow',sans-serif;font-size:13px;margin-top:6px}.msg-bubble{border-radius:10px;padding:10px 12px;margin-bottom:8px;max-width:90%}.msg-ath{background:#1e3050;align-self:flex-start;border-bottom-left-radius:2px}.msg-coach{background:#1a6b3c;align-self:flex-end;border-bottom-right-radius:2px;margin-left:auto}::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:#D4A017;border-radius:2px}</style>
+<script>(function(){
+var manifest={name:"Cuban Boxing App",short_name:"CBA Boxing",description:"Metodologia Sagarra — Coach Osvimer Rodriguez",start_url:"./",scope:"./",display:"standalone",background_color:"#070d1a",theme_color:"#D4A017",orientation:"portrait-primary",icons:[{src:"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='90' fill='%230d1f3c'/%3E%3Ctext x='256' y='340' font-family='Arial Black' font-size='200' font-weight='900' fill='%23D4A017' text-anchor='middle'%3ECBA%3C/text%3E%3C/svg%3E",sizes:"512x512",type:"image/svg+xml",purpose:"any maskable"}]};
+var blob=new Blob([JSON.stringify(manifest)],{type:"application/manifest+json"});
+var l=document.createElement("link");l.rel="manifest";l.href=URL.createObjectURL(blob);document.head.appendChild(l);
+var ai=document.createElement("link");ai.rel="apple-touch-icon";ai.href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='90' fill='%230d1f3c'/%3E%3Ctext x='256' y='340' font-family='Arial Black' font-size='200' font-weight='900' fill='%23D4A017' text-anchor='middle'%3ECBA%3C/text%3E%3C/svg%3E";document.head.appendChild(ai);
+})();</script>
+</head>
+<body>
+<div id="root">
+<div id="app"></div>
+<div id="main-shell" style="display:none">
+<div id="hdr">
+<div style="display:flex;align-items:center;gap:10px">
+<div id="hdr-logo" style="width:44px;height:44px;flex-shrink:0"></div>
+<div><div style="font-weight:900;font-size:15px;letter-spacing:1.5px;color:#fff;line-height:1.1">CUBAN BOXING APP</div><div style="font-size:9px;color:#D4A017;letter-spacing:1px;font-family:Barlow;font-weight:600">OSVIMER COACH</div></div>
+</div>
+<div style="display:flex;align-items:center;gap:6px">
+<div style="text-align:right"><div id="hdr-date" style="font-size:10px;color:#7a9ab5;font-family:Barlow"></div><div id="hdr-user" style="font-size:9px;color:#D4A017;font-family:Barlow"></div></div>
+<button onclick="toggleLang()" id="lang-btn" style="background:linear-gradient(135deg,#D4A017,#f0c040);border:none;color:#070d1a;border-radius:8px;padding:7px 8px;font-weight:900;font-size:12px;letter-spacing:1px">EN</button>
+<button onclick="showSwitchModal()" style="background:#8b1a1a;border:2px solid #e74c3c;color:#fff;border-radius:8px;padding:7px 10px;font-weight:900;font-size:12px">SALIR</button>
+</div>
+</div>
+<div id="pages">
+<div id="pg-home" class="page on"></div>
+<div id="pg-athletes" class="page"></div>
+<div id="pg-training" class="page"></div>
+<div id="pg-fights" class="page"></div>
+<div id="pg-tactics" class="page"></div>
+<div id="pg-nutrition" class="page"></div>
+<div id="pg-store" class="page"></div>
+<div id="pg-notes" class="page"></div><div id="pg-pricing" class="page"></div>
+</div>
+<nav id="nav"></nav>
+</div>
+<div id="modal-wrap"></div>
+</div>
+<script>window.onerror = function(msg, src, line, col, err) {
+document.body.innerHTML = '<div style="background:#070d1a;color:#fff;padding:20px;font-family:sans-serif;min-height:100vh">' +
+'<div style="color:#D4A017;font-size:20px;font-weight:bold;margin-bottom:16px">⚠ ERROR</div>' +
+'<div style="color:#ff6b6b;font-size:14px;margin-bottom:8px">' + msg + '</div>' +
+'<div style="color:#7a9ab5;font-size:12px">Line: ' + line + '</div>' +
+'<div style="color:#7a9ab5;font-size:12px;margin-top:8px">File: ' + src + '</div>' +
+'<div style="color:#7a9ab5;font-size:11px;margin-top:16px">Send this screenshot to Coach</div>' +
+'</div>';
+return true;
+};
+try {
+
+let ST={lang:"es",tab:"home",athletes:[],fights:[],user:null,proUser:null,proAthletes:[],isCoach:false,athFilter:"Todos",openPhase:null,openWeek:null,openDay:null,trainPick:null,trainDay:null,openStyle:null,openNut:"n1",openProPhase:1,openProWeek:1};
+const PC={1:"#1a4a7a",2:"#1a6b3c",3:"#5b2c8d",4:"#8b1a1a",5:"#4a4a1a"};
+const AVC=["#1a4a7a","#1a6b3c","#5b2c8d","#8b1a1a","#4a3a1a"];
+const DA=[
+{id:"a1",name:"Gabriel Rodriguez",dob:"2009-04-04",weight:132,category:"Youth (15-16)",group:"Mayores 16",phase:2,week:1,status:"Activo",notes:"",wins:1,losses:1,draws:0,pin:"1204"},
+{id:"a2",name:"Marisol Mendoza",dob:"",weight:132,category:"Elite Amateur",group:"Mayores 16",phase:2,week:1,status:"Activo",notes:"Trabajar el jab constante",wins:0,losses:0,draws:0,pin:"0202"},
+{id:"a3",name:"Naomy Lozano",dob:"",weight:114,category:"Elite Amateur",group:"Mayores 16",phase:1,week:1,status:"Activo",notes:"",wins:0,losses:0,draws:0,pin:"0303"},
+{id:"a4",name:"Israel Jackson",dob:"",weight:132,category:"Youth (15-16)",group:"Mayores 16",phase:1,week:1,status:"Activo",notes:"",wins:0,losses:0,draws:0,pin:"0404"},
+{id:"a5",name:"Izze",dob:"2013-05-06",weight:95,category:"Intermediate (13-14)",group:"Grupo C (13-14)",phase:1,week:7,status:"Activo",notes:"CAMPEONA 1 Mayo 2026",wins:1,losses:0,draws:0,pin:"0506"},
+{id:"a6",name:"Fernando",dob:"",weight:300,category:"Elite Amateur",group:"Mayores 18",phase:1,week:1,status:"Activo",notes:"Dolor lumbar — sin saco — cuclillas sin peso",wins:0,losses:0,draws:0,pin:"0606"},
+];
+const DF=[
+{id:"f1",athleteId:"a1",opponent:"Por confirmar",date:"2026-07-25",result:"Próxima",weightClass:"132 lbs",event:"Mike Tyson Invitational 2",notes:""},
+{id:"f2",athleteId:"a2",opponent:"Por confirmar",date:"2026-07-25",result:"Próxima",weightClass:"132 lbs",event:"Mike Tyson Invitational 2",notes:""},
+{id:"f3",athleteId:"a3",opponent:"Por confirmar",date:"2026-07-25",result:"Próxima",weightClass:"114 lbs",event:"Mike Tyson Invitational 2",notes:""},
+{id:"f4",athleteId:"a4",opponent:"Por confirmar",date:"2026-07-25",result:"Próxima",weightClass:"132 lbs",event:"Mike Tyson Invitational 2",notes:""},
+{id:"f5",athleteId:"a1",opponent:"Rival desconocido",date:"2026-05-01",result:"Derrota",weightClass:"145 lbs",event:"Nemea Fight Night",notes:"Decisión injusta — dominó los 3 asaltos"},
+{id:"f6",athleteId:"a5",opponent:"Rival Intermediate",date:"2026-05-01",result:"Victoria",weightClass:"Intermediate",event:"Nemea Fight Night",notes:"Primera victoria — CAMPEONA"},
+];
+const MESSAGES_KEY="cba_msgs_";
+const T={
+es:{pf:["","Preparación General","Preparación Específica","Automatismo","Pre-Competencia","Mantenimiento"],pn:p=>"Fase "+p,wn:w=>"Sem "+w,yrs:"años",rest:"Descanso",sts:["Activo","Lesionado","Recuperación","Fuera de temporada"],sc:{"Activo":"#1a8f4c","Lesionado":"#c0392b","Recuperación":"#D4A017","Fuera de temporada":"#4a6a8a"},cats:["Youth (15-16)","Junior (17-18)","Elite Amateur","Intermediate (13-14)","Bantam (11-12)"],grps:["Grupo B (11-12)","Grupo C (13-14)","Mayores 16","Mayores 18"],days:["LUN","MAR","MIÉ","JUE","VIE","SÁB","DOM"],stit:["Cuerda + Construcción","Carrera + Escuela","Cuerda + Aplicación","Carrera + Sparring","Tramos + Evaluación","Descanso Activo","Descanso Completo"],nav:["INICIO","ATLETAS","ENTRENO","PELEAS","TÁCTICAS","NUTRICIÓN","TIENDA","NOTAS"],w:"Victorias",l:"Derrotas",d:"Empates",vs:"vs",up:"Próxima",today:"Entrenamiento Hoy",upF:"Próximas Peleas",recF:"Últimas Peleas",act:"Acciones Rápidas",noA:"Sin atletas activos.",wk:"Semana",of:"de",done:"completado",rec:"Récord",noF:"Sin peleas.",addFB:"+ Registrar Pelea",maint:"Mantenimiento indefinido — 3 días/semana.",nwk:"semanas",coachMode:"MODO COACH",athMode:"MODO ATLETA",enterPin:"Ingresa tu PIN",wrongPin:"PIN incorrecto",selectAth:"Selecciona tu nombre:",enterCoachPin:"PIN del Coach:",notesTitle:"Notas y Comunicación",myNotes:"Mis notas del día",myQ:"Pregunta al Coach",sendWA:"Enviar por WhatsApp",coachRep:"Respuesta del Coach",noNotes:"Sin notas todavía.",writeNote:"Escribe aquí...",saveNote:"GUARDAR NOTA",sendQ:"ENVIAR PREGUNTA",tacticsTitle:"Módulo Táctico",style1:"Presionador Frontal",style2:"Buscador del Cuerpo",style3:"Contragolpeador",style4:"Rival Zurdo",style5:"Alto con Jab Largo",style6:"Buscador de Combinaciones",style7:"Defensivo / Evasivo",planA:"PLAN A",planB:"PLAN B",pts3:"LOS 3 PUNTOS",roundXR:"ASALTO POR ASALTO",logoutBtn:"CERRAR SESIÓN"},
+en:{pf:["","General Prep","Specific Prep","Automatism","Pre-Competition","Maintenance"],pn:p=>"Phase "+p,wn:w=>"Wk "+w,yrs:"yrs",rest:"Rest",sts:["Active","Injured","Recovery","Off Season"],sc:{"Active":"#1a8f4c","Activo":"#1a8f4c","Injured":"#c0392b","Lesionado":"#c0392b","Recovery":"#D4A017","Recuperación":"#D4A017","Off Season":"#4a6a8a","Fuera de temporada":"#4a6a8a"},cats:["Youth (15-16)","Junior (17-18)","Elite Amateur","Intermediate (13-14)","Bantam (11-12)"],grps:["Group B (11-12)","Group C (13-14)","Over 16","Over 18"],days:["MON","TUE","WED","THU","FRI","SAT","SUN"],stit:["Rope + Build","Run + Drills","Rope + Apply","Run + Sparring","Sprints + Eval","Active Rest","Full Rest"],nav:["HOME","ATHLETES","TRAINING","FIGHTS","TACTICS","NUTRITION","STORE","NOTES"],w:"Wins",l:"Losses",d:"Draws",vs:"vs",up:"Upcoming",today:"Today's Training",upF:"Upcoming Fights",recF:"Recent Fights",act:"Quick Actions",noA:"No active athletes.",wk:"Week",of:"of",done:"completed",rec:"Record",noF:"No fights.",addFB:"+ Log Fight",maint:"Indefinite maintenance — 3 days/week.",nwk:"weeks",coachMode:"COACH MODE",athMode:"ATHLETE MODE",enterPin:"Enter your PIN",wrongPin:"Wrong PIN",selectAth:"Select your name:",enterCoachPin:"Coach PIN:",notesTitle:"Notes & Communication",myNotes:"Today's notes",myQ:"Ask the Coach",sendWA:"Send via WhatsApp",coachRep:"Coach Response",noNotes:"No notes yet.",writeNote:"Write here...",saveNote:"SAVE NOTE",sendQ:"SEND QUESTION",tacticsTitle:"Tactical Module",style1:"Frontal Pressure Fighter",style2:"Body Puncher",style3:"Counter-Puncher",style4:"Southpaw",style5:"Tall with Long Jab",style6:"Combination Puncher",style7:"Defensive / Evasive",planA:"PLAN A",planB:"PLAN B",pts3:"THE 3 POINTS",roundXR:"ROUND BY ROUND",logoutBtn:"LOG OUT"},
+};
+const WP={
+1:{1:{es:"Guardia + pasos + jab",en:"Guard + footwork + jab",re:"Rival estático",rn:"Static opponent",p:65},2:{es:"Jab + retorno + guardia",en:"Jab + return + guard",re:"Rival que retrocede",rn:"Retreating opponent",p:67},3:{es:"1-2 (jab + directo)",en:"1-2 (jab + straight)",re:"Rival que retrocede",rn:"Retreating opponent",p:70},4:{es:"1-2 + salida lateral",en:"1-2 + lateral exit",re:"Rival que responde",rn:"Responding opponent",p:72},5:{es:"Gancho",en:"Hook",re:"Rival que baja guardia",rn:"Drops guard",p:74},6:{es:"Cruzado",en:"Cross",re:"Rival zurdo básico",rn:"Basic southpaw",p:76},7:{es:"Combinaciones de 3 golpes",en:"3-punch combos",re:"Rival activo",rn:"Active opponent",p:78},8:{es:"Ángulo zurdo",en:"Southpaw angle",re:"Zurdo activo",rn:"Active southpaw",p:80},9:{es:"Acortar distancia",en:"Closing distance",re:"Rival alto",rn:"Tall opponent",p:82},10:{es:"Falsa entrada + lectura",en:"False attack + reading",re:"Contragolpeador",rn:"Counter-puncher",p:84},11:{es:"Sistema completo",en:"Full system",re:"Rival impredecible",rn:"Unpredictable",p:86},12:{es:"EVALUACIÓN FINAL",en:"FINAL EVALUATION",re:"Libre",rn:"Free",p:88}},
+2:{1:{es:"Jab de sondeo + respuesta al presionador",en:"Probing jab + response to pressure",re:"Presionador frontal",rn:"Frontal pressure fighter",p:80},2:{es:"Protección del cuerpo + cintura + contragolpe arriba",en:"Body protection + waist + upstairs counter",re:"Buscador del cuerpo",rn:"Body puncher",p:82},3:{es:"Ángulo zurdo + respuesta desde el ángulo",en:"Southpaw angle + response",re:"Zurdo activo",rn:"Active southpaw",p:83},4:{es:"Falsa entrada + 3 respuestas según reacción",en:"False attack + 3 responses per reaction",re:"Contragolpeador",rn:"Counter-puncher",p:84},5:{es:"Acortar distancia + combinación adentro",en:"Closing distance + inside combo",re:"Rival alto",rn:"Tall opponent",p:85},6:{es:"Presión constante + control del ring",en:"Constant pressure + ring control",re:"Rival que retrocede",rn:"Retreating opponent",p:86},7:{es:"Adaptación a cambios de estilo",en:"Adaptation to style changes",re:"Rival cambia estilo",rn:"Style changer",p:87},8:{es:"Sistema completo bajo presión máxima",en:"Full system under max pressure",re:"Todos los estilos",rn:"All styles",p:89},9:{es:"Evaluación completa del sistema",en:"Full system evaluation",re:"Todos los estilos",rn:"All styles",p:90},10:{es:"EVALUACIÓN FINAL FASE 2",en:"PHASE 2 FINAL EVAL",re:"Libre",rn:"Free",p:91}},
+3:{1:{es:"Sistema completo vs presionador — respuesta automática",en:"Full system vs pressure — automatic response",re:"Presionador frontal",rn:"Frontal pressure",p:88},2:{es:"Defensa cuerpo + ángulo zurdo integrados",en:"Body defense + southpaw angle integrated",re:"Doble amenaza",rn:"Double threat",p:89},3:{es:"Presionador zurdo — sistema completo",en:"Southpaw pressure — full system",re:"Presionador zurdo",rn:"Southpaw pressure",p:90},4:{es:"Falsa entrada avanzada — nivel élite",en:"Advanced false attack — elite level",re:"Contragolpeador avanzado",rn:"Advanced counter-puncher",p:91},5:{es:"Lectura de ritmo + acortar exacto",en:"Rhythm reading + precise closing",re:"Alto con cambio ritmo",rn:"Tall rhythm changer",p:92},6:{es:"Adaptación táctica total",en:"Full tactical adaptation",re:"Todos los estilos",rn:"All styles",p:93},7:{es:"EVALUACIÓN PREVIA — identificar debilidades",en:"PRE-EVAL — identify weaknesses",re:"Libre",rn:"Free",p:95},8:{es:"EVALUACIÓN FINAL FASE 3",en:"PHASE 3 FINAL EVAL",re:"Libre",rn:"Free",p:95}},
+4:{1:{es:"ÚLTIMA CARGA — plan de pelea activo",en:"PEAK LOAD — active fight plan",re:"Rival de la pelea",rn:"Fight opponent",p:88},2:{es:"REDUCCIÓN — plan fijo definitivo",en:"TAPER — final fixed plan",re:"Rival de la pelea",rn:"Fight opponent",p:80},3:{es:"AFILADO — sesiones cortas de activación",en:"SHARPENING — short activation sessions",re:"Plan fijo",rn:"Fixed plan",p:70},4:{es:"ACTIVACIÓN + DÍA DE PELEA",en:"ACTIVATION + FIGHT DAY",re:"Combate real",rn:"Real fight",p:65}},
+};
+const STYLES=[
+{color:"#5b2c8d",
+es:{name:"Presionador Frontal",desc:"Avanza constantemente — esquinas — quita la distancia",problem:"Si retrocedes en línea recta te acorrala",tell:"Hombros hundiéndose — rodillas flexionando antes de avanzar",planA:"Jab control + retroceso lateral + pivote 45° + contragolpe cuando pasa + salida",planB:"Cerrar distancia + ráfaga corta 4-6 golpes adentro + salida lateral",pts:["Jab constante — yo controlo la distancia — no lo dejo cerrar","Cuando avanza — retroceso lateral + pivote — NUNCA en línea recta","Después del pivote — contragolpe + salida — no quedarme a forcejear"],r1:"Usar jab para medir — ver cómo avanza — identificar la señal",r2:"Plan A confirmado — ejecutar con confianza — retroceso lateral automático",r3:"Si cansado — contrapresión — si no — mantener Plan A"},
+en:{name:"Frontal Pressure Fighter",desc:"Constantly advances — corners you — takes away distance",problem:"If you retreat in a straight line they corner you",tell:"Shoulders hunching — knees bending before advancing",planA:"Jab control + lateral retreat + 45° pivot + counter when they pass + exit",planB:"Close distance + short 4-6 punch burst inside + lateral exit",pts:["Constant jab — I control the distance — don't let them close","When they advance — lateral retreat + pivot — NEVER straight back","After the pivot — counter + exit — don't stay to grapple"],r1:"Use jab to measure — see how they advance — identify the tell",r2:"Plan A confirmed — execute with confidence — automatic lateral retreat",r3:"If tired — counter-pressure — if not — maintain Plan A"}},
+{color:"#8b1a1a",
+es:{name:"Buscador del Cuerpo",desc:"Entra agachado — golpea al hígado y plexo — exige cintura y protección baja",problem:"Los golpes al cuerpo se acumulan — si llegan muchos el cuerpo se cierra",tell:"Ojos bajando hacia el cuerpo — rodillas flexionan más de lo normal",planA:"Jab desde arriba para interrumpir + rotación de cadera en impacto + gancho arriba (la cabeza baja está en rango) + salida lateral",planB:"Cerrar distancia + clinch defensivo + salida — no dejarlo plantarse",pts:["Cuando la cabeza baja — gancho desde arriba — la cabeza está en rango","Rotación activa de cadera — no absorber recto — cintura en el impacto","Salida lateral siempre — no quedarme donde quiere trabajar"],r1:"Identificar señal cuando va al cuerpo — preparar gancho arriba",r2:"Gancho desde arriba cuando baja la cabeza — si funciona — repetir siempre",r3:"Si lastimamos arriba — va menos al cuerpo — más espacio para dominar"},
+en:{name:"Body Puncher",desc:"Comes in crouching — targets body — demands waist and low protection",problem:"Body shots accumulate — if too many land the body shuts down",tell:"Eyes drop toward body — knees bend more than normal",planA:"Jab from above to interrupt + hip rotation on impact + upstairs hook (lowered head is in range) + lateral exit",planB:"Close distance + defensive clinch + exit — don't let them get set",pts:["When head drops — hook from above — the head is in range","Active hip rotation — don't absorb straight — waist on impact","Lateral exit always — don't stay where they want to work"],r1:"Identify tell when going to body — prepare upstairs hook",r2:"Hook from above when head drops — if working — repeat every time",r3:"If we hurt upstairs — they go to body less — more space to dominate"}},
+{color:"#1a4a7a",
+es:{name:"Contragolpeador",desc:"Espera el ataque para responder — paciente — pega en la entrada",problem:"Si atacas en línea recta tiene tu contragolpe esperando",tell:"Peso en pie de atrás — guardia alta cerrada — ojos fijos esperando",planA:"Falsa entrada + esperar la reacción + entrar con combinación DESPUÉS de que lance el contragolpe",planB:"Jab constante para romper concentración + cambio de ritmo + entrada rápida cuando menos espera",pts:["Falsa entrada primero — ver cómo reacciona — leer el plan","Entrar DESPUÉS de que lance — nunca al mismo tiempo","Cambiar el ritmo — rápido y lento — no puede esperar si no sabe cuándo"],r1:"Testear con falsas entradas — ver su respuesta preferida",r2:"Usar su respuesta preferida para predecirla y contrarrestarla",r3:"Más presión — si cansado — el contragolpeador pierde velocidad de reacción"},
+en:{name:"Counter-Puncher",desc:"Waits for your attack to respond — patient — lands on entry",problem:"If you attack in a straight line they have your counter ready",tell:"Weight on back foot — high closed guard — eyes fixed waiting",planA:"False attack + wait for reaction + enter with combination AFTER they throw the counter",planB:"Constant jab to break concentration + rhythm change + quick entry when least expected",pts:["False attack first — see how they react — read the plan","Enter AFTER they throw — never at the same time","Change the rhythm — fast and slow — they can't wait if they don't know when"],r1:"Test with false attacks — see their preferred response",r2:"Use their preferred response to predict and counter it",r3:"More pressure — if tired — counter-puncher loses reaction speed"}},
+{color:"#2c5f7a",
+es:{name:"Rival Zurdo",desc:"El cruzado zurdo llega desde un ángulo inesperado — desorienta a quienes no lo conocen",problem:"El cruzado zurdo llega exactamente donde no esperas — desde el lado derecho",tell:"Hombro derecho sube ligeramente antes de tirar el cruzado",planA:"Jab + paso a la DERECHA del rival + el cruzado pasa por afuera + combinación desde el ángulo + salida",planB:"Cerrar distancia + trabajo adentro — el cruzado zurdo pierde potencia en distancia corta",pts:["Paso a la derecha SIEMPRE — el cruzado zurdo pasa por afuera","Combinación desde el ángulo derecho — no puede responder bien desde ahí","NUNCA en línea recta — el ángulo siempre"],r1:"Confirmar el paso a la derecha — ver que el cruzado pasa por afuera",r2:"Combinar desde el ángulo derecho — se desorienta cuando el cruzado falla",r3:"Si dominamos desde el ángulo — más confianza — si no — cerrar distancia"},
+en:{name:"Southpaw",desc:"The southpaw cross comes from an unexpected angle — disorients those who don't know it",problem:"The southpaw cross arrives exactly where you don't expect — from the right side",tell:"Right shoulder rises slightly before throwing the cross",planA:"Jab + step to the RIGHT of opponent + cross passes outside + combination from the angle + exit",planB:"Close distance + inside work — the southpaw cross loses power at close range",pts:["Step to the right ALWAYS — the southpaw cross passes outside","Combination from the right angle — they can't respond well from there","NEVER straight — the angle always"],r1:"Confirm the right step — see that the cross passes outside",r2:"Combine from the right angle — they get disoriented when the cross fails",r3:"If we dominate from the angle — more confidence — if not — close distance"}},
+{color:"#1a6b3c",
+es:{name:"Alto con Jab Largo",desc:"Controla la distancia con jab largo — previene la entrada — domina desde lejos",problem:"Si respetas su distancia dominan toda la pelea sin que puedas alcanzarlos",tell:"El peso se mueve hacia atrás antes de tirar el jab — listo para escapar",planA:"Esquivar el jab (cabeza afuera) + cerrar distancia en el mismo movimiento + combinación adentro donde la ventaja de altura desaparece + salida lateral",planB:"Propio jab para medir + falsa entrada + cerrar cuando reacciona al amago",pts:["No respetar su distancia — cerrar activamente — adentro desaparece la ventaja de altura","Esquivar el jab — cabeza afuera — nunca absorber recto","Salida lateral después de la combinación — no quedarse donde puede usar el jab"],r1:"Medir el jab — ver velocidad y timing — preparar el esquive",r2:"Esquivar + cerrar — si funciona — pierde su arma principal",r3:"Si cerramos bien — se frustra — más presión adentro"},
+en:{name:"Tall Opponent with Long Jab",desc:"Controls distance with long jab — prevents entry — dominates from far out",problem:"If you respect their distance they dominate the whole fight without you reaching them",tell:"Weight moves back before throwing the jab — ready to escape",planA:"Slip the jab (head outside) + close distance in same motion + combination inside where height advantage disappears + lateral exit",planB:"Own jab to measure + false attack + close when they react to the feint",pts:["Don't respect their distance — close actively — inside the height advantage disappears","Slip the jab — head outside — never absorb straight","Lateral exit after the combination — don't stay where they can use the jab"],r1:"Measure the jab — see speed and timing — prepare the slip",r2:"Slip + close — if working — they lose their main weapon",r3:"If we've closed well — they're frustrated — more inside pressure"}},
+{color:"#5a3a1a",
+es:{name:"Buscador de Combinaciones",desc:"Lanza combinaciones largas de 4-8 golpes — intenta abrumar con volumen",problem:"Si no te mueves las combinaciones acumulan daño aunque no todas sean limpias",tell:"Respiración corta antes de la combinación — peso centra para estabilidad",planA:"Movimiento lateral constante + desviar primer golpe de la combinación + entrar DURANTE la combinación (después del 3-4 golpe están más débiles) + contragolpe + salida",planB:"Esperar el final de la combinación + contragolpe cuando están en el punto ciego + salida",pts:["Movimiento lateral constante — nunca quieto — necesitan base estable para combinar","Entrar cuando la combinación lleva 3-4 golpes — ese es su punto más débil","Salida lateral siempre — no quedarse donde pueden tirar la siguiente combinación"],r1:"Ver cuántos golpes tiene su combinación favorita — identificar el punto débil",r2:"Contragolpe en el punto débil de la combinación — los sorprende",r3:"Si acostumbrado a contrarrestar ahí — empiezan a dudar antes de combinar"},
+en:{name:"Combination Puncher",desc:"Throws long combinations of 4-8 punches — tries to overwhelm with volume",problem:"If you don't move the combinations accumulate damage even if not all clean",tell:"Short breath before combination — weight centers for stability",planA:"Constant lateral movement + deflect first punch + enter DURING combination (after 3-4 punches they're weakest) + counter + exit",planB:"Wait for end of combination + counter when in blind spot + exit",pts:["Constant lateral movement — never still — they need stable base to combine","Enter when combination is 3-4 punches in — that's their weakest point","Lateral exit always — don't stay where they can throw the next combination"],r1:"See how many punches in their favorite combination — identify weak point",r2:"Counter at the weak point — it surprises them",r3:"If used to countering there — they start doubting before combining"}},
+{color:"#2a4a6a",
+es:{name:"Defensivo / Evasivo",desc:"Siempre en movimiento — difícil de pegar — espera tu error para atacar",problem:"Si lo persigues sin plan gastas energía sin pegarle y espera tu error",tell:"Siempre en las puntas de los pies — listo para moverse — ojos activos",planA:"Cortar el ring (moverse en ángulos no en línea recta) + presión con jab + forzar la esquina + combinación cuando no tiene salida + salida",planB:"Jab constante para marcar + seguir sin perseguir + combinación cuando se detiene para responder",pts:["Cortar el ring — ángulos — no perseguir en línea recta","Jab constante para obligarlo a parar — sin jab no hay presión","Combinación cuando para o llega a la esquina — ahí no puede escapar"],r1:"Aprender su movimiento — qué lado se mueve más — cortar ese lado",r2:"Forzar la esquina — una vez cortado — la pelea cambia completamente",r3:"Si cansado — la evasión baja — presión final"},
+en:{name:"Defensive / Evasive Fighter",desc:"Always moving — hard to hit — waits for your mistake to attack",problem:"If you chase without a plan you waste energy without hitting them",tell:"Always on balls of feet — ready to move — active eyes",planA:"Cut the ring (move at angles not straight lines) + jab pressure + force the corner + combination when they have no exit + exit",planB:"Constant jab to mark + follow without chasing + combination when they stop to respond",pts:["Cut the ring — angles — don't chase in straight line","Constant jab to force them to stop — without jab there's no pressure","Combination when they stop or reach corner — there they can't escape"],r1:"Learn their movement — which way they move most — cut that side",r2:"Force the corner — once cut — the fight changes completely",r3:"If tired — evasion drops — final pressure"}}
+];
+const ld=(k,d)=>{try{const r=localStorage.getItem(k);return r?JSON.parse(r):d;}catch(e){return d;}};
+const sv=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}};
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2);
+function age(d){if(!d)return"—";const b=new Date(d),t=new Date();let a=t.getFullYear()-b.getFullYear();if(t<new Date(t.getFullYear(),b.getMonth(),b.getDate()))a--;return a;}
+function fD(d){if(!d)return"—";try{return new Date(d).toLocaleDateString(ST.lang==="es"?"es-ES":"en-US",{day:"2-digit",month:"short",year:"numeric"});}catch(e){return d;}}
+function ini(n){return n.split(" ").slice(0,2).map(x=>x[0]||"").join("").toUpperCase();}
+function esc(s){return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
+function avC(n){return AVC[n.charCodeAt(0)%AVC.length];}
+function t(){return T[ST.lang];}
+function L(es,en){return ST.lang==="es"?es:en;}
+function B(n,d,tm){return{n,d,t:tm};} // session block
+function av(name,sz){const c=avC(name);const r=Math.round(sz/4);return`<div class="av" style="width:${sz}px;height:${sz}px;border-radius:${r}px;background:${c};font-size:${Math.round(sz*.35)}px">${esc(ini(name))}</div>`;}
+function badge(ph,wk,sm){const c=PC[ph]||PC[1];const p=t().pn(ph),w=t().wn(wk);const pad=sm?"2px 8px":"4px 10px";const fs=sm?11:13;return`<div style="display:inline-flex;align-items:center;gap:4px;background:${c};border-radius:6px;padding:${pad}"><span style="font-size:${fs}px;color:#fff">${esc(p)}</span><span style="font-size:${sm?10:12}px;color:rgba(255,255,255,.7)">${esc(w)}</span></div>`;}
+function sdot(st){const c=t().sc[st]||"#7a9ab5";return`<span style="display:inline-flex;align-items:center;gap:4px"><span style="width:6px;height:6px;border-radius:50%;background:${c};display:inline-block"></span><span style="font-size:10px;color:${c};font-family:Barlow;font-weight:600">${esc(st||"").toUpperCase()}</span></span>`;}
+function sh(title,icon){return`<div class="sh"><span>${icon}</span><span class="st">${esc(title).toUpperCase()}</span><div class="sl"></div></div>`;}
+function ec(msg){return`<div class="card" style="text-align:center;color:#4a6a8a;font-family:Barlow;font-size:13px">${esc(msg)}</div>`;}
+function mwrap(content){return`<div class="modal-bg" onclick="closeMBG(event)"><div class="modal-box" onclick="event.stopPropagation()"><div style="display:flex;justify-content:flex-end;margin-bottom:12px"><button onclick="closeM()" class="btn btn-d" style="width:auto;padding:6px 14px;font-size:13px">✕ ${L("CERRAR","CLOSE")}</button></div>${content}</div></div>`;}
+function inp(lb,k,tp,val,ext){return`<div style="margin-bottom:10px"><label class="lbl">${esc(lb).toUpperCase()}</label><input type="${tp}" class="inp" id="f-${k}" value="${esc(val||"")}" ${ext||""}></div>`;}
+function sel(lb,k,opts,val){return`<div style="margin-bottom:10px"><label class="lbl">${esc(lb).toUpperCase()}</label><select class="inp" id="f-${k}">${opts.map(o=>`<option value="${esc(o)}"${o===val?" selected":""}>${esc(o)}</option>`).join("")}</select></div>`;}
+function p1Session(week, dow, is90) {
+const di = dow===0?6:dow-1;
+if(di>=5) return null; // rest
+const hm = week>=7;
+const wk = WP[1][week]||WP[1][1];
+const el = L(wk.es,wk.en), ri = L(wk.re,wk.rn), pct = wk.p;
+const pc = PC[1];
+if(di===0||di===2) { // Mon/Wed - Cuerda+Técnica
+const isMon = di===0;
+const tecTime = is90?(hm?"18 min":"20 min"):"10 min";
+let blocks = [
+B(L("Calentamiento dinámico","Dynamic warm-up"), L("Movilidad completa","Full mobility"), is90?"15 min":"10 min"),
+B(L("Cuerda imaginaria","Shadow rope"), "15 min — "+ri+" — "+pct+"%", is90?"15 min":"12 min"),
+B("Shadow Sagarra", L("Sistema completo — ","Full system — ")+ri+" — "+pct+"%", is90?"10 min":"8 min"),
+B(L("Técnica dirigida","Directed technique"), (isMon?L("Construcción: ","Build: "):L("Aplicación: ","Apply: "))+el, tecTime),
+B(L("Saco táctico","Tactical bag"), is90?L("3 asaltos × 3 min / 1 min = 11 min","3 rounds × 3 min / 1 min = 11 min"):L("3 asaltos × 2 min / 1 min = 8 min","3 rounds × 2 min / 1 min = 8 min"), is90?"11 min":"8 min"),
+];
+if(hm) blocks.push(B(L("Mascota","Pad work"), is90?L("2 asaltos × 3 min / 1 min = 7 min","2 rounds × 3 min / 1 min = 7 min"):L("2 asaltos × 2 min / 1 min = 5 min","2 rounds × 2 min / 1 min = 5 min"), is90?"7 min":"5 min"));
+blocks.push(B(L("Físico","Physical"), L("Ver protocolo Bloque ","See Block ")+(week<=3?"1":week<=6?"2":week<=9?"3":"4")+" Fase 1", is90?(hm?"9 min":"14 min"):"7 min"));
+blocks.push(B(L("Estiramiento","Stretching"), L("Completo","Full"), "5 min"));
+const title = isMon?L("Cuerda + Construcción","Rope + Build"):L("Cuerda + Aplicación","Rope + Apply");
+return {title,blocks,el,ri,pct,pc,type:"lx"};
+}
+if(di===1||di===3) { // Tue/Thu - Carrera+Escuela
+const isThu = di===3;
+const hasSpar = hm&&isThu;
+let blocks = [
+B(L("Calentamiento dinámico","Dynamic warm-up"), L("Movilidad completa","Full mobility"), is90?"15 min":"10 min"),
+B(L("Carrera continua","Continuous run"), is90?L("20 min suave conversacional","20 min easy conversational"):L("15 min suave conversacional","15 min easy conversational"), is90?"20 min":"15 min"),
+B("Shadow Sagarra", L("Plan activo — ","Active plan — ")+ri+" — "+pct+"%", is90?"10 min":"7 min"),
+B(L("Escuela de combate","Combat school"), L("Corrección del punto débil — ","Weak point — ")+el, is90?(hasSpar?"15 min":"20 min"):"10 min"),
+B(L("Saco técnico","Technical bag"), is90?L("2 asaltos × 3 min / 1 min = 7 min","2 rounds × 3 min / 1 min = 7 min"):L("2 asaltos × 2 min / 1 min = 5 min","2 rounds × 2 min / 1 min = 5 min"), is90?"7 min":"5 min"),
+];
+if(hasSpar) blocks.push(B(L("Sparring condicionado","Conditioned sparring"), is90?L("2 asaltos × 3 min / 1 min = 7 min","2 rounds × 3 min / 1 min = 7 min"):L("2 asaltos × 2 min / 1 min = 5 min","2 rounds × 2 min / 1 min = 5 min"), is90?"7 min":"5 min"));
+else blocks.push(B(L("Shadow recuperación","Recovery shadow"), L("Suave — manos arriba","Easy — hands up"), is90?"8 min":"8 min"));
+blocks.push(B(L("Físico","Physical"), L("Ver protocolo Bloque ","See Block ")+(week<=3?"1":week<=6?"2":week<=9?"3":"4")+" Fase 1", is90?(hasSpar?"11 min":"13 min"):"8 min"));
+blocks.push(B(L("Estiramiento","Stretching"), L("Completo","Full"), "5 min"));
+const title = isThu?L("Carrera + Sparring","Run + Sparring"):L("Carrera + Escuela","Run + Drills");
+return {title,blocks,el,ri,pct,pc,type:"mj"};
+}
+let blocks = [
+B(L("Calentamiento dinámico","Dynamic warm-up"), L("Movilidad completa","Full mobility"), is90?"15 min":"10 min"),
+B(L("4 tramos × 50m","4 × 50m sprints"), is90?L("80-88% velocidad / trote de regreso","80-88% speed / jog back"):L("80% velocidad / trote de regreso","80% speed / jog back"), is90?"10 min":"8 min"),
+B(L("Shadow libre evaluado","Free evaluated shadow"), L("Entrenador registra sin intervenir","Coach records without intervening"), is90?"15 min":"12 min"),
+B(L("Saco evaluación","Evaluation bag"), is90?L("3 asaltos × 3 min / 1 min = 11 min","3 rounds × 3 min / 1 min = 11 min"):L("3 asaltos × 2 min / 1 min = 8 min","3 rounds × 2 min / 1 min = 8 min"), is90?"11 min":"8 min"),
+];
+if(hm) blocks.push(B(L("Mascota evaluada","Evaluated pad work"), is90?L("2 asaltos × 3 min / 1 min = 7 min","2 rounds × 3 min / 1 min = 7 min"):L("2 asaltos × 2 min / 1 min = 5 min","2 rounds × 2 min / 1 min = 5 min"), is90?"7 min":"5 min"));
+blocks.push(B(L("Físico","Physical"), L("Ver protocolo Bloque ","See Block ")+(week<=3?"1":week<=6?"2":week<=9?"3":"4")+" Fase 1", is90?(hm?"15 min":"25 min"):"10 min"));
+blocks.push(B(L("Evaluación semanal","Weekly evaluation"), L("2 positivos + 1 a mejorar","2 positives + 1 to improve"), is90?(hm?"12 min":"9 min"):"7 min"));
+blocks.push(B(L("Estiramiento","Stretching"), L("Completo","Full"), "5 min"));
+return {title:L("Tramos + Evaluación","Sprints + Eval"),blocks,el,ri,pct,pc,type:"v"};
+}
+function p2Session(week, dow, is90) {
+const di = dow===0?6:dow-1;
+if(di>=5) return null;
+const wk = WP[2][week]||WP[2][1];
+const el = L(wk.es,wk.en), ri = L(wk.re,wk.rn), pct = wk.p;
+const pc = PC[2];
+const b1 = week<=3; // Bloque 1:lighter sparring (2 min rounds)
+const sparStr = is90?(b1?L("5 asaltos × 2 min / 1 min = 14 min — solo rectos","5 rounds × 2 min / 1 min = 14 min — straights only"):L("5 asaltos × 3 min / 1 min = 19 min","5 rounds × 3 min / 1 min = 19 min")):(b1?L("4 asaltos × 2 min / 1 min = 11 min — solo rectos","4 rounds × 2 min / 1 min = 11 min — straights only"):L("4 asaltos × 3 min / 1 min = 15 min","4 rounds × 3 min / 1 min = 15 min"));
+const sparT = is90?(b1?"14 min":"19 min"):(b1?"11 min":"15 min");
+const mascStr = is90?L("5 asaltos × 3 min / 1.5 min = 21 min","5 rounds × 3 min / 1.5 min = 21 min"):L("4 asaltos × 3 min / 1.5 min = 17 min","4 rounds × 3 min / 1.5 min = 17 min");
+const mascT = is90?"21 min":"17 min";
+const sacoStr = is90?L("4 asaltos × 2 min / 1 min = 11 min","4 rounds × 2 min / 1 min = 11 min"):L("3 asaltos × 2 min / 1 min = 8 min","3 rounds × 2 min / 1 min = 8 min");
+const sacoT = is90?"11 min":"8 min";
+if(di===0||di===2) { // Mon/Wed:Cuerda + Tramos + Mascota + Saco (VERIFIED)
+const blocks = [
+B(L("Calentamiento dinámico","Dynamic warm-up"), L("Movilidad completa","Full mobility"), is90?"12 min":"10 min"),
+B(L("Cuerda imaginaria","Shadow rope"), (is90?"20 min":"18 min")+L(" — rival "+ri+" — ráfaga "+(is90?"12":"8")+" rectos cada 2:30"," — "+ri+" — "+( is90?"12":"8")+" straights every 2:30"), is90?"20 min":"18 min"),
+B(L("4 tramos × 50m","4 × 50m sprints"), L(pct+"% / trote de regreso",pct+"% / jog back"), "7 min"),
+B("Shadow Sagarra", ri+" — "+L("plan activo","active plan")+" — "+pct+"%", is90?"10 min":"8 min"),
+B(L("Mascota educativa","Educational pad work"), mascStr+" — 70%", mascT),
+B(L("Saco técnico","Technical bag"), sacoStr, sacoT),
+B(L("Físico","Physical"), L("Ver protocolo Bloque ","See Block ")+(week<=3?"1":week<=7?"2":"3")+" Fase 2", is90?"9 min":"7 min"),
+];
+const title = di===0?L("Cuerda + Mascota + Saco","Rope + Pads + Bag"):L("Cuerda + Mascota + Saco (Var)","Rope + Pads + Bag (Var)");
+return {title,blocks,el,ri,pct,pc,type:"lx"};
+}
+if(di===1||di===3) { // Tue/Thu:Carrera + Escuela + SPARRING (VERIFIED - BOTH DAYS)
+const isThu = di===3;
+const escTime = is90?(b1?"15 min":"12 min"):"10 min";
+const recupTime = is90?(b1?"10 min":"8 min"):"8 min";
+const blocks = [
+B(L("Calentamiento dinámico","Dynamic warm-up"), L("Movilidad completa","Full mobility"), is90?"12 min":"10 min"),
+B(L("Carrera continua","Continuous run"), is90?L("22 min conversacional","22 min conversational"):L("20 min conversacional","20 min conversational"), is90?"22 min":"20 min"),
+B("Shadow Sagarra", ri+" — "+pct+"%", is90?"10 min":"8 min"),
+B(L("Escuela de combate","Combat school"), L("Corrección individual — ","Individual correction — ")+el, escTime),
+B(L("Sparring condicionado","Conditioned sparring"), sparStr, sparT),
+B(L("Shadow recuperación","Recovery shadow"), L("Ritmo suave — manos ARRIBA","Easy rhythm — hands UP"), recupTime),
+B(L("Físico","Physical"), L("Ver protocolo Bloque ","See Block ")+(week<=3?"1":week<=7?"2":"3")+" Fase 2", is90?"7 min":"4 min"),
+];
+const title = isThu?L("Carrera + Sparring + Análisis","Run + Sparring + Analysis"):L("Carrera + Escuela + Sparring","Run + Drills + Sparring");
+return {title,blocks,el,ri,pct,pc,type:"mj"};
+}
+const sacoVStr = is90?L("5 asaltos × 3 min / 1.5 min = 21 min — sistema completo","5 rounds × 3 min / 1.5 min = 21 min — full system"):L("4 asaltos × 3 min / 1.5 min = 17 min — sistema completo","4 rounds × 3 min / 1.5 min = 17 min — full system");
+const blocks = [
+B(L("Calentamiento dinámico","Dynamic warm-up"), L("Movilidad completa","Full mobility"), is90?"12 min":"10 min"),
+B(L("6 tramos × 50m + 2 × 100m","6 × 50m + 2 × 100m sprints"), L((is90?"83":"80")+"% / trote de regreso",(is90?"83":"80")+"% / jog back"), "14 min"),
+B(L("Shadow libre evaluado","Free evaluated shadow"), L("Entrenador evalúa sin intervenir","Coach evaluates without intervening"), is90?"18 min":"15 min"),
+B(L("Saco táctico","Tactical bag"), sacoVStr, is90?"21 min":"17 min"),
+B(L("Físico","Physical"), L("Ver protocolo Bloque ","See Block ")+(week<=3?"1":week<=7?"2":"3")+" Fase 2", is90?"10 min":"8 min"),
+B(L("Evaluación individual","Individual evaluation"), L("2 positivos + 1 a mejorar","2 positives + 1 to improve"), is90?"15 min":"11 min"),
+];
+return {title:L("Tramos + Shadow + Evaluación","Sprints + Shadow + Eval"),blocks,el,ri,pct,pc,type:"v"};
+}
+function p3Session(week, dow, is90) {
+const di = dow===0?6:dow-1;
+if(di>=5) return null;
+const wk = WP[3][week]||WP[3][1];
+const el = L(wk.es,wk.en), ri = L(wk.re,wk.rn), pct = wk.p;
+const pc = PC[3];
+const mascStr = is90?L("5 asaltos × 3 min / 1 min = 19 min","5 rounds × 3 min / 1 min = 19 min"):L("4 asaltos × 3 min / 1 min = 15 min","4 rounds × 3 min / 1 min = 15 min");
+const mascT = is90?"19 min":"15 min";
+const sacoStr = is90?L("4 asaltos × 3 min / 1 min = 15 min","4 rounds × 3 min / 1 min = 15 min"):L("3 asaltos × 3 min / 1 min = 11 min","3 rounds × 3 min / 1 min = 11 min");
+const sacoT = is90?"15 min":"11 min";
+const sparStr = is90?L("5 asaltos × 3 min / 1 min = 19 min — sistema completo","5 rounds × 3 min / 1 min = 19 min — full system"):L("4 asaltos × 3 min / 1 min = 15 min — sistema completo","4 rounds × 3 min / 1 min = 15 min — full system");
+const sparT = is90?"19 min":"15 min";
+if(di===0||di===2) {
+const blocks = [
+B(L("Calentamiento dinámico","Dynamic warm-up"), L("Movilidad completa","Full mobility"), is90?"12 min":"10 min"),
+B(L("Cuerda imaginaria","Shadow rope"), (is90?"20 min":"18 min")+L(" — "+ri+" — ráfaga "+(is90?"12":"10")+" rectos cada 2:30"," — "+ri+" — "+(is90?"12":"10")+" straights every 2:30"), is90?"20 min":"18 min"),
+B(L("4 tramos × 50m","4 × 50m sprints"), L(pct+"% / trote de regreso",pct+"% / jog back"), "7 min"),
+B("Shadow Sagarra", ri+" — "+L("sin instrucción","no instruction")+" — "+pct+"%", is90?"10 min":"8 min"),
+B(L("Mascota de asfixia","Intensive pad work"), mascStr, mascT),
+B(L("Saco táctico","Tactical bag"), sacoStr, sacoT),
+B(L("Físico","Physical"), L("Ver protocolo Bloque ","See Block ")+(week<=4?"1":"2")+" Fase 3", is90?"7 min":"6 min"),
+];
+return {title:L("Cuerda + Mascota Asfixia","Rope + Intensive Pads"),blocks,el,ri,pct,pc,type:"lx"};
+}
+if(di===1||di===3) {
+const blocks = [
+B(L("Calentamiento dinámico","Dynamic warm-up"), L("Movilidad completa","Full mobility"), is90?"12 min":"10 min"),
+B(L("Carrera continua","Continuous run"), is90?L("22 min conversacional","22 min conversational"):L("20 min conversacional","20 min conversational"), is90?"22 min":"20 min"),
+B("Shadow Sagarra", ri+" — "+L("sistema completo","full system")+" — "+pct+"%", is90?"10 min":"8 min"),
+B(L("Escuela de combate","Combat school"), L("Corrección automática — ","Auto correction — ")+el, is90?"12 min":"10 min"),
+B(L("Sparring condicionado","Conditioned sparring"), sparStr, sparT),
+B(L("Shadow recuperación","Recovery shadow"), L("Ritmo suave — manos ARRIBA","Easy rhythm — hands UP"), is90?"8 min":"7 min"),
+B(L("Físico","Physical"), L("Ver protocolo Bloque ","See Block ")+(week<=4?"1":"2")+" Fase 3", is90?"7 min":"5 min"),
+];
+const isThu = di===3;
+return {title:isThu?L("Carrera + Sparring + Análisis","Run + Sparring + Analysis"):L("Carrera + Escuela + Sparring","Run + Drills + Sparring"),blocks,el,ri,pct,pc,type:"mj"};
+}
+const sacoEvalStr = is90?L("5 asaltos × 3 min / 1.5 min = 21 min — sistema completo","5 rounds × 3 min / 1.5 min = 21 min — full system"):L("4 asaltos × 3 min / 1.5 min = 17 min — sistema completo","4 rounds × 3 min / 1.5 min = 17 min — full system");
+const blocks = [
+B(L("Calentamiento dinámico","Dynamic warm-up"), L("Movilidad completa","Full mobility"), is90?"12 min":"10 min"),
+B(L("6 tramos × 50m + 2 × 100m","6 × 50m + 2 × 100m sprints"), L(pct+"% / trote de regreso",pct+"% / jog back"), "14 min"),
+B(L("Shadow libre evaluado","Free evaluated shadow"), L("Entrenador evalúa sin intervenir","Coach evaluates without intervening"), is90?"18 min":"15 min"),
+B(L("Saco evaluación","Evaluation bag"), sacoEvalStr, is90?"21 min":"17 min"),
+B(L("Físico","Physical"), L("Ver protocolo Bloque ","See Block ")+(week<=4?"1":"2")+" Fase 3", is90?"10 min":"8 min"),
+B(L("Evaluación individual","Individual evaluation"), L("2 positivos + 1 a mejorar","2 positives + 1 to improve"), is90?"13 min":"10 min"),
+];
+return {title:L("Shadow Evaluado + Saco","Evaluated Shadow + Bag"),blocks,el,ri,pct,pc,type:"v"};
+}
+function p4Session(week, dow, is90) {
+const di = dow===0?6:dow-1;
+if(di>=5) return null;
+const wk = WP[4][week]||WP[4][1];
+const el = L(wk.es,wk.en), ri = L(wk.re,wk.rn), pct = wk.p;
+const pc = PC[4];
+if(week===1) { // ÚLTIMA CARGA - 4 min rounds
+const mascStr = is90?L("5 asaltos × 4 min / 1 min = 24 min — 90%","5 rounds × 4 min / 1 min = 24 min — 90%"):L("4 asaltos × 4 min / 1 min = 19 min — 90%","4 rounds × 4 min / 1 min = 19 min — 90%");
+const sacoStr = is90?L("4 asaltos × 3 min / 1 min = 15 min","4 rounds × 3 min / 1 min = 15 min"):L("3 asaltos × 3 min / 1 min = 11 min","3 rounds × 3 min / 1 min = 11 min");
+const sparStr = is90?L("5 asaltos × 4 min / 1 min = 24 min — plan específico","5 rounds × 4 min / 1 min = 24 min — specific plan"):L("4 asaltos × 4 min / 1 min = 19 min — plan específico","4 rounds × 4 min / 1 min = 19 min — specific plan");
+if(di===0||di===2) {
+const blocks = [
+B(L("Calentamiento dinámico","Dynamic warm-up"), L("Movilidad completa","Full mobility"), is90?"12 min":"10 min"),
+B(L("Cuerda imaginaria","Shadow rope"), is90?"20 min":"18 min", is90?"20 min":"18 min"),
+B(L("4 tramos × 50m","4 × 50m sprints"), L(pct+"% / trote de regreso",pct+"% / jog back"), "7 min"),
+B("Shadow Sagarra", ri+" — "+L("sistema completo activo","full system active")+" — "+pct+"%", is90?"10 min":"8 min"),
+B(L("Mascota de asfixia","Intensive pad work"), mascStr, is90?"24 min":"19 min"),
+B(L("Saco táctico","Tactical bag"), sacoStr, is90?"15 min":"11 min"),
+B(L("Físico","Physical"), L("Ver protocolo Semana 1 Fase 4","See Week 1 Phase 4 protocol"), is90?"2 min":"4 min"),
+];
+return {title:L("ÚLTIMA CARGA — Mascota Asfixia","PEAK LOAD — Intensive Pads"),blocks,el,ri,pct,pc,type:"lx"};
+}
+if(di===1||di===3) {
+const blocks = [
+B(L("Calentamiento dinámico","Dynamic warm-up"), L("Movilidad completa","Full mobility"), is90?"12 min":"10 min"),
+B(L("Carrera continua","Continuous run"), is90?L("22 min conversacional","22 min conversational"):L("20 min conversacional","20 min conversational"), is90?"22 min":"20 min"),
+B("Shadow Sagarra", ri+" — "+L("plan de pelea activo","active fight plan")+" — "+pct+"%", is90?"10 min":"8 min"),
+B(L("Técnica específica","Specific technique"), L("Plan de pelea — corrección final","Fight plan — final correction"), is90?"10 min":"8 min"),
+B(L("Sparring condicionado","Conditioned sparring"), sparStr, is90?"24 min":"19 min"),
+B(L("Shadow recuperación","Recovery shadow"), L("Ritmo suave — manos ARRIBA","Easy rhythm — hands UP"), is90?"5 min":"5 min"),
+B(L("Físico","Physical"), L("Ver protocolo Semana 1 Fase 4","See Week 1 Phase 4 protocol"), is90?"7 min":"5 min"),
+];
+return {title:L("ÚLTIMA CARGA — Sparring Específico","PEAK LOAD — Specific Sparring"),blocks,el,ri,pct,pc,type:"mj"};
+}
+const blocks = [
+B(L("Calentamiento dinámico","Dynamic warm-up"), L("Movilidad completa","Full mobility"), is90?"12 min":"10 min"),
+B(L("6 tramos × 50m + 2 × 100m","6 × 50m + 2 × 100m sprints"), pct+"% / "+L("trote de regreso","jog back"), "14 min"),
+B(L("Shadow libre evaluado","Free evaluated shadow"), L("Entrenador evalúa sin intervenir","Coach evaluates without intervening"), is90?"18 min":"15 min"),
+B(L("Saco evaluación","Evaluation bag"), is90?L("5 asaltos × 3 min / 1 min = 19 min — máxima potencia","5 rounds × 3 min / 1 min = 19 min — maximum power"):L("4 asaltos × 3 min / 1 min = 15 min — máxima potencia","4 rounds × 3 min / 1 min = 15 min — maximum power"), is90?"19 min":"15 min"),
+B(L("Físico","Physical"), L("Ver protocolo Semana 1 Fase 4","See Week 1 Phase 4 protocol"), is90?"12 min":"10 min"),
+B(L("Evaluación final semana 1","Week 1 final evaluation"), L("Análisis del plan de pelea","Fight plan analysis"), is90?"15 min":"15 min"),
+];
+return {title:L("ÚLTIMA CARGA — Evaluación","PEAK LOAD — Evaluation"),blocks,el,ri,pct,pc,type:"v"};
+}
+if(week===2) { // REDUCCIÓN
+const mascStr = is90?L("4 asaltos × 4 min / 1 min = 19 min — plan fijo 90%","4 rounds × 4 min / 1 min = 19 min — fixed plan 90%"):L("3 asaltos × 4 min / 1.5 min = 15 min — plan fijo 90%","3 rounds × 4 min / 1.5 min = 15 min — fixed plan 90%");
+const sacoStr = is90?L("4 asaltos × 3 min / 1 min = 15 min","4 rounds × 3 min / 1 min = 15 min"):L("3 asaltos × 3 min / 1 min = 11 min","3 rounds × 3 min / 1 min = 11 min");
+const sparStr = is90?L("4 asaltos × 4 min / 1 min = 19 min — plan ejecutado","4 rounds × 4 min / 1 min = 19 min — plan executed"):L("3 asaltos × 4 min / 1 min = 14 min — plan ejecutado","3 rounds × 4 min / 1 min = 14 min — plan executed");
+if(di===0||di===2) {
+const blocks = [
+B(L("Calentamiento dinámico","Dynamic warm-up"), L("Movilidad completa","Full mobility"), is90?"12 min":"10 min"),
+B(L("Cuerda imaginaria","Shadow rope"), is90?"20 min":"18 min", is90?"20 min":"18 min"),
+B("Shadow Sagarra", ri+" — "+L("plan de pelea 80%","fight plan 80%"), is90?"10 min":"8 min"),
+B(L("Mascota táctica","Tactical pad work"), mascStr, is90?"19 min":"15 min"),
+B(L("Saco táctico","Tactical bag"), sacoStr, is90?"15 min":"11 min"),
+B(L("Físico","Physical"), L("Ver protocolo Semana 2","See Week 2 protocol"), is90?"8 min":"7 min"),
+B(L("Estiramiento profundo","Deep stretching"), L("Profundo","Deep"), "6 min"),
+];
+return {title:L("REDUCCIÓN — Mascota Táctica","TAPER — Tactical Pads"),blocks,el,ri,pct,pc,type:"lx"};
+}
+if(di===1||di===3) {
+const blocks = [
+B(L("Calentamiento dinámico","Dynamic warm-up"), L("Movilidad completa","Full mobility"), is90?"12 min":"10 min"),
+B(L("Tramos de velocidad","Speed sprints"), is90?L("10×50m + 4×100m / 92-95% / trote de regreso","10×50m + 4×100m / 92-95% / jog back"):L("10×50m + 4×100m / 92% / trote de regreso","10×50m + 4×100m / 92% / jog back"), "18 min"),
+B(L("Situaciones críticas","Critical situations"), L("Las 3 situaciones — respuesta automática","The 3 situations — automatic response"), is90?"12 min":"10 min"),
+B(L("Sparring condicionado","Conditioned sparring"), sparStr, is90?"19 min":"14 min"),
+B(L("Shadow recuperación","Recovery shadow"), L("Ritmo suave — manos ARRIBA","Easy rhythm — hands UP"), is90?"15 min":"12 min"),
+B(L("Físico","Physical"), L("Ver protocolo Semana 2","See Week 2 protocol"), is90?"8 min":"5 min"),
+B(L("Estiramiento profundo","Deep stretching"), L("Profundo","Deep"), "6 min"),
+];
+return {title:L("REDUCCIÓN — Sparring Condicionado","TAPER — Conditioned Sparring"),blocks,el,ri,pct,pc,type:"mj"};
+}
+const blocks = [
+B(L("Calentamiento dinámico","Dynamic warm-up"), L("Movilidad completa","Full mobility"), is90?"12 min":"10 min"),
+B(L("8 tramos × 50m + 2 × 100m","8 × 50m + 2 × 100m sprints"), L("88% / trote de regreso","88% / jog back"), "16 min"),
+B(L("Shadow libre evaluado","Free evaluated shadow"), L("Entrenador evalúa sin intervenir","Coach evaluates without intervening"), is90?"15 min":"12 min"),
+B(L("Saco evaluación","Evaluation bag"), is90?L("4 asaltos × 3 min / 1 min = 15 min","4 rounds × 3 min / 1 min = 15 min"):L("3 asaltos × 3 min / 1 min = 11 min","3 rounds × 3 min / 1 min = 11 min"), is90?"15 min":"11 min"),
+B(L("Físico","Physical"), L("Ver protocolo Semana 2","See Week 2 protocol"), is90?"15 min":"12 min"),
+B(L("Evaluación semana 2","Week 2 evaluation"), L("Ajuste final del plan de pelea","Final fight plan adjustment"), is90?"17 min":"14 min"),
+];
+return {title:L("REDUCCIÓN — Shadow + Saco","TAPER — Shadow + Bag"),blocks,el,ri,pct,pc,type:"v"};
+}
+if(week===3) { // AFILADO - solo lunes
+if(di===0) {
+const blocks = [
+B(L("Calentamiento dinámico","Dynamic warm-up"), L("Movilidad completa","Full mobility"), is90?"12 min":"10 min"),
+B(L("Cuerda imaginaria","Shadow rope"), is90?L("15 min — ritmo de combate","15 min — fight rhythm"):L("12 min — ritmo de combate","12 min — fight rhythm"), is90?"15 min":"12 min"),
+B("Shadow Sagarra", L("Plan de pelea — sin instrucción","Fight plan — no instruction"), is90?"15 min":"12 min"),
+B(L("Mascota afilado","Sharpening pads"), is90?L("3 asaltos × 3 min / 1.5 min = 11 min — plan fijo","3 rounds × 3 min / 1.5 min = 11 min — fixed plan"):L("3 asaltos × 2 min / 1 min = 8 min — plan fijo","3 rounds × 2 min / 1 min = 8 min — fixed plan"), is90?"11 min":"8 min"),
+B(L("Saco afilado","Sharpening bag"), is90?L("3 asaltos × 3 min / 1 min = 11 min","3 rounds × 3 min / 1 min = 11 min"):L("2 asaltos × 3 min / 1 min = 7 min","2 rounds × 3 min / 1 min = 7 min"), is90?"11 min":"7 min"),
+B(L("Estiramiento profundo","Deep stretching"), L("Recuperación total","Full recovery"), is90?"26 min":"26 min"),
+];
+return {title:L("AFILADO — Sesión Única","SHARPENING — Single Session"),blocks,el,ri,pct,pc,type:"lx"};
+}
+if(di===1||di===2||di===3||di===4) {
+const blocks = [
+B(L("Descanso activo","Active rest"), L("Movilidad suave + visualización del plan","Light mobility + plan visualization"), "30-45 min"),
+B(L("Sin contacto","No contact"), L("Solo movilidad y visualización","Only mobility and visualization"), "—"),
+];
+return {title:L("AFILADO — Descanso Activo","SHARPENING — Active Rest"),blocks,el,ri,pct,pc,type:"rest"};
+}
+}
+if(week===4) { // DÍA DE PELEA
+const blocks = [
+B(L("Activación matutina","Morning activation"), L("15 min movilidad suave + 5 min shadow suave","15 min light mobility + 5 min light shadow"), "20 min"),
+B(L("Visualización","Visualization"), L("Plan de pelea — los 3 puntos declarados en voz alta","Fight plan — the 3 points declared out loud"), "10 min"),
+B(L("PELEA","FIGHT"), L("Combate real — ejecutar el plan","Real fight — execute the plan"), "—"),
+];
+return {title:L("ACTIVACIÓN + PELEA","ACTIVATION + FIGHT"),blocks,el,ri,pct,pc,type:"fight"};
+}
+return null;
+}
+function getSessData(phase, week, dow, group) {
+const di = dow===0?6:dow-1;
+if(di>=5) return {title:L("Descanso Completo","Full Rest"),blocks:[],el:"",ri:"",pct:0,pc:"#1e3050",type:"rest"};
+const is90 = !(group&&(group.includes("C")||group.includes("Grupo C")||group.includes("Group C")||group.includes("B")||group.includes("Grupo B")||group.includes("Group B")));
+let result;
+if(phase===1) result = p1Session(week,dow,is90);
+else if(phase===2) result = p2Session(week,dow,is90);
+else if(phase===3) result = p3Session(week,dow,is90);
+else if(phase===4) result = p4Session(week,dow,is90);
+else result = null;
+if(!result) return {title:L("Descanso Activo","Active Rest"),blocks:[],el:L("Mantenimiento","Maintenance"),ri:"",pct:70,pc:PC[5]||"#4a4a1a",type:"rest"};
+result.dur = result.blocks.reduce((s,b)=>s+(parseInt(b.t)||0),0);
+return result;
+}
+function sessCard(s,id,open){
+const isR=s.type==="rest"||s.type==="fight";
+const dur=s.dur||0;
+let h=`<div class="card" style="padding:0;overflow:hidden;${open?`border-color:${s.pc}`:""}">`;
+h+=`<div onclick="toggleSC('${id}')" style="padding:13px 14px;display:flex;justify-content:space-between;align-items:center;cursor:pointer">`;
+h+=`<div style="flex:1"><div style="font-weight:800;font-size:17px;color:#fff">${esc(s.title)}</div>`;
+if(s.el&&s.type!=="rest")h+=`<div style="font-size:11px;color:#D4A017;font-family:Barlow;font-weight:600;margin-top:2px">${esc(s.el)}</div>`;
+h+=`</div><div style="display:flex;align-items:center;gap:8px">`;
+h+=`<div style="background:${isR?"#1e3050":s.pc};border-radius:6px;padding:4px 10px;font-weight:700;font-size:13px;color:#fff">${isR?L("Descanso","Rest"):dur+" min"}</div>`;
+h+=`<span id="arr-${id}" style="color:#D4A017;font-size:14px">${open?"▲":"▼"}</span></div></div>`;
+h+=`<div id="bd-${id}" style="${open?"":"display:none"}">`;
+if(!isR&&s.blocks.length>0){
+h+=`<div style="padding:8px 14px;background:#0a1628;display:flex;gap:16px;flex-wrap:wrap">`;
+h+=`<div><span style="font-size:10px;color:#7a9ab5;font-family:Barlow">${L("Rival:","Opponent:")} </span><span style="font-size:10px;color:#fff;font-family:Barlow;font-weight:600">${esc(s.ri||s.rival||"")}</span></div>`;
+h+=`<div><span style="font-size:10px;color:#7a9ab5;font-family:Barlow">${L("Intensidad:","Intensity:")} </span><span style="font-size:10px;color:#D4A017;font-family:Barlow;font-weight:600">${s.pct||0}%</span></div></div>`;
+s.blocks.forEach((b,i)=>{
+h+=`<div style="display:flex;align-items:flex-start;gap:10px;padding:7px 14px;border-top:1px solid #0f1e35;background:${i%2===0?"#0a1420":"transparent"}">`;
+h+=`<div style="width:44px;text-align:right;font-size:12px;color:#D4A017;font-weight:700;flex-shrink:0;padding-top:2px">${esc(b.t)}</div>`;
+h+=`<div style="flex:1"><div style="font-weight:700;font-size:13px;color:#fff">${esc(b.n)}</div><div style="font-size:11px;color:#7a9ab5;font-family:Barlow;line-height:1.3">${esc(b.d)}</div></div></div>`;
+});
+h+=`<div style="padding:8px 14px;background:linear-gradient(135deg,#1a2744,#0f1e35);display:flex;justify-content:space-between"><span style="font-size:13px;color:#7a9ab5;font-weight:700">TOTAL</span><span style="font-size:15px;color:#D4A017;font-weight:800">${dur} min</span></div>`;
+}
+h+=`</div></div>`;
+return h;
+}
+function toggleSC(id){const bd=document.getElementById("bd-"+id);const ar=document.getElementById("arr-"+id);if(!bd)return;const vis=bd.style.display!=="none";bd.style.display=vis?"none":"block";if(ar)ar.textContent=vis?"▼":"▲";}
+function goTab(tab){
+ST.tab=tab;
+document.querySelectorAll(".page").forEach(p=>p.classList.remove("on"));
+const pg=document.getElementById("pg-"+tab);
+if(pg)pg.classList.add("on");
+document.querySelectorAll(".nb").forEach(b=>{b.classList.remove("on");const bar=b.querySelector(".bar");if(bar)bar.remove();});
+const nb=document.getElementById("nb-"+tab);
+if(nb){nb.classList.add("on");if(!nb.querySelector(".bar")){const d=document.createElement("div");d.className="bar";nb.appendChild(d);}}
+renderTab(tab);
+}
+function renderTab(tab){
+const el=document.getElementById("pg-"+tab);
+if(!el)return;
+el.classList.remove("fi");void el.offsetWidth;el.classList.add("fi");
+if(tab==="home")el.innerHTML=renderHome();
+else if(tab==="athletes")el.innerHTML=renderAthletes();
+else if(tab==="training")el.innerHTML=renderTraining();
+else if(tab==="fights")el.innerHTML=renderFights();
+else if(tab==="tactics")el.innerHTML=renderTactics();
+else if(tab==="notes")el.innerHTML=renderNotes();
+else if(tab==="nutrition")el.innerHTML=renderNutrition();
+else if(tab==="store")el.innerHTML=renderStore();
+updateHdr();
+}
+function reRender(){renderTab(ST.tab);}
+function updateHdr(){
+const d=document.getElementById("hdr-date");
+const u=document.getElementById("hdr-user");
+const lb=document.getElementById("lang-btn");
+if(d)d.textContent=new Date().toLocaleDateString(ST.lang==="es"?"es-ES":"en-US",{weekday:"short",day:"2-digit",month:"short"}).toUpperCase();
+if(u)u.textContent=ST.isCoach?L("COACH OSVIMER","COACH OSVIMER"):(ST.proUser?"PRO: "+(ST.proUser.name.split(" ")[0].toUpperCase()):(ST.user?ST.user.name.split(" ")[0].toUpperCase():""));
+if(lb)lb.textContent=ST.lang==="es"?"EN":"ES";
+const icons=["🏠","🥊","📋","🏆","🎯","🥗","🛒","💬"];
+const nav=document.getElementById("nav");
+if(nav)nav.innerHTML=["home","athletes","training","fights","tactics","nutrition","store","notes"].map((id,i)=>`<button class="nb${ST.tab===id?" on":""}" id="nb-${id}" onclick="goTab('${id}')"><span class="ic">${icons[i]}</span><span>${t().nav[i]}</span>${ST.tab===id?'<div class="bar"></div>':""}</button>`).join("");
+}
+function toggleLang(){const nl=ST.lang==="es"?"en":"es";ST.lang=nl;sv("cba_lang",nl);updateHdr();reRender();}
+
+function renderProWeeklyPlan() {
+  if (!ST.proUser || ST.proUser.isCoachPro) return "<div class='card'>Acceso solo para atletas PRO</div>";
+  const fase = ST.proUser.proPhase || 1;
+  const semana = ST.proUser.proWeek || 1;
+  let progreso;
+  try { progreso = JSON.parse(localStorage.getItem("pro_progress_" + ST.proUser.id)) || { completados: [] }; }
+  catch(e) { progreso = { completados: [] }; }
+  const phase = ProPhases.find(p=>p.id===fase)||ProPhases[0];
+  let html = `<div class="card" style="background:#0a1628;margin-bottom:16px;">
+    <div style="font-size:18px;font-weight:900;color:#D4A017;">📅 SEMANA ${semana} · FASE ${fase} — ${esc(phase.name)}</div>
+    <div style="font-size:12px;color:#fff;font-family:Barlow;margin-top:4px;">🎯 ${esc(phase.focus)}</div>
+    <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;">
+      <span style="background:#1e3050;padding:4px 12px;border-radius:20px;font-size:11px;">🇨🇺 Técnica Sagarra</span>
+      <span style="background:#1e3050;padding:4px 12px;border-radius:20px;font-size:11px;">🇺🇸 Potencia/Sparring</span>
+      <span style="background:#1e3050;padding:4px 12px;border-radius:20px;font-size:11px;">🇲🇽 Cuerpo/Presión</span>
+    </div>
+    <div style="font-size:11px;color:#D4A017;margin-top:6px;">✅ 4 días: LUN · MAR · JUE · VIE</div>
+  </div>`;
+  const days = ["mon","tue","thu","fri"];
+  const dayNames = {mon:"🗓 LUN",tue:"🗓 MAR",thu:"🗓 JUE",fri:"🗓 VIE"};
+  days.forEach(d=>{
+    const session = phase.sessions&&phase.sessions[d];
+    const completado = progreso.completados.includes(d);
+    if(!session)return;
+    html += `<div class="card" style="margin-bottom:12px;border-left:4px solid ${completado?"#1a8f4c":phase.color};">
+      <div style="font-weight:800;font-size:17px;color:#fff;">${dayNames[d]} · ${esc(session.title)}</div>
+      <div style="font-size:11px;color:#7a9ab5;font-family:Barlow;">~${session.dur||90} min · 🇨🇺🇺🇸🇲🇽</div>
+      <div style="background:#0a1628;border-radius:8px;margin-top:8px;">`;
+    session.blocks.forEach((b,i)=>{
+      html+=`<div style="display:flex;gap:10px;padding:7px 10px;border-top:${i>0?"1px solid #0f1e35":"none"};">
+        <div style="width:46px;text-align:right;font-size:11px;color:#D4A017;font-weight:700;flex-shrink:0;">${esc(b.t)}</div>
+        <div><div style="font-weight:700;font-size:13px;color:#fff;">${esc(b.n)}</div>
+        <div style="font-size:11px;color:#7a9ab5;font-family:Barlow;">${esc(b.d||"")}</div></div></div>`;
+    });
+    html+=`</div>
+      <div style="display:flex;justify-content:space-between;padding-top:8px;margin-top:4px;border-top:1px solid #1e3050;">
+        <span style="font-size:12px;color:#7a9ab5;font-weight:700;">TOTAL</span>
+        <span style="font-size:14px;color:#D4A017;font-weight:800;">${session.dur||90} min</span>
+      </div>
+      <button class="btn btn-gr" style="margin-top:8px;padding:8px;font-size:12px;" onclick="marcarEntrenoPro('${d}')">
+        ${completado?"✅ COMPLETADO":"○ MARCAR COMO HECHO"}
+      </button></div>`;
+  });
+  html+=`<div class="card" style="background:linear-gradient(135deg,#1a1a2e,#0a0a18);margin-top:8px;">
+    <div style="font-size:14px;font-weight:900;color:#D4A017;margin-bottom:8px;">🌎 METODOLOGÍA (CUB · USA · MEX)</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <div style="flex:1;background:#0a1628;border-radius:10px;padding:10px;"><div style="font-weight:800;color:#e74c3c;">🇨🇺 CUBA</div><div style="font-size:11px;color:#fff;font-family:Barlow;">Técnica Sagarra, sombra, movimiento.</div></div>
+      <div style="flex:1;background:#0a1628;border-radius:10px;padding:10px;"><div style="font-weight:800;color:#3b82f6;">🇺🇸 USA</div><div style="font-size:11px;color:#fff;font-family:Barlow;">Sparring condicionado, potencia.</div></div>
+      <div style="flex:1;background:#0a1628;border-radius:10px;padding:10px;"><div style="font-weight:800;color:#f59e0b;">🇲🇽 MX</div><div style="font-size:11px;color:#fff;font-family:Barlow;">Cuerpo, presión, corazón.</div></div>
+    </div></div>`;
+  return html;
+}
+function marcarEntrenoPro(dia) {
+  if (!ST.proUser) return;
+  let progreso;
+  try { progreso = JSON.parse(localStorage.getItem("pro_progress_" + ST.proUser.id)) || { completados: [] }; }
+  catch(e) { progreso = { completados: [] }; }
+  if (!progreso.completados.includes(dia)) {
+    progreso.completados.push(dia);
+    localStorage.setItem("pro_progress_" + ST.proUser.id, JSON.stringify(progreso));
+    const phrases = ["💪 ¡Sesión completada!","🔥 Un día más hacia el título","🥊 El trabajo no miente","⭐ Excelente sesión","🇨🇺🇺🇸🇲🇽 Sistema en acción"];
+    const toast = document.createElement("div");
+    toast.textContent = phrases[Math.floor(Math.random()*phrases.length)];
+    toast.style.cssText = "position:fixed;bottom:70px;left:20px;right:20px;background:#D4A017;color:#070d1a;padding:12px;border-radius:12px;font-weight:900;z-index:200;text-align:center;font-size:13px;";
+    document.body.appendChild(toast);
+    setTimeout(()=>toast.remove(), 3000);
+  }
+  const container = document.getElementById("proContent");
+  if (container) container.innerHTML = renderProWeeklyPlan();
+}
+function setProTab(tab) {
+  ST.proSubTab = tab;
+  const container = document.getElementById("proContent");
+  if (!container) return;
+  if (tab === "semana") container.innerHTML = renderProWeeklyPlan();
+  else if (tab === "fisico") {
+    openProPhysModal(ST.proUser.proPhase||1);
+    container.innerHTML = `<div class="card" style="text-align:center;"><button onclick="openProPhysModal(${ST.proUser.proPhase||1})" class="btn btn-g" style="margin-top:10px;">🏋️ VER PLAN FÍSICO PRO</button></div>`;
+  }
+  else if (tab === "tactica") container.innerHTML = renderTactics();
+  else if (tab === "nutricion") container.innerHTML = renderNutrition();
+}
+function renderHomePro(){
+const ath=ST.proUser;
+if(!ath)return"";
+if(ath.isCoachPro){
+const pa=ST.proAthletes||[];
+let h=`<div style="background:linear-gradient(135deg,#1a0000,#0f1e35);border:2px solid #e74c3c;border-radius:14px;padding:16px;margin-bottom:14px;text-align:center;"><div style="font-size:22px;font-weight:900;color:#e74c3c;margin-bottom:4px;">🥊 MÓDULO PRO</div><div style="font-size:12px;color:#fff;font-family:Barlow;">Coach Osvimer Rodriguez — Nemea Boxing</div></div>`;
+h+=`<div style="font-size:11px;font-weight:700;color:#D4A017;letter-spacing:1px;margin-bottom:10px;">ATLETAS PRO (${pa.length})</div>`;
+if(!pa.length){h+=`<div style="text-align:center;padding:30px;color:#4a6a8a;font-family:Barlow;">Sin atletas pro.</div>`;}
+else pa.forEach(a=>{h+=`<div class="card" style="border-left:3px solid #e74c3c;cursor:pointer;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;" onclick="openEditProAth('${a.id}')"><div><div style="font-weight:800;font-size:15px;color:#fff;">${esc(a.name)}</div><div style="font-size:11px;color:#7a9ab5;font-family:Barlow;">${a.weight||""}lb · Fase ${a.proPhase||1} · PIN: ${esc(a.pin||"")}</div></div><div><span style="color:#1a8f4c;">${a.wins||0}V</span> <span style="color:#c0392b;">${a.losses||0}D</span></div></div>`;});
+h+=`<button onclick="openAddProAth()" class="btn btn-r" style="margin-top:10px;">+ REGISTRAR ATLETA PRO</button>`;
+h+=`<button onclick="showSwitchModal()" class="btn btn-d" style="margin-top:8px;">SALIR</button>`;
+return h;
+}
+const phase=ProPhases.find(p=>p.id===(ath.proPhase||1))||ProPhases[0];
+const subTab=ST.proSubTab||"semana";
+let html=`<div class="card" style="border-color:#e74c3c;background:linear-gradient(135deg,#1a0000,#0f1e35);margin-bottom:14px;"><div style="display:flex;justify-content:space-between;align-items:center;"><div><div style="font-size:20px;font-weight:900;color:#fff;">🥊 ${esc(ath.name)}</div><div style="font-size:11px;color:#e74c3c;">ATLETA PRO · ${ath.weight||""} lb</div></div><div style="background:#8b1a1a;border-radius:8px;padding:6px 12px;text-align:center;"><div style="font-size:20px;font-weight:900;color:#fff;">${ath.wins||0}V</div><div style="font-size:10px;color:rgba(255,255,255,.6);">${ath.losses||0}D ${ath.draws||0}E</div></div></div><div style="background:#0a1628;border-radius:8px;padding:10px;margin-top:10px;"><div style="font-size:10px;color:#e74c3c;font-weight:700;">FASE ${ath.proPhase||1} — ${esc(phase.name)}</div><div style="font-size:12px;color:#fff;font-family:Barlow;">⚡ Semana ${ath.proWeek||1} · 4 días (LUN · MAR · JUE · VIE)</div></div></div>`;
+const tabs=[{id:"semana",label:"📅 SEMANA",color:"#e74c3c"},{id:"fisico",label:"💪 FÍSICO",color:"#D4A017"},{id:"tactica",label:"🎯 TÁCTICA",color:"#3b82f6"},{id:"nutricion",label:"🥗 NUTRICIÓN",color:"#1a6b3c"}];
+html+=`<div style="display:flex;gap:4px;background:#0a1628;border-radius:40px;padding:6px;margin-bottom:16px;">`;
+tabs.forEach(tab=>{
+const active=subTab===tab.id;
+html+=`<button onclick="setProTab('${tab.id}')" style="flex:1;background:${active?tab.color:"#1e3050"};color:${active&&tab.id==="fisico"?"#070d1a":"#fff"};border:none;border-radius:30px;padding:8px 2px;font-size:10px;font-weight:700;cursor:pointer;">${tab.label}</button>`;
+});
+html+=`</div><div id="proContent"></div>`;
+  html+=`<button onclick="showSwitchModal()" style="width:100%;background:none;border:2px solid #8b1a1a;color:#e74c3c;border-radius:10px;padding:12px;font-weight:700;cursor:pointer;margin-top:8px;">⇄ CAMBIAR DE USUARIO</button>`;
+setTimeout(()=>{const el=document.getElementById("proContent");if(el)el.innerHTML=renderProWeeklyPlan();},20);
+return html;
+}
+
+function renderHome(){
+if(ST.proUser)return renderHomePro();
+const tl=t();
+const visible=ST.isCoach?ST.athletes:ST.athletes.filter(a=>a.id===ST.user?.id);
+const active=ST.isCoach?ST.athletes.filter(a=>a.status==="Activo"||a.status==="Active"):visible;
+const upcoming=ST.fights.filter(f=>f.date&&new Date(f.date)>=new Date()).sort((a,b)=>new Date(a.date)-new Date(b.date));
+const recent=[...ST.fights].filter(f=>ST.isCoach||f.athleteId===ST.user?.id).sort((a,b)=>new Date(b.date||0)-new Date(a.date||0)).slice(0,3);
+let h="";
+if(ST.isCoach){
+h+=`<div class="g3" style="margin-bottom:16px">`;
+h+=[{v:ST.athletes.length,c:"#1a4a7a",l:L("Atletas","Athletes")},{v:active.length,c:"#1a6b3c",l:L("Activos","Active")},{v:ST.fights.length,c:"#8b1a1a",l:L("Peleas","Fights")}].map(s=>`<div style="background:${s.c};border-radius:10px;padding:12px 8px;text-align:center"><div style="font-size:32px;font-weight:900;color:#fff;line-height:1">${s.v}</div><div style="font-size:10px;color:rgba(255,255,255,.75);letter-spacing:1px">${s.l.toUpperCase()}</div></div>`).join("");
+h+=`</div>`;
+}
+h+=sh(tl.today,"📋");
+if(active.length===0){h+=ec(tl.noA);}
+else{
+h+=`<div style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px">`;
+active.slice(0,ST.isCoach?6:1).forEach(a=>{
+const s=getSessData(a.phase,a.week,new Date().getDay(),a.group||"Mayores 16");
+h+=`<div class="card" style="display:flex;align-items:center;gap:12px;border-left:3px solid ${s.type==="rest"?"#4a6a8a":s.pc};cursor:pointer;padding:12px 14px" onclick="${ST.isCoach?`openAth('${a.id}')`:`goTab('training')`}">`;
+h+=av(a.name,40);
+h+=`<div style="flex:1;min-width:0"><div style="font-weight:700;font-size:15px;color:#fff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(a.name)}</div>`;
+h+=`<div style="font-size:11px;color:#D4A017;font-family:Barlow;font-weight:600">${esc(s.title)}</div>`;
+if(s.type!=="rest"&&s.el)h+=`<div style="font-size:10px;color:#7a9ab5;font-family:Barlow">${esc(s.el)}</div>`;
+h+=`</div><div style="text-align:right">${badge(a.phase,a.week,true)}<div style="font-size:10px;color:#7a9ab5;margin-top:2px">${s.pct}%</div></div></div>`;
+});
+h+=`</div>`;
+}
+if(upcoming.filter(f=>ST.isCoach||f.athleteId===ST.user?.id).length>0){
+h+=sh(tl.upF,"🥊");
+h+=`<div style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px">`;
+upcoming.filter(f=>ST.isCoach||f.athleteId===ST.user?.id).slice(0,3).forEach(f=>{
+const a=ST.athletes.find(x=>x.id===f.athleteId);
+const days=Math.ceil((new Date(f.date)-new Date())/86400000);
+h+=`<div style="background:linear-gradient(135deg,#1a1a2e,#0f1e35);border-radius:10px;padding:12px 14px;border-left:3px solid #D4A017;display:flex;justify-content:space-between;align-items:center">`;
+h+=`<div><div style="font-weight:700;font-size:15px;color:#fff">${esc(a?a.name:"—")} ${tl.vs} ${esc(f.opponent)}</div><div style="font-size:11px;color:#D4A017;font-family:Barlow">${esc(f.event||"")} • ${fD(f.date)}</div></div>`;
+h+=`<div style="background:#D4A017;color:#070d1a;border-radius:8px;padding:4px 10px;font-weight:800;font-size:20px">${days}d</div></div>`;
+});
+h+=`</div>`;
+}
+if(recent.length>0){
+h+=sh(tl.recF,"🏆");
+h+=`<div style="display:flex;flex-direction:column;gap:6px;margin-bottom:16px">`;
+recent.forEach(f=>{
+const a=ST.athletes.find(x=>x.id===f.athleteId);
+const iW=f.result==="Victoria"||f.result==="Win";const iL=f.result==="Derrota"||f.result==="Loss";
+const c=iW?"#1a8f4c":iL?"#c0392b":"#7a9ab5";
+h+=`<div class="card" style="display:flex;align-items:center;gap:10px;padding:10px 14px"><div style="width:8px;height:8px;border-radius:50%;background:${c};flex-shrink:0"></div><div style="flex:1;font-size:14px"><span style="color:#fff">${esc(a?a.name:"—")}</span><span style="color:#7a9ab5"> ${tl.vs} ${esc(f.opponent)}</span></div><div style="font-weight:700;font-size:13px;color:${c}">${esc(f.result||"—").toUpperCase()}</div></div>`;
+});
+h+=`</div>`;
+}
+if(ST.isCoach){
+h+=sh(tl.act,"⚡");
+h+=`<div class="g2">${[{l:L("Agregar Atleta","Add Athlete"),i:"➕",c:"#1a4a7a",a:"openM('addAthlete')"},{l:L("Registrar Pelea","Log Fight"),i:"🥊",c:"#8b1a1a",a:"openM('addFight')"},{l:L("Ver Atletas","View Athletes"),i:"👥",c:"#1a6b3c",a:"goTab('athletes')"},{l:L("Ver Fases","View Phases"),i:"📊",c:"#5b2c8d",a:"goTab('tactics')"}].map(x=>`<button onclick="${x.a}" style="background:${x.c};border:none;color:#fff;border-radius:10px;padding:14px 10px;font-weight:700;font-size:13px;letter-spacing:1px;display:flex;align-items:center;gap:8px"><span style="font-size:18px">${x.i}</span>${x.l.toUpperCase()}</button>`).join("")}</div>`;
+  h+=`<div class="g2" style="margin-top:8px">
+    <button onclick="showReporteRendimiento()" style="background:#1a3050;border:2px solid #D4A017;color:#D4A017;border-radius:10px;padding:12px 6px;font-weight:700;font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px">📊 CONTROL DIARIO</button>
+    <button onclick="showSemaforoPeso()" style="background:#1a3050;border:2px solid #27ae60;color:#27ae60;border-radius:10px;padding:12px 6px;font-weight:700;font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px">⚖️ SEMÁFORO PESO</button>
+  </div>`;
+  h+=`<button onclick="showSuiteInteligencia()" style="width:100%;background:linear-gradient(135deg,#1a0a2a,#2a0a4a);border:2px solid #5b2c8d;color:#D4A017;border-radius:10px;padding:12px;font-weight:900;font-size:13px;cursor:pointer;margin-top:8px;letter-spacing:.5px">🧠 SUITE DEL ATLETA — DIAGNÓSTICO · SPARRING · RIVALES</button>`;
+} else {
+h+=`<div style="display:flex;flex-direction:column;gap:8px">`;
+h+=`<button onclick="goTab('training')" class="btn btn-g" style="margin-bottom:8px">${L("VER MI ENTRENAMIENTO","VIEW MY TRAINING")} 📋</button>`;
+if(ST.user){const blkNum=getPhysBlock(ST.user.phase,ST.user.week);h+=`<button onclick="openPhysModal(${ST.user.phase},${ST.user.week},'${ST.user.group||"Mayores 16"}')" class="btn btn-d" style="margin-bottom:8px">🏋️ ${L("PLAN FÍSICO — BLOQUE","PHYSICAL PLAN — BLOCK")} ${blkNum}</button>`;}
+h+=`<button onclick="goTab('notes')" class="btn btn-d">${L("MIS NOTAS Y PREGUNTAS","MY NOTES & QUESTIONS")} 💬</button>`;
+  h+=`<div class="g2" style="margin-top:8px">
+    <button onclick="showReporteRendimiento()" style="background:#1a3050;border:2px solid #D4A017;color:#D4A017;border-radius:10px;padding:12px 6px;font-weight:700;font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px">📊 MI REPORTE</button>
+    <button onclick="showSemaforoPeso()" style="background:#1a3050;border:2px solid #27ae60;color:#27ae60;border-radius:10px;padding:12px 6px;font-weight:700;font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px">⚖️ MI PESO</button>
+  </div>`;
+  h+=`<button onclick="showSuiteInteligencia()" style="width:100%;background:linear-gradient(135deg,#1a0a2a,#2a0a4a);border:2px solid #5b2c8d;color:#D4A017;border-radius:10px;padding:12px;font-weight:900;font-size:13px;cursor:pointer;margin-top:8px;letter-spacing:.5px">🧠 MI SUITE — DIAGNÓSTICO · SPARRING · RIVALES</button>`;
+h+=`</div>`;
+h+=`<button onclick="showSwitchModal()" style="width:100%;background:none;border:2px solid #8b1a1a;color:#e74c3c;border-radius:10px;padding:12px;font-weight:700;font-size:13px;cursor:pointer;margin-top:8px">⇄ ${L("CAMBIAR / SALIR","SWITCH / EXIT")}</button>`;
+}
+return h;
+}
+function renderAthletes(){
+if(!ST.isCoach)return`<div style="padding:40px;text-align:center;color:#7a9ab5;font-family:Barlow">${L("Solo visible para el Coach","Coach access only")}</div>`;
+const tl=t();
+const q=(document.getElementById("ath-srch")||{}).value||"";
+const list=ST.athletes.filter(a=>a.name.toLowerCase().includes(q.toLowerCase()));
+let h=`<div style="display:flex;gap:8px;margin-bottom:12px"><input id="ath-srch" class="inp" placeholder="${esc(tl.noA)}" value="${esc(q)}" oninput="reRender()" style="flex:1"><button onclick="openM('addAthlete')" style="background:#D4A017;border:none;color:#070d1a;border-radius:8px;padding:10px 16px;font-weight:900;font-size:20px">+</button></div>`;
+h+=`<div style="display:flex;flex-direction:column;gap:10px">`;
+list.forEach(a=>{
+const msgs=ld(MESSAGES_KEY+a.id,[]);
+const unread=msgs.filter(m=>m.from==="athlete"&&!m.read).length;
+h+=`<div class="card" style="display:flex;gap:12px;align-items:center;cursor:pointer" onclick="openAth('${a.id}')">`;
+h+=av(a.name,52);
+h+=`<div style="flex:1;min-width:0"><div style="font-weight:800;font-size:18px;color:#fff">${esc(a.name)}</div>`;
+h+=`<div style="display:flex;align-items:center;gap:6px;margin-top:2px;flex-wrap:wrap"><span style="font-size:11px;color:#7a9ab5;font-family:Barlow">${age(a.dob)} ${tl.yrs}</span><span style="color:#1e3050">•</span><span style="font-size:11px;color:#7a9ab5;font-family:Barlow">${a.weight||"—"} lb</span><span style="color:#1e3050">•</span>${sdot(a.status||tl.sts[0])}</div>`;
+h+=`<div style="margin-top:6px;display:flex;align-items:center;gap:8px">${badge(a.phase,a.week,true)}${unread>0?`<span style="background:#c0392b;color:#fff;border-radius:10px;padding:1px 7px;font-size:10px;font-weight:700">${unread} msg</span>`:""}</div></div>`;
+h+=`<div style="text-align:right"><div style="font-size:11px;color:#D4A017;font-weight:700">${esc(a.category||"—")}</div><div style="font-size:11px;color:#7a9ab5;font-family:Barlow;margin-top:2px">${esc(a.group||"—")}</div><div style="font-size:12px;color:#fff;margin-top:4px"><span style="color:#1a8f4c">${a.wins||0}W</span> <span style="color:#c0392b">${a.losses||0}L</span> <span style="color:#7a9ab5">${a.draws||0}D</span></div></div></div>`;
+});
+h+=`</div>`;
+return h;
+}
+function renderTraining(){
+const tl=t();
+const athId=ST.isCoach?(ST.trainPick||ST.athletes[0]?.id):ST.user?.id;
+const ath=ST.athletes.find(a=>a.id===athId)||ST.athletes[0];
+if(!ath)return ec(tl.noA);
+const day=ST.trainDay!==null?ST.trainDay:new Date().getDay();
+const grp=ath.group||"Mayores 16";
+const s=getSessData(ath.phase,ath.week,day,grp);
+const tm=getSessData(ath.phase,ath.week,(day+1)%7,grp);
+const maxW=WP[ath.phase]?Object.keys(WP[ath.phase]).length:4;
+const prog=Math.round((ath.week/maxW)*100);
+const dl=[1,2,3,4,5,6,0].map(d=>{const i=d===0?6:d-1;return tl.days[i];});
+let h="";
+if(ST.isCoach){
+h+=`<select class="inp" onchange="setTP(this.value)" style="margin-bottom:12px;border-color:#D4A017">`;
+ST.athletes.forEach(a=>{h+=`<option value="${a.id}"${a.id===ath.id?" selected":""}>${esc(a.name)}</option>`;});
+h+=`</select>`;
+}
+h+=`<div class="card" style="margin-bottom:12px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><div><div style="font-weight:800;font-size:18px;color:#fff">${tl.pn(ath.phase)}</div><div style="font-size:11px;color:#7a9ab5;font-family:Barlow">${esc(tl.pf[ath.phase])}</div></div><div style="background:${PC[ath.phase]||PC[1]};border-radius:8px;padding:6px 12px;font-weight:800;font-size:16px;color:#fff">${tl.wn(ath.week)}</div></div>`;
+h+=`<div class="prog-wrap"><div class="prog-fill" style="width:${prog}%"></div></div>`;
+h+=`<div style="display:flex;justify-content:space-between;margin-top:4px"><span style="font-size:10px;color:#7a9ab5;font-family:Barlow">${tl.wk} ${ath.week} ${tl.of} ${maxW}</span><span style="font-size:10px;color:#D4A017;font-family:Barlow;font-weight:600">${prog}% ${tl.done}</span></div></div>`;
+h+=`<div style="display:flex;gap:4px;margin-bottom:12px">${[1,2,3,4,5,6,0].map((d,i)=>`<button onclick="setTD(${d})" style="flex:1;background:${day===d?"#D4A017":"#0f1e35"};color:${day===d?"#070d1a":"#7a9ab5"};border:none;border-radius:6px;padding:8px 2px;font-weight:700;font-size:10px">${dl[i]}</button>`).join("")}</div>`;
+h+=sh(tl.today,"📋");
+h+=sessCard(s,"s-today",true);
+h+=sh(L("Mañana","Tomorrow"),"🔮");
+h+=sessCard(tm,"s-tom",false);
+if(ST.isCoach){
+const blkNum=getPhysBlock(ath.phase,ath.week);
+h+=`<button onclick="openPhysModal(${ath.phase},${ath.week},'${ath.group||"Mayores 16"}')" class="btn btn-d" style="margin-top:10px;margin-bottom:8px">🏋️ ${L("VER PLAN FÍSICO — BLOQUE","SEE PHYSICAL PLAN — BLOCK")} ${blkNum}</button>`;
+h+=`<div style="display:flex;gap:8px;margin-top:8px">`;
+h+=`<button onclick="advAth('${ath.id}')" class="btn btn-gr" style="flex:1">${L("AVANZAR SEMANA ▶","ADVANCE WEEK ▶")}</button>`;
+h+=`</div>`;
+}
+return h;
+}
+function renderFights(){
+const tl=t();
+const fights=ST.isCoach?ST.fights:ST.fights.filter(f=>f.athleteId===ST.user?.id);
+const w=fights.filter(f=>f.result==="Victoria"||f.result==="Win").length;
+const l=fights.filter(f=>f.result==="Derrota"||f.result==="Loss").length;
+const d=fights.filter(f=>f.result==="Empate"||f.result==="Draw").length;
+const sorted=[...fights].sort((a,b)=>new Date(b.date||0)-new Date(a.date||0));
+let h=`<div class="card card-g" style="text-align:center;margin-bottom:16px;background:linear-gradient(135deg,#0a1628,#162540)"><div style="font-size:12px;color:#D4A017;letter-spacing:2px;margin-bottom:8px">${tl.rec.toUpperCase()}</div><div style="display:flex;justify-content:center;gap:20px">${[[w,tl.w,"#1a8f4c"],[l,tl.l,"#c0392b"],[d,tl.d,"#7a9ab5"]].map(([v,lb,c])=>`<div><div style="font-size:42px;font-weight:900;color:${c};line-height:1">${v}</div><div style="font-size:10px;color:#7a9ab5;letter-spacing:1px">${esc(lb).toUpperCase()}</div></div>`).join("")}</div></div>`;
+if(ST.isCoach)h+=`<button class="btn btn-g" onclick="openM('addFight')" style="margin-bottom:16px">${tl.addFB.toUpperCase()}</button>`;
+if(sorted.length===0){h+=ec(tl.noF);}
+else{h+=`<div style="display:flex;flex-direction:column;gap:10px">`;sorted.forEach(f=>{const a=ST.athletes.find(x=>x.id===f.athleteId);const iW=f.result==="Victoria"||f.result==="Win";const iL=f.result==="Derrota"||f.result==="Loss";const c=iW?"#1a8f4c":iL?"#c0392b":"#7a9ab5";const up=f.date&&new Date(f.date)>=new Date();h+=`<div class="card" style="border-left:4px solid ${up?"#D4A017":c}"><div style="display:flex;justify-content:space-between;align-items:flex-start"><div style="flex:1"><div style="font-weight:800;font-size:17px;color:#fff">${esc(a?a.name:"—")}</div><div style="font-size:13px;color:#7a9ab5;font-family:Barlow">${tl.vs} <span style="color:#fff">${esc(f.opponent)}</span></div><div style="display:flex;gap:8px;margin-top:4px;flex-wrap:wrap"><span style="font-size:11px;color:#D4A017;font-family:Barlow">${fD(f.date)}</span>${f.weightClass?`<span style="font-size:11px;color:#7a9ab5;font-family:Barlow">${esc(f.weightClass)}</span>`:""} ${f.event?`<span style="font-size:11px;color:#7a9ab5;font-family:Barlow">${esc(f.event)}</span>`:""}</div></div><div style="background:${up?"#1a3a0a":c};border-radius:8px;padding:6px 12px;font-weight:800;font-size:12px;color:#fff">${up?tl.up.toUpperCase():esc(f.result||"—").toUpperCase()}</div></div>${f.notes?`<div style="font-size:11px;color:#7a9ab5;font-family:Barlow;margin-top:8px;border-top:1px solid #1e3050;padding-top:8px">${esc(f.notes)}</div>`:""}</div>`;});h+=`</div>`;}
+return h;
+}
+function renderTactics(){
+const tl=t();
+const phaseSect=()=>{
+let h=sh(L("SISTEMA DE FASES","PHASE SYSTEM"),"📊");
+[1,2,3,4,5].forEach(p=>{
+const pc=PC[p]; const isO=ST.openPhase===p;
+const weeks=WP[p]?Object.keys(WP[p]).map(Number):[];
+h+=`<div style="margin-bottom:10px"><button onclick="setOP(${p})" style="width:100%;background:${pc};border:none;border-radius:${isO?"12px 12px 0 0":"12px"};padding:14px 16px;display:flex;justify-content:space-between;align-items:center"><div style="text-align:left"><div style="font-weight:800;font-size:18px;color:#fff">${tl.pn(p)}</div><div style="font-size:12px;color:rgba(255,255,255,.7);font-family:Barlow">${esc(tl.pf[p])}${p!==5?` • ${[0,12,10,8,4,0][p]} ${tl.nwk}`:""}</div></div><span style="color:#fff;font-size:20px">${isO?"▲":"▼"}</span></button>`;
+if(isO){
+h+=`<div style="background:#0a1628;border-radius:0 0 12px 12px;border:1px solid ${pc};border-top:none">`;
+if(weeks.length===0){h+=`<div style="padding:14px;color:#7a9ab5;font-size:12px;font-family:Barlow">${tl.maint}</div>`;}
+else weeks.forEach(w=>{
+const wd=WP[p][w]; const wk=`${p}-${w}`; const isOW=ST.openWeek===wk;
+h+=`<div style="border-bottom:1px solid #0f1e35"><button onclick="setOW('${wk}')" style="width:100%;background:none;border:none;padding:11px 14px;display:flex;justify-content:space-between;align-items:center;text-align:left"><div style="display:flex;align-items:center;gap:10px"><div style="background:${pc};border-radius:4px;padding:2px 8px;font-weight:700;font-size:13px;color:#fff;flex-shrink:0">${L("S","W")}${w}</div><div><div style="font-size:12px;color:#fff;font-family:Barlow;font-weight:600">${esc(L(wd.es,wd.en))}</div><div style="font-size:11px;color:#7a9ab5;font-family:Barlow">${esc(L(wd.re,wd.rn))} • ${wd.p}%</div></div></div><span style="color:#D4A017;font-size:12px">${isOW?"▲":"▼"}</span></button>`;
+if(isOW){
+h+=`<div style="background:#070d1a;padding:8px 14px 12px">${[1,2,3,4,5].map(d=>{
+const dk=`${p}-${w}-${d}`;const isOD=ST.openDay===dk;
+const s=getSessData(p,w,d,"Mayores 16");
+return `<div style="margin-bottom:6px"><button onclick="setOD('${dk}')" style="width:100%;background:#0f1e35;border:1px solid ${isOD?s.pc:"#1e3050"};border-radius:${isOD?"8px 8px 0 0":"8px"};padding:8px 12px;display:flex;justify-content:space-between;align-items:center;text-align:left"><div style="display:flex;align-items:center;gap:10px"><div style="background:${s.pc};border-radius:4px;padding:2px 8px;font-weight:700;font-size:12px;color:#fff;flex-shrink:0">${tl.days[d-1]}</div><div><div style="font-size:12px;color:#fff;font-family:Barlow;font-weight:600">${esc(s.title)}</div>${s.type!=="rest"&&s.el?`<div style="font-size:10px;color:#D4A017;font-family:Barlow">${esc(s.el)}</div>`:""}</div></div><div style="display:flex;align-items:center;gap:6px">${s.type!=="rest"?`<span style="font-size:10px;color:#7a9ab5;font-family:Barlow">${s.dur} min</span>`:""}<span style="color:#D4A017;font-size:12px">${isOD?"▲":"▼"}</span></div></button>${isOD&&s.type!=="rest"&&s.blocks.length>0?`<div style="background:#060c18;border:1px solid ${s.pc};border-top:none;border-radius:0 0 8px 8px">${s.blocks.map((b,i)=>`<div style="display:flex;align-items:flex-start;gap:10px;padding:7px 12px;${i>0?"border-top:1px solid #0a1020":""};background:${i%2===0?"#080e1e":"transparent"}"><div style="width:42px;text-align:right;font-size:12px;color:#D4A017;font-weight:700;flex-shrink:0;padding-top:2px">${esc(b.t)}</div><div style="flex:1"><div style="font-weight:700;font-size:12px;color:#fff">${esc(b.n)}</div><div style="font-size:10px;color:#7a9ab5;font-family:Barlow;line-height:1.3">${esc(b.d)}</div></div></div>`).join("")}<div style="padding:6px 12px;background:#0f1e35;display:flex;justify-content:space-between"><span style="font-size:12px;color:#7a9ab5;font-weight:700">TOTAL</span><span style="font-size:14px;color:#D4A017;font-weight:800">${s.dur} min</span></div></div>`:""}`;
+}).join("")}</div>`;
+}
+h+=`</div>`;
+});
+h+=`</div>`;
+}
+h+=`</div>`;
+});
+return h;
+};
+const stylesSect=()=>{
+const tl=t();
+let h=sh(L("7 ESTILOS DE COMBATE","7 FIGHTING STYLES"),"🥊");
+STYLES.forEach((st,i)=>{
+const sd=st[ST.lang==="es"?"es":"en"];
+const isO=ST.openStyle===i;
+h+=`<div class="style-card" style="border-color:${st.color};background:#0f1e35;border-radius:10px;margin-bottom:8px"><div class="style-hdr" onclick="setOS(${i})"><div style="flex:1"><div style="font-weight:800;font-size:16px;color:#fff">${esc(sd.name)}</div><div style="font-size:11px;color:#7a9ab5;font-family:Barlow">${esc(sd.desc)}</div></div><span style="color:#D4A017;font-size:14px">${isO?"▲":"▼"}</span></div>`;
+if(isO){
+h+=`<div style="padding:0 14px 14px">`;
+h+=`<div style="background:#0a1628;border-radius:8px;padding:10px;margin-bottom:10px"><div style="font-size:11px;color:#c0392b;font-weight:700;margin-bottom:4px">⚠ ${L("PELIGRO","DANGER")}</div><div style="font-size:12px;color:#fff;font-family:Barlow">${esc(sd.problem)}</div></div>`;
+h+=`<div style="background:#0a1628;border-radius:8px;padding:10px;margin-bottom:10px"><div style="font-size:11px;color:#D4A017;font-weight:700;margin-bottom:4px">👁 ${L("SEÑAL / TELL","TELL / SIGNAL")}</div><div style="font-size:12px;color:#fff;font-family:Barlow">${esc(sd.tell)}</div></div>`;
+h+=`<div class="g2" style="margin-bottom:10px">`;
+h+=`<div style="background:#0f2e1a;border:1px solid #1a6b3c;border-radius:8px;padding:10px"><div style="font-size:10px;color:#1a8f4c;font-weight:700;margin-bottom:6px">${tl.planA}</div><div style="font-size:11px;color:#fff;font-family:Barlow;line-height:1.4">${esc(sd.planA)}</div></div>`;
+h+=`<div style="background:#2e0f0f;border:1px solid #8b1a1a;border-radius:8px;padding:10px"><div style="font-size:10px;color:#c0392b;font-weight:700;margin-bottom:6px">${tl.planB}</div><div style="font-size:11px;color:#fff;font-family:Barlow;line-height:1.4">${esc(sd.planB)}</div></div>`;
+h+=`</div>`;
+h+=`<div style="background:#0a1628;border-radius:8px;padding:10px;margin-bottom:10px"><div style="font-size:10px;color:#D4A017;font-weight:700;margin-bottom:8px">🎯 ${tl.pts3}</div>`;
+sd.pts.forEach((p,j)=>{h+=`<div style="display:flex;align-items:flex-start;gap:8px;margin-bottom:6px"><div style="background:${st.color};color:#fff;border-radius:50%;width:18px;height:18px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;flex-shrink:0;margin-top:1px">${j+1}</div><div style="font-size:11px;color:#fff;font-family:Barlow;line-height:1.4">${esc(p)}</div></div>`;});
+h+=`</div>`;
+h+=`<div style="background:#0a1628;border-radius:8px;padding:10px"><div style="font-size:10px;color:#7a9ab5;font-weight:700;margin-bottom:8px">⏱ ${tl.roundXR}</div>`;
+[[L("Asalto 1","Round 1"),sd.r1],[L("Asalto 2","Round 2"),sd.r2],[L("Asalto 3","Round 3"),sd.r3]].forEach(([rl,rv])=>{h+=`<div style="margin-bottom:8px"><div style="font-size:10px;color:#D4A017;font-weight:700">${esc(rl)}</div><div style="font-size:11px;color:#fff;font-family:Barlow">${esc(rv)}</div></div>`;});
+h+=`</div></div>`;
+}
+h+=`</div>`;
+});
+return h;
+};
+return phaseSect()+stylesSect();
+}
+const PHYS={
+1:{
+m16:[
+{e:"Cuclillas con mancuernas 3-2-1",s:"3 series",r:"15 rep",d:"90 seg"},
+{e:"Flexiones lentas 3-2-1",s:"3 series",r:"10 rep",d:"60 seg"},
+{e:"Plancha frontal",s:"4 series",r:"30 seg",d:"60 seg"},
+{e:"Plancha lateral",s:"3 series",r:"25 seg c/lado",d:"60 seg"},
+{e:"Abdominal básico",s:"4 series",r:"18 rep",d:"45 seg"},
+{e:"Puente de glúteos 3-2-1",s:"3 series",r:"15 rep",d:"45 seg"},
+{e:"Respiración diafragmática",s:"2 series",r:"10 resp",d:"30 seg"},
+],
+M16:[
+{e:"Cuclillas con mancuernas 3-2-1",s:"4 series",r:"15 rep",d:"90 seg"},
+{e:"Flexiones lentas 3-2-1",s:"4 series",r:"10 rep",d:"60 seg"},
+{e:"Plancha frontal",s:"5 series",r:"30 seg",d:"60 seg"},
+{e:"Plancha lateral",s:"3 series",r:"25 seg c/lado",d:"60 seg"},
+{e:"Abdominal básico",s:"4 series",r:"20 rep",d:"45 seg"},
+{e:"Puente de glúteos 3-2-1",s:"4 series",r:"15 rep",d:"45 seg"},
+{e:"Respiración diafragmática",s:"2 series",r:"10 resp",d:"30 seg"},
+]
+},
+2:{
+m16:[
+{e:"Cuclillas con mancuernas 3-2-1",s:"4 series",r:"18 rep",d:"90 seg"},
+{e:"Estocada alternada con mancuernas",s:"3 series",r:"12 c/pierna",d:"90 seg"},
+{e:"Flexiones explosivas",s:"3 series",r:"10 rep",d:"75 seg"},
+{e:"Plancha frontal",s:"5 series",r:"35 seg",d:"60 seg"},
+{e:"Plancha lateral",s:"4 series",r:"25 seg c/lado",d:"60 seg"},
+{e:"Abdominal básico",s:"4 series",r:"20 rep",d:"45 seg"},
+{e:"Puente de glúteos explosivo",s:"4 series",r:"18 rep",d:"45 seg"},
+{e:"Respiración diafragmática",s:"2 series",r:"10 resp",d:"30 seg"},
+],
+M16:[
+{e:"Cuclillas con mancuernas 3-2-1",s:"4 series",r:"18 rep",d:"90 seg"},
+{e:"Estocada con salto alternada",s:"4 series",r:"10 c/pierna",d:"75 seg"},
+{e:"Flexiones explosivas con palmada",s:"4 series",r:"10 rep",d:"75 seg"},
+{e:"Plancha frontal",s:"5 series",r:"35 seg",d:"60 seg"},
+{e:"Plancha lateral",s:"4 series",r:"30 seg c/lado",d:"60 seg"},
+{e:"Abdominal básico",s:"5 series",r:"20 rep",d:"45 seg"},
+{e:"Puente de glúteos explosivo",s:"4 series",r:"18 rep",d:"45 seg"},
+{e:"Respiración diafragmática",s:"2 series",r:"10 resp",d:"30 seg"},
+]
+},
+3:{
+m16:[
+{e:"Cuclillas con mancuernas 3-2-1",s:"4 series",r:"20 rep",d:"90 seg"},
+{e:"Estocada con salto alternada",s:"4 series",r:"10 c/pierna",d:"75 seg"},
+{e:"Flexiones explosivas con palmada",s:"4 series",r:"10 rep",d:"75 seg"},
+{e:"Plancha frontal",s:"5 series",r:"40 seg",d:"60 seg"},
+{e:"Plancha lateral",s:"4 series",r:"30 seg c/lado",d:"60 seg"},
+{e:"Abdominal básico",s:"5 series",r:"20 rep",d:"45 seg"},
+{e:"Puente de glúteos explosivo",s:"4 series",r:"20 rep",d:"45 seg"},
+{e:"Respiración diafragmática",s:"2 series",r:"10 resp",d:"30 seg"},
+],
+M16:[
+{e:"Cuclillas con mancuernas 3-2-1",s:"5 series",r:"20 rep",d:"90 seg"},
+{e:"Estocada con salto alternada",s:"5 series",r:"10 c/pierna",d:"75 seg"},
+{e:"Flexiones explosivas con palmada",s:"5 series",r:"10 rep",d:"75 seg"},
+{e:"Plancha frontal",s:"6 series",r:"40 seg",d:"60 seg"},
+{e:"Plancha lateral",s:"4 series",r:"30 seg c/lado",d:"60 seg"},
+{e:"Abdominal básico",s:"5 series",r:"22 rep",d:"45 seg"},
+{e:"Puente de glúteos explosivo",s:"5 series",r:"20 rep",d:"45 seg"},
+{e:"Respiración diafragmática",s:"2 series",r:"10 resp",d:"30 seg"},
+]
+},
+4:{
+m16:[
+{e:"Cuclillas explosivas con mancuernas",s:"4 series",r:"12 rep",d:"75 seg"},
+{e:"Estocada con salto",s:"4 series",r:"8 c/pierna",d:"75 seg"},
+{e:"Flexiones con palmada",s:"4 series",r:"8 rep",d:"75 seg"},
+{e:"Plancha frontal",s:"4 series",r:"40 seg",d:"60 seg"},
+{e:"Abdominal de combate",s:"4 series",r:"20 rep",d:"45 seg"},
+{e:"Puente de glúteos explosivo",s:"4 series",r:"15 rep",d:"45 seg"},
+],
+M16:[
+{e:"Cuclillas explosivas con mancuernas",s:"5 series",r:"12 rep",d:"75 seg"},
+{e:"Estocada con salto",s:"5 series",r:"8 c/pierna",d:"75 seg"},
+{e:"Flexiones con palmada",s:"5 series",r:"10 rep",d:"75 seg"},
+{e:"Plancha frontal",s:"5 series",r:"40 seg",d:"60 seg"},
+{e:"Abdominal de combate",s:"5 series",r:"22 rep",d:"45 seg"},
+{e:"Puente de glúteos explosivo",s:"5 series",r:"15 rep",d:"45 seg"},
+]
+}
+};
+function getPhysBlock(phase,week){
+if(phase===1)return week<=3?1:week<=6?2:3;
+if(phase===2)return week<=3?1:week<=7?2:3;
+if(phase===3)return 3;
+if(phase===4)return 4;
+return 3;
+}
+function isMinor(group){
+return group&&(group.includes("C")||group.includes("B")||group.includes("13")||group.includes("14")||group.includes("11")||group.includes("12")||group.includes("Menores"));
+}
+function openPhysModal(phase,week,group){
+const blk=getPhysBlock(phase,week);
+const minor=isMinor(group);
+const exs=(PHYS[blk]||PHYS[1])[minor?"m16":"M16"];
+const BNAMES={1:"BLOQUE 1 — BASE (70%)",2:"BLOQUE 2 — ESPECÍFICO (80%)",3:"BLOQUE 3 — COMPETITIVO (85%)",4:"BLOQUE 4 — PRE-COMPETENCIA"};
+let h=`<div style="margin-bottom:14px"><div style="font-size:10px;color:#D4A017;font-weight:700;letter-spacing:1px;margin-bottom:4px">🏋️ PLAN FÍSICO</div>`;
+h+=`<div style="font-size:17px;font-weight:900;color:#fff;margin-bottom:2px">${BNAMES[blk]}</div>`;
+h+=`<div style="font-size:11px;color:#7a9ab5;font-family:Barlow;margin-bottom:6px">${minor?"Menores de 16":"Mayores de 16"}</div>`;
+h+=`<div style="font-size:11px;color:#D4A017;font-family:Barlow;line-height:1.4;background:#0a1628;border-radius:8px;padding:8px;margin-bottom:10px">⚙️ Método 3-2-1:3s bajando / 2s tensión / 1s subiendo<br>🏋️ Peso shadow: ${minor?"1kg":"2kg"} | Femenino:0.5kg</div>`;
+h+=`</div>`;
+h+=`<div style="background:#0f1e35;border-radius:12px;overflow:hidden">`;
+h+=`<div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;padding:8px 12px;background:#1e3050;font-size:10px;font-weight:700;color:#D4A017">`;
+h+=`<div>EJERCICIO</div><div>SERIES</div><div>TRABAJO</div><div>DESCANSO</div></div>`;
+exs.forEach((ex,i)=>{
+h+=`<div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;padding:9px 12px;border-top:1px solid #0a1628;background:${i%2===0?"#0f1e35":"#0a1420"}">`;
+h+=`<div style="font-size:12px;font-weight:700;color:#fff;line-height:1.3">${esc(ex.e)}</div>`;
+h+=`<div style="font-size:11px;color:#D4A017;font-weight:700">${esc(ex.s)}</div>`;
+h+=`<div style="font-size:11px;color:#fff">${esc(ex.r)}</div>`;
+h+=`<div style="font-size:11px;color:#7a9ab5">${esc(ex.d)}</div>`;
+h+=`</div>`;
+});
+h+=`</div>`;
+h+=`<div style="background:#1a0a00;border:1px solid #D4A017;border-radius:10px;padding:10px;margin-top:10px;font-size:11px;color:#D4A017;font-family:Barlow;line-height:1.5">💡 Ejecutar después del trabajo técnico-táctico de la sesión.</div>`;
+document.getElementById("modal-wrap").innerHTML=mwrap(h);
+}
+function renderNutrition(){
+let h="";
+h+=sh(L("NUTRICION DE COMPETENCIA","COMPETITION NUTRITION"),"🥗");
+h+=`<div class="card card-g" style="background:linear-gradient(135deg,#0a1628,#162540);margin-bottom:14px"><div style="font-size:10px;color:#D4A017;letter-spacing:2px;margin-bottom:6px">⚠ IMPORTANTE</div><div style="font-size:12px;color:#fff;font-family:Barlow;line-height:1.6">${L("Plan basado en ciencia deportiva y boxeo de élite. Consulta con Coach Osvimer antes de cambios.","Plan based on sports science and elite boxing. Consult Coach Osvimer before changes.")}</div></div>`;
+const phases=[
+{id:"n1",color:"#1a6b3c",title:L("8 SEMANAS — BASE","8 WEEKS — BASE"),icon:"💪",
+meals:[
+{t:L("DESAYUNO 7:00 AM","BREAKFAST 7:00 AM"),items:["2 huevos revueltos con espinaca","1 taza avena + plátano","Jugo naranja natural","Agua:500ml"],cal:"550-600 kcal",mac:"Carbs:65g Prot:32g Grasa:12g"},
+{t:L("MERIENDA 10:00 AM","SNACK 10:00 AM"),items:["1 manzana","30g almendras","1 yogur griego sin azúcar"],cal:"280 kcal",mac:"Carbs:28g Prot:15g Grasa:12g"},
+{t:L("ALMUERZO 1:00 PM","LUNCH 1:00 PM"),items:["180g pollo a la plancha","1 taza arroz integral","Ensalada:pepino, tomate, zanahoria","Agua:500ml"],cal:"620 kcal",mac:"Carbs:72g Prot:48g Grasa:12g"},
+{t:L("PRE-ENTRENO (2 hrs)","PRE-WORKOUT (2 hrs)"),items:["1 banana","30g avena con agua","Agua:400ml"],cal:"280 kcal",mac:"Carbs:58g Prot:8g"},
+{t:L("POST-ENTRENO (30 min)","POST-WORKOUT (30 min)"),items:["30g proteína whey + 1 banana + 250ml leche","Agua:500ml"],cal:"380 kcal",mac:"Carbs:55g Prot:38g Grasa:5g"},
+{t:L("CENA 7:00 PM","DINNER 7:00 PM"),items:["200g salmón o atún a la plancha","2 tazas brócoli + coliflor al vapor","1 camote mediano","Agua:500ml"],cal:"480 kcal",mac:"Carbs:42g Prot:52g Grasa:10g"},
+],total:"2590-2640 kcal/día",nota:L("HIDRATACIÓN:3-4L agua/día. Sin bebidas azucaradas.","HYDRATION:3-4L water/day. No sugary drinks.")},
+{id:"n2",color:"#D4A017",title:L("4 SEMANAS — CORTE","4 WEEKS — CUT"),icon:"⚖️",
+meals:[
+{t:L("DESAYUNO","BREAKFAST"),items:["3 claras + 1 huevo entero","½ taza avena con canela sin azúcar","½ taza arándanos","Agua:500ml"],cal:"420 kcal",mac:"Carbs:42g Prot:30g Grasa:8g"},
+{t:L("MERIENDA","SNACK"),items:["20g proteína whey con agua","1 manzana pequeña"],cal:"190 kcal",mac:"Carbs:20g Prot:22g"},
+{t:L("ALMUERZO","LUNCH"),items:["200g pechuga pollo hervida","½ taza arroz integral","Ensalada solo limón","Agua:500ml"],cal:"480 kcal",mac:"Carbs:38g Prot:52g Grasa:6g"},
+{t:L("PRE-ENTRENO","PRE-WORKOUT"),items:["1 banana mediana","Agua:400ml"],cal:"105 kcal",mac:"Carbs:27g"},
+{t:L("POST-ENTRENO","POST-WORKOUT"),items:["30g proteína whey con agua fría","Agua:600ml"],cal:"120 kcal",mac:"Prot:30g"},
+{t:L("CENA LIGERA","LIGHT DINNER"),items:["150g atún en agua","2 tazas vegetales verdes","½ aguacate","Agua:500ml"],cal:"320 kcal",mac:"Carbs:18g Prot:38g Grasa:10g"},
+],total:"1635-1700 kcal/día",nota:L("ELIMINAR:sodio, harinas blancas, azúcar, frituras, alcohol.","ELIMINATE:sodium, white flour, sugar, fried food, alcohol.")},
+{id:"n3",color:"#c0392b",title:L("1 SEMANA — CORTE ACTIVO","1 WEEK — ACTIVE CUT"),icon:"🎯",
+meals:[
+{t:L("DESAYUNO DÍAS -7 A -4","BREAKFAST DAYS -7 TO -4"),items:["4 claras huevo hervidas","½ taza avena con agua sin sal","Té verde sin azúcar","Agua:300ml"],cal:"280 kcal",mac:"Carbs:28g Prot:26g"},
+{t:L("MERIENDA","SNACK"),items:["20g proteína whey con agua","Pepino sin sal"],cal:"120 kcal",mac:"Prot:22g"},
+{t:L("ALMUERZO","LUNCH"),items:["150g pollo SIN SAL","1 taza arroz blanco (días -7 a -5)","Lechuga, pepino, limón","Agua:400ml"],cal:"380 kcal",mac:"Carbs:35g Prot:40g"},
+{t:L("PRE-ENTRENO","PRE-WORKOUT"),items:["½ banana","Agua:300ml"],cal:"55 kcal",mac:"Carbs:14g"},
+{t:L("POST-ENTRENO","POST-WORKOUT"),items:["25g proteína whey con agua","Agua:400ml"],cal:"100 kcal",mac:"Prot:25g"},
+{t:L("CENA LIGERA","LIGHT DINNER"),items:["100g atún en agua","Espinaca con limón","Agua:300ml"],cal:"180 kcal",mac:"Carbs:8g Prot:28g"},
+],total:"1115-1200 kcal/día",nota:L("⚠ SODIO MÍNIMO. Agua:2L días -7 a -4, luego reducir. Ver al coach diariamente.","⚠ MINIMUM SODIUM. Water:2L days -7 to -4, then reduce. See coach daily.")},
+{id:"n4",color:"#5b2c8d",title:L("DÍA PESAJE","WEIGH-IN DAY"),icon:"⚡",
+meals:[
+{t:L("MAÑANA DEL PESAJE","WEIGH-IN MORNING"),items:[L("Pequeños sorbos agua si falta <1lb","Small sips water if <1lb to cut"),L("Nada sólido si >1lb diferencia","Nothing solid if >1lb to cut")],cal:"0-50 kcal",mac:L("Solo si necesario","Only if needed")},
+{t:L("INMEDIATO POST-PESAJE (30 min)","IMMEDIATE POST WEIGH-IN"),items:["1L Gatorade o Pedialyte","2 bananas","2 rebanadas pan blanco con miel"],cal:"580 kcal",mac:"Carbs:120g Prot:8g"},
+{t:L("2 HORAS POST-PESAJE","2 HOURS AFTER"),items:["200g arroz blanco","150g pollo hervido","1 banana","500ml Gatorade"],cal:"680 kcal",mac:"Carbs:110g Prot:40g"},
+{t:L("6 HORAS POST-PESAJE","6 HOURS AFTER"),items:["30g proteína whey","1 taza arroz","Fruta de temporada","Agua:500ml"],cal:"480 kcal",mac:"Carbs:72g Prot:38g"},
+{t:L("CENA NOCHE ANTES","DINNER NIGHT BEFORE"),items:["200g pasta o arroz blanco","100g pollo a la plancha","Salsa de tomate simple","Agua:500ml SIN gaseosas"],cal:"620 kcal",mac:"Carbs:98g Prot:36g"},
+],total:"2520 kcal — RECARGA ACTIVA",nota:L("OBJETIVO:recuperar glucógeno y líquidos. EVITAR alimentos nuevos o muy condimentados.","GOAL:restore glycogen and fluids. AVOID new or heavily spiced foods.")},
+{id:"n5",color:"#1a4a7a",title:L("DÍA DE PELEA","FIGHT DAY"),icon:"🥊",
+meals:[
+{t:L("DESAYUNO (3-4 hrs antes)","BREAKFAST (3-4 hrs before)"),items:["200g arroz blanco con miel","2 huevos revueltos","1 banana","Té o café sin azúcar","Agua:500ml"],cal:"580 kcal",mac:"Carbs:90g Prot:24g Grasa:8g"},
+{t:L("2 HORAS ANTES","2 HOURS BEFORE"),items:["1 banana","1 gel energía (si se usa habitualmente)","Agua:300ml"],cal:"150 kcal",mac:"Carbs:38g"},
+{t:L("1 HORA ANTES","1 HOUR BEFORE"),items:[L("Agua con pizca sal y azúcar (200ml)","Water with pinch salt and sugar (200ml)"),L("Si nervioso:solo líquidos","If nervous:liquids only")],cal:"30 kcal",mac:L("Electrolitos","Electrolytes")},
+{t:L("ENTRE ASALTOS","BETWEEN ROUNDS"),items:[L("Pequeños sorbos Gatorade","Small sips Gatorade"),L("Trozo naranja o banana","Orange slice or banana")],cal:"60-80 kcal",mac:L("Carbos rápidos","Fast carbs")},
+{t:L("INMEDIATO POST-PELEA","IMMEDIATE POST-FIGHT"),items:["30g proteína whey","1 banana","Agua:500ml REHIDRATACIÓN"],cal:"280 kcal",mac:"Carbs:42g Prot:32g"},
+{t:L("CENA POST-PELEA","POST-FIGHT DINNER"),items:[L("Comida que te guste — no es momento de dieta","Food you enjoy — not time for diet"),L("Dormir bien — la recuperación es esta noche","Sleep well — recovery is tonight")],cal:L("Libre","Free"),mac:L("Recuperación total","Full recovery")},
+],total:"1100-1200 kcal antes de pelea",nota:L("⚠ NO comer nada nuevo el día de pelea. HIDRATACIÓN constante.","⚠ NO new foods on fight day. Constant HYDRATION.")}
+];
+const SUPS=[
+{n:"Proteína Whey",w:"Post-entreno",d:"25-30g",r:L("Recuperación muscular","Muscle recovery")},
+{n:"Creatina",w:L("Diariamente","Daily"),d:"3-5g",r:L("Fuerza y potencia","Strength and power")},
+{n:L("Multivitamínico","Multivitamin"),w:L("Con desayuno","With breakfast"),d:"1 cáps",r:L("Déficit en corte","Deficit in cut")},
+{n:"Omega-3",w:L("Con cena","With dinner"),d:"2-3g",r:L("Inflamación, articulaciones","Inflammation, joints")},
+{n:"Magnesio",w:L("Antes de dormir","Before sleep"),d:"300-400mg",r:L("Sueño y recuperación","Sleep and recovery")},
+{n:"Vitamina D3",w:L("Con desayuno","With breakfast"),d:"2000-4000 UI",r:L("Rendimiento e inmunidad","Performance and immunity")},
+{n:"Electrolitos",w:L("Durante entreno","During training"),d:"1 sobre",r:L("Hidratación y calambres","Hydration and cramps")},
+{n:L("Cafeína (opcional)","Caffeine (optional)"),w:L("60 min antes","60 min before"),d:"100-200mg",r:L("Solo si acostumbrado","Only if used to it")}
+];
+const CUT=[
+{s:"8+sem",t:L("Corte Natural","Natural Cut"),d:L("Dieta limpia + entreno. Max 0.5kg/sem.","Clean diet + training. Max 0.5kg/week."),c:"#1a6b3c"},
+{s:"4-2sem",t:L("Corte Calórico","Caloric Cut"),d:L("Reducir 300-500 kcal/día. Sin sodio, azúcar, alcohol.","Reduce 300-500 kcal/day. No sodium, sugar, alcohol."),c:"#D4A017"},
+{s:"1sem",t:L("Reducción Sodio","Sodium Reduction"),d:L("Sodio <1000mg/día. Carbos -50%. Agua:2L/día.","Sodium <1000mg/day. Carbs -50%. Water:2L/day."),c:"#c0392b"},
+{s:"2-3días",t:L("Reducción Agua","Water Cut"),d:L("Agua 1L/día. Sauna max 15 min. SIEMPRE supervisado.","Water 1L/day. Sauna max 15 min. ALWAYS supervised."),c:"#8b1a1a"},
+{s:"Post-pesaje",t:"REPOSICIÓN",d:L("Min 1.5L bebida deportiva en 1ra hora.","Min 1.5L sports drink in 1st hour."),c:"#5b2c8d"}
+];
+const selPhase=ST.openNut||"n1";
+h+=`<div style="display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;margin-bottom:14px">`;
+phases.forEach(p=>{h+=`<button onclick="setNutPhase('${p.id}')" style="white-space:nowrap;background:${selPhase===p.id?p.color:"#0f1e35"};border:2px solid ${p.color};color:${selPhase===p.id?"#fff":"#7a9ab5"};border-radius:20px;padding:6px 12px;font-size:11px;font-weight:700;cursor:pointer">${p.icon} ${p.title.split("—")[0].trim()}</button>`;});
+h+=`</div>`;
+const ph=phases.find(p=>p.id===selPhase)||phases[0];
+if(ph){
+h+=`<div style="background:${ph.color};border-radius:14px 14px 0 0;padding:14px"><div style="font-size:16px;font-weight:900;color:#fff">${ph.icon} ${ph.title}</div></div>`;
+h+=`<div style="background:#0f1e35;border-radius:0 0 14px 14px;padding:14px;margin-bottom:14px;border:1px solid ${ph.color};border-top:none">`;
+ph.meals.forEach(m=>{
+h+=`<div style="background:#070d1a;border-radius:10px;padding:12px;margin-bottom:8px;border-left:3px solid #D4A017">`;
+h+=`<div style="font-size:11px;font-weight:900;color:#D4A017;letter-spacing:1px;margin-bottom:6px">${esc(m.t)}</div>`;
+h+=`<ul style="list-style:none;padding:0">`;m.items.forEach(item=>{h+=`<li style="font-size:12px;color:#fff;font-family:Barlow;padding:2px 0"><span style="color:#D4A017">• </span>${esc(item)}</li>`;});h+=`</ul>`;
+h+=`<div style="display:flex;justify-content:space-between;margin-top:8px;padding-top:6px;border-top:1px solid #1e3050"><span style="font-size:11px;color:#D4A017;font-weight:700">${esc(m.cal)}</span><span style="font-size:10px;color:#7a9ab5;font-family:Barlow">${esc(m.mac)}</span></div></div>`;
+});
+h+=`<div style="background:linear-gradient(135deg,${ph.color},#070d1a);border-radius:8px;padding:10px"><div style="font-size:13px;font-weight:800;color:#fff;margin-bottom:4px">TOTAL</div><div style="font-size:15px;font-weight:900;color:#D4A017">${ph.total}</div><div style="font-size:11px;color:rgba(255,255,255,.8);font-family:Barlow;margin-top:6px;line-height:1.4">${ph.nota}</div></div></div>`;
+}
+h+=sh(L("BAJADA DE PESO","WEIGHT CUT"),"⚖️");
+h+=`<div style="background:#0f1e35;border-radius:12px;overflow:hidden;margin-bottom:10px">`;
+CUT.forEach(s=>{h+=`<div style="display:flex;gap:10px;padding:10px 14px;border-bottom:1px solid #070d1a"><div style="flex-shrink:0"><div style="background:${s.c};border-radius:5px;padding:2px 6px;font-size:9px;font-weight:700;color:#fff">${s.s}</div></div><div><div style="font-size:13px;font-weight:800;color:#fff">${s.t}</div><div style="font-size:11px;color:#7a9ab5;font-family:Barlow;line-height:1.4">${s.d}</div></div></div>`;});
+h+=`</div><div style="background:#1a0000;border:2px solid #c0392b;border-radius:10px;padding:12px;margin-bottom:14px"><div style="font-size:12px;color:#ff9999;font-family:Barlow;line-height:1.5">⚠ NUNCA bajar más del 8-10% del peso corporal. Bajar más de 5kg en agua es PELIGROSO. Siempre supervisado por el coach.</div></div>`;
+h+=sh(L("SUPLEMENTACIÓN","SUPPLEMENTATION"),"💊");
+h+=`<div style="background:#0f1e35;border-radius:12px;padding:14px;margin-bottom:14px">`;
+SUPS.forEach(s=>{h+=`<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #0a1628"><div style="flex:1"><div style="font-size:13px;font-weight:700;color:#fff">${esc(s.n)}</div><div style="font-size:11px;color:#7a9ab5;font-family:Barlow">${esc(s.r)}</div></div><div style="text-align:right;flex-shrink:0;margin-left:10px"><div style="font-size:12px;color:#D4A017;font-weight:700">${esc(s.d)}</div><div style="font-size:10px;color:#4a6a8a;font-family:Barlow">${esc(s.w)}</div></div></div>`;});
+h+=`</div>`;
+return h;
+}
+function setNutPhase(id){ST.openNut=id;reRender();}
+function renderStore(){
+const TAG="osvimerboxing-20";
+const amz=q=>"https://www.amazon.com/s?k="+encodeURIComponent(q)+"&tag="+TAG;
+const cats=[
+{ic:"🥊",n:"Guantes de Boxeo",b:["Everlast","Adidas","Hayabusa","Venum","Rival","Ringside","Title","Cleto Reyes","Fairtex","RDX"]},
+{ic:"🪖",n:"Cascos",b:["Everlast","Adidas","Rival","Ringside","Title","Hayabusa","Venum"]},
+{ic:"🩹",n:"Vendas",b:["Everlast","Adidas","Rival","Title","Ringside","Venum"]},
+{ic:"👟",n:"Calzado Boxeo",b:["Adidas","Nike","Everlast","Title","Rival"]},
+{ic:"👕",n:"Shorts / Ropa",b:["Everlast","Adidas","Nike","Venum","Rival","Title"]},
+{ic:"🎯",n:"Sacos",b:["Everlast","Title","Ringside","Rival","RDX"]},
+{ic:"🤜",n:"Mitts / Pads",b:["Cleto Reyes","Winning","Everlast","Title","Rival"]},
+{ic:"🛡️",n:"Protectores",b:["Everlast","Adidas","Title","Rival","RDX"]},
+{ic:"🏃",n:"Zapatos Correr",b:["Nike","Adidas","Brooks","New Balance","ASICS","Saucony","Hoka"]},
+{ic:"🥤",n:"Nutrición",b:["Optimum Nutrition","BSN","Dymatize","Muscle Milk","Gatorade","Clif Bar"]},
+{ic:"💊",n:"Suplementos",b:["ON Creatine","NOW Omega-3","Life Extension Magnesium","NatureWise Vitamin D3"]},
+{ic:"🧴",n:"Recuperación",b:["Biofreeze","Tiger Balm","Theragun","Hyperice","RumbleRoller"]},
+];
+let h=sh(L("TIENDA DE BOXEO","BOXING STORE"),"🛒");
+h+=`<div class="card card-g" style="text-align:center;margin-bottom:14px"><div style="font-size:11px;color:#D4A017;margin-bottom:4px">AMAZON ASSOCIATES</div><div style="font-size:13px;color:#fff">Coach Osvimer Rodriguez • Tag: ${TAG}</div></div>`;
+cats.forEach(cat=>{
+h+=`<div style="margin-bottom:14px"><div style="font-size:12px;font-weight:900;color:#D4A017;margin-bottom:8px">${cat.ic} ${cat.n.toUpperCase()}</div><div class="g2">`;
+cat.b.forEach(b=>{h+=`<div style="background:#0f1e35;border:1px solid #1e3050;border-radius:10px;padding:10px;cursor:pointer" onclick="window.open('${amz(b+" "+cat.n+" boxing")}','_blank')"><div style="font-size:12px;font-weight:700;color:#fff;margin-bottom:4px">${esc(b)}</div><div style="font-size:9px;color:#D4A017;font-weight:700">VER EN AMAZON ↗</div></div>`;});
+h+=`</div></div>`;
+});
+return h;
+}
+
+const ProPhases=[{id:1,color:"#1a3a6a",name:"BASE AERÓBICA",weeks:8,sub:"Meses 1-2",focus:"Reconstruir base aeróbica. Sin contacto fuerte. El cuerpo recuerda — hay que despertarlo.",sessions:{mon:{title:"Cuerda + Técnica",dur:86,blocks:[{n:"Calentamiento",d:"Movilidad completa",t:"15 min"},{n:"Cuerda",d:"20 min — 60% FC",t:"20 min"},{n:"Shadow libre",d:"Sin instrucción",t:"15 min"},{n:"Saco técnico",d:"3×3min/1min",t:"11 min"},{n:"Físico Pro B1",d:"Ver protocolo",t:"15 min"},{n:"Estiramiento",d:"Completo",t:"10 min"}]},tue:{title:"Carrera + Evaluación",dur:87,blocks:[{n:"Calentamiento",d:"Movilidad",t:"12 min"},{n:"Carrera",d:"30 min conversacional",t:"30 min"},{n:"Shadow evaluado",d:"Coach observa sin intervenir",t:"15 min"},{n:"Escuela combate",d:"Qué se perdió — qué se conservó",t:"20 min"},{n:"Físico Pro B1",d:"Ver protocolo",t:"10 min"}]},thu:{title:"Cuerda + Corrección",dur:87,blocks:[{n:"Calentamiento",d:"Movilidad",t:"12 min"},{n:"Cuerda",d:"Variaciones ritmo",t:"20 min"},{n:"Shadow Sagarra",d:"7 estilos — sin presión",t:"15 min"},{n:"Saco técnico",d:"4×3min/1min — 70%",t:"15 min"},{n:"Físico Pro B1",d:"Ver protocolo",t:"15 min"},{n:"Estiramiento",d:"Profundo",t:"10 min"}]},fri:{title:"Tramos + Evaluación",dur:72,blocks:[{n:"Calentamiento",d:"Movilidad",t:"12 min"},{n:"6 tramos×50m",d:"75%",t:"10 min"},{n:"Shadow evaluado",d:"Aplicar correcciones",t:"15 min"},{n:"Evaluación semanal",d:"2 positivos + 1 mejorar",t:"20 min"},{n:"Físico Pro B1",d:"Ver protocolo",t:"15 min"}]}}},{id:2,color:"#1a6b3c",name:"REACTIVACIÓN TÉCNICA",weeks:8,sub:"Meses 3-4",focus:"Sparring ligero controlado. Refrescar los 7 estilos. Recuperar la confianza táctica.",sessions:{mon:{title:"Cuerda + Mascota",dur:87,blocks:[{n:"Calentamiento",d:"Movilidad",t:"12 min"},{n:"Cuerda",d:"25 min — ritmo combate",t:"25 min"},{n:"Shadow",d:"75%",t:"12 min"},{n:"Mascota técnica",d:"4×3min/1min",t:"15 min"},{n:"Saco potencia",d:"3×3min/1min 80%",t:"11 min"},{n:"Físico Pro B2",d:"Ver protocolo",t:"12 min"}]},tue:{title:"Carrera + Sparring Ligero",dur:88,blocks:[{n:"Calentamiento",d:"Movilidad",t:"12 min"},{n:"Carrera",d:"25 min conversacional",t:"25 min"},{n:"Shadow",d:"75%",t:"10 min"},{n:"Escuela combate",d:"Punto débil",t:"15 min"},{n:"Sparring técnico",d:"3×3min/1min — SOLO TÉCNICA",t:"11 min"},{n:"Shadow recuperación",d:"Manos arriba",t:"8 min"},{n:"Físico Pro B2",d:"Ver protocolo",t:"7 min"}]},thu:{title:"Cuerda + Sparring Controlado",dur:90,blocks:[{n:"Calentamiento",d:"Movilidad",t:"12 min"},{n:"Cuerda",d:"25 min",t:"25 min"},{n:"Shadow",d:"80%",t:"10 min"},{n:"Mascota táctica",d:"4×3min/1min",t:"15 min"},{n:"Sparring condicionado",d:"4×3min/1min",t:"15 min"},{n:"Shadow recuperación",d:"Suave",t:"8 min"},{n:"Físico Pro B2",d:"Ver protocolo",t:"5 min"}]},fri:{title:"Tramos + Evaluación",dur:90,blocks:[{n:"Calentamiento",d:"Movilidad",t:"12 min"},{n:"8 tramos×50m+2×100m",d:"80%",t:"14 min"},{n:"Shadow evaluado",d:"Sin instrucción",t:"18 min"},{n:"Saco evaluación",d:"5×3min/1min",t:"19 min"},{n:"Evaluación",d:"Progreso + plan",t:"15 min"},{n:"Físico Pro B2",d:"Ver protocolo",t:"12 min"}]}}},{id:3,color:"#5b2c8d",name:"PREP AMATEUR + TUNE-UP",weeks:8,sub:"Meses 5-6",focus:"1-2 peleas amateur como tune-up. Ritmo de combate real.",sessions:{mon:{title:"Cuerda + Mascota Asfixia",dur:90,blocks:[{n:"Calentamiento",d:"Movilidad",t:"12 min"},{n:"Cuerda",d:"25 min — máxima",t:"25 min"},{n:"4 tramos×50m",d:"85%",t:"7 min"},{n:"Shadow",d:"85%",t:"10 min"},{n:"Mascota asfixia",d:"5×3min/1min 88%",t:"19 min"},{n:"Saco potencia",d:"4×3min/1min",t:"15 min"},{n:"Físico Pro B3",d:"Ver protocolo",t:"2 min"}]},tue:{title:"Carrera + Sparring Fuerte",dur:90,blocks:[{n:"Calentamiento",d:"Movilidad",t:"12 min"},{n:"Carrera",d:"25 min",t:"25 min"},{n:"Shadow",d:"85%",t:"10 min"},{n:"Escuela combate",d:"Automática",t:"10 min"},{n:"Sparring condicionado",d:"5×3min/1min 88%",t:"19 min"},{n:"Shadow recuperación",d:"Manos arriba",t:"8 min"},{n:"Físico Pro B3",d:"Ver protocolo",t:"6 min"}]},thu:{title:"Última Carga",dur:90,blocks:[{n:"Calentamiento",d:"Movilidad",t:"12 min"},{n:"Cuerda",d:"20 min pelea",t:"20 min"},{n:"Shadow plan pelea",d:"85%",t:"10 min"},{n:"Mascota táctica",d:"4×3min/1min 90%",t:"15 min"},{n:"Sparring libre",d:"5×3min/1min",t:"19 min"},{n:"Shadow recuperación",d:"Manos arriba",t:"8 min"},{n:"Físico Pro B3",d:"Ver protocolo",t:"6 min"}]},fri:{title:"Evaluación + Prep Pelea",dur:90,blocks:[{n:"Calentamiento",d:"Movilidad",t:"12 min"},{n:"8 tramos×50m+2×100m",d:"88%",t:"14 min"},{n:"Shadow evaluado",d:"Plan de pelea",t:"15 min"},{n:"Saco evaluación",d:"5×3min/1.5min",t:"21 min"},{n:"Evaluación pelea amateur",d:"Análisis + ajuste",t:"18 min"},{n:"Físico Pro B3",d:"Ver protocolo",t:"10 min"}]}}},{id:4,color:"#8b1a1a",name:"TRANSICIÓN AL PRO",weeks:8,sub:"Meses 7-8",focus:"Asaltos de 4 min. Resistencia para 10 asaltos. Ritmo pro progresivo.",sessions:{mon:{title:"Cuerda + Mascota 4min",dur:90,blocks:[{n:"Calentamiento",d:"Movilidad",t:"12 min"},{n:"Cuerda",d:"25 min pro",t:"25 min"},{n:"4 tramos×50m",d:"88%",t:"7 min"},{n:"Shadow",d:"88%",t:"10 min"},{n:"Mascota pro",d:"5×4min/1min 88%",t:"24 min"},{n:"Saco potencia",d:"3×3min/1min",t:"11 min"},{n:"Físico Pro B4",d:"Ver protocolo",t:"1 min"}]},tue:{title:"Carrera + Sparring Pro",dur:90,blocks:[{n:"Calentamiento",d:"Movilidad",t:"12 min"},{n:"Carrera",d:"30 min conversacional",t:"30 min"},{n:"Shadow pro",d:"88%",t:"10 min"},{n:"3 situaciones críticas",d:"Respuesta automática",t:"10 min"},{n:"Sparring pro",d:"5×4min/1min",t:"24 min"},{n:"Shadow recuperación",d:"Manos arriba",t:"4 min"}]},thu:{title:"Cuerda + Sparring + Saco",dur:90,blocks:[{n:"Calentamiento",d:"Movilidad",t:"12 min"},{n:"Cuerda",d:"25 min",t:"25 min"},{n:"Shadow",d:"88%",t:"10 min"},{n:"Mascota táctica",d:"4×4min/1min",t:"19 min"},{n:"Sparring condicionado",d:"4×4min/1min",t:"19 min"},{n:"Shadow recuperación",d:"Suave",t:"5 min"}]},fri:{title:"Tramos + Evaluación Pro",dur:90,blocks:[{n:"Calentamiento",d:"Movilidad",t:"12 min"},{n:"10 tramos×50m+4×100m",d:"90%",t:"18 min"},{n:"Shadow evaluado",d:"Sistema pro",t:"15 min"},{n:"Saco evaluación",d:"5×4min/1.5min",t:"24 min"},{n:"Evaluación semanal",d:"Ritmo + resistencia",t:"21 min"}]}}},{id:5,color:"#D4A017",name:"PREP PRO ESPECÍFICA",weeks:8,sub:"Meses 9-10",focus:"Sparring de calidad. Plan de pelea específico para el rival.",sessions:{mon:{title:"Cuerda + Mascota Asfixia Pro",dur:90,blocks:[{n:"Calentamiento",d:"Movilidad",t:"12 min"},{n:"Cuerda",d:"25 min pro",t:"25 min"},{n:"4 tramos×50m",d:"90%",t:"7 min"},{n:"Shadow plan pelea",d:"90%",t:"10 min"},{n:"Mascota asfixia",d:"6×4min/1min 90%",t:"29 min"},{n:"Físico Pro B4",d:"Ver protocolo",t:"7 min"}]},tue:{title:"Carrera + Sparring Calidad",dur:90,blocks:[{n:"Calentamiento",d:"Movilidad",t:"12 min"},{n:"Carrera",d:"30 min",t:"30 min"},{n:"Shadow pro",d:"90%",t:"10 min"},{n:"Sparring calidad",d:"6×4min/1min rival específico",t:"29 min"},{n:"Shadow recuperación",d:"Análisis",t:"9 min"}]},thu:{title:"Última Carga — Plan Pelea",dur:100,blocks:[{n:"Calentamiento",d:"Movilidad",t:"12 min"},{n:"Cuerda",d:"20 min",t:"20 min"},{n:"Shadow plan",d:"3 puntos automáticos",t:"12 min"},{n:"Mascota táctica",d:"5×4min/1min",t:"24 min"},{n:"Sparring específico",d:"5×4min/1min",t:"24 min"},{n:"Análisis",d:"Video mental",t:"8 min"}]},fri:{title:"Evaluación Final",dur:90,blocks:[{n:"Calentamiento",d:"Movilidad",t:"12 min"},{n:"10 tramos×50m+4×100m",d:"92%",t:"18 min"},{n:"Shadow evaluado",d:"Sistema completo",t:"15 min"},{n:"Saco evaluación",d:"6×4min/1.5min",t:"29 min"},{n:"Evaluación prep",d:"Listo para pelea",t:"16 min"}]}}},{id:6,color:"#c0392b",name:"PEAK + DEBUT PRO",weeks:4,sub:"Meses 11-12",focus:"Afilado. Semana de pelea. DEBUT PROFESIONAL.",sessions:{mon:{title:"REDUCCIÓN — Afilado",dur:90,blocks:[{n:"Calentamiento",d:"Movilidad",t:"12 min"},{n:"Cuerda",d:"20 min ritmo pelea",t:"20 min"},{n:"Shadow plan pelea",d:"3 puntos",t:"15 min"},{n:"Mascota afilado",d:"4×4min/1.5min plan fijo",t:"21 min"},{n:"Saco afilado",d:"3×3min/1min",t:"11 min"},{n:"Estiramiento profundo",d:"Recuperación",t:"11 min"}]},tue:{title:"REDUCCIÓN — Sparring",dur:77,blocks:[{n:"Calentamiento",d:"Movilidad",t:"12 min"},{n:"Carrera",d:"20 min suave",t:"20 min"},{n:"Shadow plan",d:"80% plan fijo",t:"12 min"},{n:"Sparring controlado",d:"4×3min/1min — sin guerra",t:"15 min"},{n:"Shadow recuperación",d:"Manos arriba",t:"10 min"},{n:"Estiramiento",d:"Profundo",t:"8 min"}]},thu:{title:"AFILADO — Sesión Única",dur:73,blocks:[{n:"Calentamiento",d:"Movilidad",t:"12 min"},{n:"Cuerda",d:"15 min ritmo pelea",t:"15 min"},{n:"Shadow plan pelea",d:"3 puntos en voz alta",t:"15 min"},{n:"Mascota afilado",d:"3×4min/1.5min plan fijo",t:"16 min"},{n:"Estiramiento profundo",d:"Recuperación + visualización",t:"15 min"}]},fri:{title:"ACTIVACIÓN + DEBUT PRO",dur:30,blocks:[{n:"Activación matutina",d:"15 min movilidad + 5 min shadow",t:"20 min"},{n:"Visualización",d:"Plan de pelea — resultado deseado",t:"10 min"},{n:"PELEA PRO",d:"Ejecutar el plan — DEBUT",t:"—"}]}}}];
+
+const PhysPro={B1:{M16:[{e:"Cuclillas con mancuernas 3-2-1",s:"4 series",r:"15 rep",d:"90 seg"},{e:"Estocada alternada",s:"3 series",r:"12 c/pierna",d:"90 seg"},{e:"Flexiones lentas 3-2-1",s:"4 series",r:"12 rep",d:"75 seg"},{e:"Plancha frontal",s:"5 series",r:"35 seg",d:"60 seg"},{e:"Plancha lateral",s:"4 series",r:"30 seg c/lado",d:"60 seg"},{e:"Abdominal básico",s:"4 series",r:"20 rep",d:"45 seg"},{e:"Puente glúteos 3-2-1",s:"4 series",r:"15 rep",d:"45 seg"},{e:"Respiración diafragmática",s:"2 series",r:"10 resp",d:"30 seg"}]},B2:{M16:[{e:"Cuclillas explosivas",s:"5 series",r:"12 rep",d:"75 seg"},{e:"Estocada con salto alternada",s:"4 series",r:"10 c/pierna",d:"75 seg"},{e:"Flexiones explosivas con palmada",s:"5 series",r:"10 rep",d:"75 seg"},{e:"Plancha frontal",s:"6 series",r:"40 seg",d:"60 seg"},{e:"Plancha lateral",s:"4 series",r:"35 seg c/lado",d:"60 seg"},{e:"Abdominal de combate",s:"5 series",r:"22 rep",d:"45 seg"},{e:"Puente glúteos explosivo",s:"5 series",r:"18 rep",d:"45 seg"}]},B3:{M16:[{e:"Cuclillas jump + mancuernas",s:"5 series",r:"10 rep",d:"75 seg"},{e:"Estocada con salto",s:"5 series",r:"10 c/pierna",d:"75 seg"},{e:"Flexiones palmada elevación",s:"5 series",r:"10 rep",d:"75 seg"},{e:"Plancha con rotación",s:"5 series",r:"40 seg c/lado",d:"60 seg"},{e:"Abdominal rotacional",s:"5 series",r:"20 rep",d:"45 seg"},{e:"Puente glúteos + extensión",s:"5 series",r:"15 rep c/lado",d:"45 seg"},{e:"Sentadilla con salto",s:"4 series",r:"12 rep",d:"60 seg"}]},B4:{M16:[{e:"Sentadilla búlgara",s:"5 series",r:"10 c/pierna",d:"75 seg"},{e:"Estocada salto + giro",s:"5 series",r:"8 c/pierna",d:"75 seg"},{e:"Flexiones palmada + explosivas",s:"6 series",r:"8 rep",d:"60 seg"},{e:"Plancha movimiento lateral",s:"5 series",r:"45 seg",d:"60 seg"},{e:"Abdominal bicicleta",s:"5 series",r:"25 rep",d:"45 seg"},{e:"Puente glúteos unilateral",s:"5 series",r:"12 rep c/lado",d:"45 seg"},{e:"Burpee con sombra",s:"4 series",r:"10 rep",d:"60 seg"}]}};
+
+function openProPhysModal(proPhase){
+const blkKey=proPhase<=1?"B1":proPhase<=2?"B2":proPhase<=3?"B3":"B4";
+const exs=(PhysPro[blkKey]||PhysPro.B1).M16;
+const BNAMES={B1:"BLOQUE 1 — BASE PRO (70%)",B2:"BLOQUE 2 — ESPECÍFICO PRO (80%)",B3:"BLOQUE 3 — COMPETITIVO PRO (85%)",B4:"BLOQUE 4 — PRO PEAK (90%)"};
+let h=`<div style="margin-bottom:14px"><div style="font-size:10px;color:#e74c3c;font-weight:700;margin-bottom:4px">🏋️ PLAN FÍSICO PRO</div><div style="font-size:17px;font-weight:900;color:#fff;margin-bottom:6px">${BNAMES[blkKey]}</div><div style="font-size:11px;color:#D4A017;font-family:Barlow;background:#0a1628;border-radius:8px;padding:8px;margin-bottom:10px">⚙️ Método 3-2-1 | Peso shadow: 2-3kg | Nivel PRO</div></div>`;
+h+=`<div style="background:#0f1e35;border-radius:12px;overflow:hidden"><div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;padding:8px 12px;background:#1e3050;font-size:10px;font-weight:700;color:#D4A017"><div>EJERCICIO</div><div>SERIES</div><div>TRABAJO</div><div>DESCANSO</div></div>`;
+exs.forEach((ex,i)=>{h+=`<div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;padding:9px 12px;border-top:1px solid #0a1628;background:${i%2===0?"#0f1e35":"#0a1420"}"><div style="font-size:12px;font-weight:700;color:#fff">${esc(ex.e)}</div><div style="font-size:11px;color:#D4A017;font-weight:700">${esc(ex.s)}</div><div style="font-size:11px;color:#fff">${esc(ex.r)}</div><div style="font-size:11px;color:#7a9ab5">${esc(ex.d)}</div></div>`;});
+h+=`</div>`;
+document.getElementById("modal-wrap").innerHTML=mwrap(h);
+}
+
+
+function openAddProAth(){
+let h=`<div style="font-size:19px;font-weight:900;color:#e74c3c;margin-bottom:16px">🥊 NUEVO ATLETA PRO</div>`;
+h+=`<div style="margin-bottom:10px"><label class="lbl">NOMBRE *</label><input class="inp" id="pa-name" placeholder="Nombre completo"></div>`;
+h+=`<div class="g2" style="margin-bottom:10px"><div><label class="lbl">PESO lb</label><input type="number" class="inp" id="pa-wt" placeholder="147"></div><div><label class="lbl">PIN (4 dígitos) *</label><input type="text" class="inp" id="pa-pin" placeholder="9002" maxlength="4"></div></div>`;
+h+=`<div style="margin-bottom:10px"><label class="lbl">RÉCORD (V-D-E)</label><div class="g3"><input type="number" class="inp" id="pa-w" value="0" min="0"><input type="number" class="inp" id="pa-l" value="0" min="0"><input type="number" class="inp" id="pa-d" value="0" min="0"></div></div>`;
+h+=`<div style="margin-bottom:10px"><label class="lbl">CATEGORÍA PRO</label><input class="inp" id="pa-cat" placeholder="Welterweight 147 lbs"></div>`;
+h+=`<div style="margin-bottom:14px"><label class="lbl">NOTAS</label><textarea class="inp" id="pa-notes" rows="2" style="resize:none"></textarea></div>`;
+h+=`<button onclick="saveProAth(null)" class="btn btn-r">REGISTRAR ATLETA PRO</button>`;
+const el=document.getElementById("modal-wrap");if(el)el.innerHTML=mwrap(h);
+}
+function openEditProAth(id){
+const a=(ST.proAthletes||[]).find(x=>x.id===id);if(!a)return;
+let h=`<div style="font-size:19px;font-weight:900;color:#e74c3c;margin-bottom:16px">✏️ ${esc(a.name)}</div>`;
+h+=`<div style="margin-bottom:10px"><label class="lbl">NOMBRE</label><input class="inp" id="pa-name" value="${esc(a.name)}"></div>`;
+h+=`<div class="g2" style="margin-bottom:10px"><div><label class="lbl">PESO lb</label><input type="number" class="inp" id="pa-wt" value="${a.weight||""}"></div><div><label class="lbl">PIN</label><input type="text" class="inp" id="pa-pin" value="${esc(a.pin||"")}" maxlength="4"></div></div>`;
+h+=`<div style="margin-bottom:10px"><label class="lbl">RÉCORD (V-D-E)</label><div class="g3"><input type="number" class="inp" id="pa-w" value="${a.wins||0}" min="0"><input type="number" class="inp" id="pa-l" value="${a.losses||0}" min="0"><input type="number" class="inp" id="pa-d" value="${a.draws||0}" min="0"></div></div>`;
+h+=`<div style="margin-bottom:10px"><label class="lbl">CATEGORÍA PRO</label><input class="inp" id="pa-cat" value="${esc(a.category||"")}"></div>`;
+h+=`<div style="margin-bottom:10px"><label class="lbl">FASE PRO</label><select class="inp" id="pa-phase">${[1,2,3,4,5,6].map(p=>`<option value="${p}"${p===(a.proPhase||1)?" selected":""}>Fase ${p}</option>`).join("")}</select></div>`;
+h+=`<div style="margin-bottom:14px"><label class="lbl">NOTAS</label><textarea class="inp" id="pa-notes" rows="2" style="resize:none">${esc(a.notes||"")}</textarea></div>`;
+h+=`<div class="g2"><button onclick="saveProAth('${id}')" class="btn btn-r">GUARDAR</button><button onclick="deleteProAth('${id}')" class="btn btn-d" style="color:#e74c3c">ELIMINAR</button></div>`;
+const el=document.getElementById("modal-wrap");if(el)el.innerHTML=mwrap(h);
+}
+function saveProAth(existId){
+const gv=id=>{const e=document.getElementById(id);return e?e.value:"";};
+const name=gv("pa-name");if(!name.trim()){alert("Ingresa el nombre");return;}
+const pin=gv("pa-pin");if(pin.length!==4){alert("PIN debe ser 4 dígitos");return;}
+const data={name:name.trim(),weight:parseFloat(gv("pa-wt"))||0,pin,category:gv("pa-cat"),proPhase:parseInt(gv("pa-phase"))||1,proWeek:1,wins:parseInt(gv("pa-w"))||0,losses:parseInt(gv("pa-l"))||0,draws:parseInt(gv("pa-d"))||0,notes:gv("pa-notes"),status:"Activo",isPro:true};
+if(existId){ST.proAthletes=(ST.proAthletes||[]).map(a=>a.id===existId?{...a,...data}:a);}
+else{ST.proAthletes=[...(ST.proAthletes||[]),{...data,id:uid()}];}
+sv("cba_pro_athletes",ST.proAthletes);
+const el=document.getElementById("modal-wrap");if(el)el.innerHTML="";
+reRender();
+}
+function deleteProAth(id){
+if(!confirm(L("¿Eliminar este atleta pro?","Delete this pro athlete?")))return;
+ST.proAthletes=(ST.proAthletes||[]).filter(a=>a.id!==id);
+sv("cba_pro_athletes",ST.proAthletes);
+const el=document.getElementById("modal-wrap");if(el)el.innerHTML="";
+reRender();
+}
+
+
+function renderPricing(){
+  var l=tl();
+  var h="";
+
+  // Hero header
+  h+='<div class="c" style="background:linear-gradient(135deg,#070d1a,#0a1628);border:2px solid #D4A017;text-align:center;padding:20px;margin-bottom:14px">';
+  h+='<div style="font-size:11px;color:#D4A017;letter-spacing:2px;font-weight:700;margin-bottom:6px">🥊 NEMEA BOXING</div>';
+  h+='<div style="font-size:24px;font-weight:900;color:#fff;line-height:1.2">PLANES Y PRECIOS</div>';
+  h+='<div style="font-size:12px;color:#7a9ab5;font-family:Barlow;margin-top:6px">Henderson, Nevada · Metodología Sagarra</div>';
+  h+='</div>';
+
+  // ── PLAN MENSUAL ──────────────────────────────────────────
+  h+='<div class="c" style="border:2px solid #D4A017;background:linear-gradient(135deg,#0a1628,#162540);margin-bottom:12px;position:relative;overflow:hidden">';
+  h+='<div style="position:absolute;top:0;right:0;background:#D4A017;color:#070d1a;font-size:10px;font-weight:900;padding:4px 12px;border-radius:0 0 0 10px;letter-spacing:1px">MÁS POPULAR</div>';
+  h+='<div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:12px">';
+  h+='<div style="width:48px;height:48px;background:#D4A017;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0">📅</div>';
+  h+='<div><div style="font-size:20px;font-weight:900;color:#fff">MEMBRESÍA MENSUAL</div>';
+  h+='<div style="font-size:11px;color:#7a9ab5;font-family:Barlow;margin-top:2px">Entrenamiento grupal + individual</div></div></div>';
+  h+='<div style="font-size:42px;font-weight:900;color:#D4A017;text-align:center;margin:10px 0">';
+  h+='$200 <span style="font-size:16px;color:#7a9ab5;font-weight:400">/ mes</span></div>';
+  h+='<div style="background:#070d1a;border-radius:10px;padding:12px;margin-bottom:14px">';
+  var beneficios_mes = [
+    "✅ Acceso ilimitado al gimnasio",
+    "✅ Plan de entrenamiento Sagarra",
+    "✅ Acceso a app CBA (todas las fases)",
+    "✅ Plan nutricional personalizado",
+    "✅ Seguimiento semanal del progreso",
+    "✅ Clases grupales incluidas"
+  ];
+  beneficios_mes.forEach(function(b){
+    h+='<div style="font-size:12px;color:#fff;font-family:Barlow;padding:4px 0;border-bottom:1px solid #0f1e35">'+b+'</div>';
+  });
+  h+='</div>';
+  h+='<a href="https://buy.stripe.com/fZubJ18wxfsY5Vz0nw8so01" target="_blank" style="display:block;width:100%;background:linear-gradient(135deg,#D4A017,#f0c040);color:#070d1a;border:none;border-radius:12px;padding:14px;font-weight:900;font-size:16px;text-align:center;text-decoration:none;letter-spacing:1px">💳 INSCRIBIRME AHORA</a>';
+  h+='<div style="font-size:10px;color:#4a6a8a;text-align:center;margin-top:6px;font-family:Barlow">Pago seguro con Stripe · Cancela cuando quieras</div>';
+  h+='</div>';
+
+  // ── SESIÓN 1 A 1 ──────────────────────────────────────────
+  h+='<div class="c" style="border:2px solid #3b82f6;background:linear-gradient(135deg,#0a1628,#0a1a3a);margin-bottom:12px">';
+  h+='<div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:12px">';
+  h+='<div style="width:48px;height:48px;background:#3b82f6;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0">🎯</div>';
+  h+='<div><div style="font-size:20px;font-weight:900;color:#fff">SESIÓN 1 A 1</div>';
+  h+='<div style="font-size:11px;color:#7a9ab5;font-family:Barlow;margin-top:2px">Entrenamiento privado personalizado</div></div></div>';
+  h+='<div style="font-size:42px;font-weight:900;color:#3b82f6;text-align:center;margin:10px 0">';
+  h+='$80 <span style="font-size:16px;color:#7a9ab5;font-weight:400">/ hora</span></div>';
+  h+='<div style="background:#070d1a;border-radius:10px;padding:12px;margin-bottom:14px">';
+  var beneficios_1a1 = [
+    "✅ Atención 100% personalizada",
+    "✅ Técnica Sagarra individual",
+    "✅ Corrección de errores en tiempo real",
+    "✅ Plan diseñado solo para ti",
+    "✅ Análisis de video del combate",
+    "✅ Flexible de horario"
+  ];
+  beneficios_1a1.forEach(function(b){
+    h+='<div style="font-size:12px;color:#fff;font-family:Barlow;padding:4px 0;border-bottom:1px solid #0f1e35">'+b+'</div>';
+  });
+  h+='</div>';
+  h+='<div style="display:flex;gap:8px">';
+  h+='<a href="tel:17027234009" style="flex:1;background:#27ae60;color:#fff;border-radius:10px;padding:12px;font-size:13px;font-weight:700;text-align:center;text-decoration:none">📞 LLAMAR</a>';
+  h+='<a href="https://wa.me/17027234009" target="_blank" style="flex:1;background:#25D366;color:#fff;border-radius:10px;padding:12px;font-size:13px;font-weight:700;text-align:center;text-decoration:none">💬 WHATSAPP</a>';
+  h+='</div>';
+  h+='</div>';
+
+  // ── INFO CONTACTO ─────────────────────────────────────────
+  h+='<div class="c" style="border-color:#1e3050;text-align:center;margin-bottom:14px">';
+  h+='<div style="font-size:13px;font-weight:900;color:#D4A017;margin-bottom:8px">📍 NEMEA BOXING</div>';
+  h+='<div style="font-size:12px;color:#fff;font-family:Barlow;margin-bottom:4px">Henderson, Nevada · USA</div>';
+  h+='<div style="font-size:12px;color:#7a9ab5;font-family:Barlow;margin-bottom:12px">Coach Osvimer Rodriguez · 30+ años experiencia</div>';
+  h+='<div style="display:flex;gap:8px;justify-content:center">';
+  h+='<a href="tel:17027234009" style="background:#1e3050;border:1px solid #D4A017;color:#D4A017;border-radius:10px;padding:8px 16px;font-size:12px;font-weight:700;text-decoration:none">📞 (702) 723-4009</a>';
+  h+='<a href="mailto:boxingosvimer67kg@gmail.com" style="background:#1e3050;border:1px solid #3b82f6;color:#3b82f6;border-radius:10px;padding:8px 16px;font-size:12px;font-weight:700;text-decoration:none">✉️ EMAIL</a>';
+  h+='</div></div>';
+
+  // ── FAQ ───────────────────────────────────────────────────
+  h+='<div class="c" style="border-color:#1e3050">';
+  h+='<div style="font-size:13px;font-weight:900;color:#D4A017;margin-bottom:10px">❓ PREGUNTAS FRECUENTES</div>';
+  var faqs=[
+    ["¿Hay contrato?","No. Puedes cancelar cuando quieras."],
+    ["¿Se puede combinar?","Sí. Membresía mensual + sesiones 1 a 1."],
+    ["¿Para qué edades?","Desde 9 años hasta adultos."],
+    ["¿Qué incluye la app?","Todas las fases amateur + módulo PRO."],
+    ["¿Cómo coordino el 1 a 1?","Por WhatsApp o teléfono directamente con el Coach."]
+  ];
+  faqs.forEach(function(faq){
+    h+='<div style="margin-bottom:8px;border-bottom:1px solid #1e3050;padding-bottom:8px">';
+    h+='<div style="font-size:12px;font-weight:700;color:#fff">'+faq[0]+'</div>';
+    h+='<div style="font-size:11px;color:#7a9ab5;font-family:Barlow;margin-top:2px">'+faq[1]+'</div></div>';
+  });
+  h+='</div>';
+
+  return h;
+}
+
+function renderNotes(){
+const tl=t();
+if(ST.isCoach) return renderCoachNotes();
+if(!ST.user) return ec(L("Inicia sesión primero","Please log in first"));
+const msgs=ld(MESSAGES_KEY+ST.user.id,[]);
+const today=new Date().toISOString().split("T")[0];
+const todayNote=msgs.find(m=>m.type==="note"&&m.date===today);
+let h=`<div style="margin-bottom:20px">`;
+h+=sh(tl.myNotes,"📝");
+h+=`<div class="card" style="margin-bottom:10px">`;
+if(todayNote){h+=`<div style="font-size:13px;color:#fff;font-family:Barlow;line-height:1.5;white-space:pre-wrap">${esc(todayNote.text)}</div><div style="font-size:10px;color:#7a9ab5;margin-top:8px;font-family:Barlow">${fD(todayNote.date)}</div>`;}
+else{h+=`<div style="font-size:12px;color:#7a9ab5;font-family:Barlow">${tl.noNotes}</div>`;}
+h+=`</div>`;
+h+=`<textarea id="note-txt" class="note-area" rows="4" placeholder="${esc(tl.writeNote)}">${todayNote?esc(todayNote.text):""}</textarea>`;
+h+=`<button onclick="saveNote()" class="btn btn-g" style="margin-top:8px">${tl.saveNote}</button>`;
+h+=`</div>`;
+h+=sh(tl.myQ,"❓");
+const coachReplies=msgs.filter(m=>m.type==="reply");
+if(coachReplies.length>0){
+h+=`<div style="margin-bottom:12px">`;
+coachReplies.slice(-3).reverse().forEach(m=>{
+h+=`<div class="card msg-coach" style="margin-bottom:8px"><div style="font-size:11px;color:#D4A017;font-weight:700;margin-bottom:4px">Coach Osvimer</div><div style="font-size:12px;color:#fff;font-family:Barlow">${esc(m.text)}</div><div style="font-size:10px;color:rgba(255,255,255,.5);margin-top:4px">${fD(m.date)}</div></div>`;
+});
+h+=`</div>`;
+}
+h+=`<textarea id="q-txt" class="note-area" rows="3" placeholder="${esc(tl.writeNote)}"></textarea>`;
+h+=`<button onclick="sendQ()" class="btn btn-g" style="margin-top:8px;background:#1a4a7a;color:#fff">${tl.sendQ}</button>`;
+return h;
+}
+function renderCoachNotes(){
+const tl=t();
+let h=sh(L("COMUNICACIÓN CON ATLETAS","ATHLETE COMMUNICATIONS"),"💬");
+ST.athletes.forEach(a=>{
+const msgs=ld(MESSAGES_KEY+a.id,[]);
+const qs=msgs.filter(m=>m.type==="question");
+const notes=msgs.filter(m=>m.type==="note");
+if(qs.length===0&&notes.length===0)return;
+h+=`<div class="card" style="margin-bottom:12px">`;
+h+=`<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">${av(a.name,36)}<div style="font-weight:700;font-size:16px;color:#fff">${esc(a.name)}</div></div>`;
+if(notes.length>0){
+h+=`<div style="font-size:11px;color:#D4A017;font-weight:700;margin-bottom:4px">${L("NOTAS DE HOY","TODAY'S NOTES")}</div>`;
+notes.slice(-1).forEach(n=>{h+=`<div style="font-size:12px;color:#fff;font-family:Barlow;background:#0a1628;border-radius:6px;padding:8px;margin-bottom:8px;white-space:pre-wrap">${esc(n.text)}</div>`;});
+}
+if(qs.length>0){
+h+=`<div style="font-size:11px;color:#c0392b;font-weight:700;margin-bottom:4px">${L("PREGUNTAS","QUESTIONS")} (${qs.length})</div>`;
+qs.slice(-2).forEach(q=>{h+=`<div style="font-size:12px;color:#fff;font-family:Barlow;background:#1a1a2e;border-radius:6px;padding:8px;margin-bottom:6px">${esc(q.text)}<div style="font-size:10px;color:#7a9ab5;margin-top:4px">${fD(q.date)}</div></div>`;});
+h+=`<textarea id="rep-${a.id}" class="note-area" rows="2" placeholder="${esc(L("Responder...","Reply..."))}"></textarea>`;
+h+=`<button onclick="sendReply('${a.id}')" class="btn btn-gr" style="margin-top:6px;font-size:12px;padding:8px">${L("ENVIAR RESPUESTA","SEND REPLY")}</button>`;
+}
+h+=`</div>`;
+});
+if(h===sh(L("COMUNICACIÓN CON ATLETAS","ATHLETE COMMUNICATIONS"),"💬"))h+=ec(L("Sin mensajes todavía.","No messages yet."));
+return h;
+}
+function openAth(id){
+const a=ST.athletes.find(x=>x.id===id);
+if(!a)return;
+const maxW=WP[a.phase]?Object.keys(WP[a.phase]).length:4;
+const grp=a.group||"Mayores 16";
+const tS=getSessData(a.phase,a.week,new Date().getDay(),grp);
+const tmS=getSessData(a.phase,a.week,(new Date().getDay()+1)%7,grp);
+const prog=Math.round((a.week/maxW)*100);
+const tl=t();
+const vals=[fD(a.dob),a.category||"—",a.group||"—",a.weight?a.weight+" lb":"—",a.status||"—",a.notes||"—"];
+const flds=[L("Nacimiento","Birth"),L("Categoría","Category"),L("Grupo","Group"),L("Peso","Weight"),L("Estado","Status"),L("Notas","Notes")];
+let h=`<div style="display:flex;gap:14px;align-items:center;margin-bottom:16px">${av(a.name,64)}<div style="flex:1"><div style="font-weight:900;font-size:22px;color:#fff">${esc(a.name)}</div><div style="font-size:12px;color:#7a9ab5;font-family:Barlow">${age(a.dob)} ${tl.yrs} • ${a.weight||"—"} lb</div>${sdot(a.status||tl.sts[0])}</div><button onclick="openM('editAth','${a.id}')" style="background:#1e3050;border:none;color:#D4A017;border-radius:8px;padding:8px 12px;font-weight:700;font-size:12px">${L("EDITAR","EDIT")}</button></div>`;
+h+=`<div class="g3" style="margin-bottom:14px">${[[a.wins||0,"#1a8f4c",tl.w],[a.losses||0,"#c0392b",tl.l],[a.draws||0,"#7a9ab5",tl.d]].map(([v,c,lb])=>`<div class="card" style="text-align:center"><div style="font-size:28px;font-weight:900;color:${c}">${v}</div><div style="font-size:9px;color:#7a9ab5;letter-spacing:1px">${esc(lb).toUpperCase()}</div></div>`).join("")}</div>`;
+h+=`<div class="card" style="margin-bottom:12px"><div style="font-size:13px;color:#D4A017;letter-spacing:1px;margin-bottom:8px">${L("DATOS","INFO")}</div>${flds.map((lb,i)=>`<div style="display:flex;justify-content:space-between;border-bottom:1px solid #1e3050;padding:5px 0"><span style="font-size:11px;color:#7a9ab5;font-family:Barlow">${esc(lb)}</span><span style="font-size:11px;color:#fff;font-family:Barlow;text-align:right;max-width:55%">${esc(vals[i])}</span></div>`).join("")}</div>`;
+h+=`<div class="card" style="margin-bottom:12px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><div style="font-size:13px;color:#D4A017;letter-spacing:1px">${L("FASE ACTUAL","CURRENT PHASE")}</div><button onclick="advAth('${a.id}')" class="btn btn-gr" style="width:auto;padding:4px 10px;font-size:11px">${L("AVANZAR ▶","ADVANCE ▶")}</button></div>${badge(a.phase,a.week,false)}<div class="prog-wrap" style="margin-top:8px"><div class="prog-fill" style="width:${prog}%"></div></div><div style="font-size:10px;color:#7a9ab5;margin-top:4px;font-family:Barlow">${tl.wk} ${a.week} ${tl.of} ${maxW} — ${prog}%</div></div>`;
+h+=`<div style="font-size:13px;color:#D4A017;letter-spacing:1px;margin-bottom:6px">${L("HOY","TODAY")} — ${esc(tS.title).toUpperCase()}</div><div class="card" style="margin-bottom:8px"><div style="font-size:12px;color:#fff;font-family:Barlow;font-weight:600">${esc(tS.el||tS.title)}</div><div style="font-size:11px;color:#7a9ab5;font-family:Barlow">${esc(tS.ri||"")}</div></div>`;
+h+=`<div style="font-size:13px;color:#7a9ab5;letter-spacing:1px;margin-bottom:6px">${L("MAÑANA","TOMORROW")}</div><div class="card"><div style="font-size:12px;color:#fff;font-family:Barlow;font-weight:600">${esc(tmS.el||tmS.title)}</div><div style="font-size:11px;color:#7a9ab5;font-family:Barlow">${esc(tmS.title)}</div></div>`;
+document.getElementById("modal-wrap").innerHTML=mwrap(h);
+}
+let _fres=0;
+function openM(type,id){
+const tl=t();
+let h="";
+if(type==="addAthlete"||type==="editAth"){
+const a=id?ST.athletes.find(x=>x.id===id):null;
+h+=`<div style="font-size:20px;font-weight:800;color:#D4A017;letter-spacing:1px;margin-bottom:16px">${a?L("EDITAR ATLETA","EDIT ATHLETE"):L("NUEVO ATLETA","NEW ATHLETE")}</div>`;
+h+=inp(L("Nombre","Name"),"name","text",a?.name);
+h+=inp(L("Fecha Nacimiento","Date of Birth"),"dob","date",a?.dob);
+h+=inp(L("Peso (lb)","Weight (lb)"),"wt","number",a?.weight);
+h+=sel(L("Categoría","Category"),"cat",tl.cats,a?.category||tl.cats[0]);
+h+=sel(L("Grupo","Group"),"grp",tl.grps,a?.group||tl.grps[0]);
+h+=sel(L("Estado","Status"),"st",tl.sts,a?.status||tl.sts[0]);
+h+=`<div class="frow">${inp(L("Fase","Phase"),"ph","number",a?.phase||1,"min='1' max='5'")}${inp(L("Semana","Week"),"wk","number",a?.week||1,"min='1' max='12'")}</div>`;
+h+=`<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:10px">${inp(tl.w,"wn","number",a?.wins||0,"min='0'")}${inp(tl.l,"wl","number",a?.losses||0,"min='0'")}${inp(tl.d,"wd","number",a?.draws||0,"min='0'")}</div>`;
+h+=inp(L("PIN atleta (4 dígitos)","Athlete PIN (4 digits)"),"pin","text",a?.pin||"1234","maxlength='4' pattern='[0-9]*'");
+h+=`<div style="margin-bottom:14px"><label class="lbl">${L("NOTAS","NOTES")}</label><textarea class="note-area" id="f-nt" rows="2">${esc(a?.notes||"")}</textarea></div>`;
+h+=`<button onclick="saveAth('${a?.id||""}')" class="btn btn-g">${tl.saveNote.replace("NOTA","")+"GUARDAR"}</button>`;
+} else if(type==="addFight"){
+h+=`<div style="font-size:20px;font-weight:800;color:#D4A017;letter-spacing:1px;margin-bottom:16px">${L("REGISTRAR PELEA","LOG A FIGHT")}</div>`;
+h+=`<div style="margin-bottom:10px"><label class="lbl">${L("ATLETA","ATHLETE")}</label><select class="inp" id="f-ath"><option value="">${L("Seleccionar...","Select...")}</option>${ST.athletes.map(a=>`<option value="${a.id}">${esc(a.name)}</option>`).join("")}</select></div>`;
+h+=inp(L("Rival","Opponent"),"opp","text");h+=inp(L("Fecha","Date"),"date","date");h+=inp(L("Categoría Peso","Weight Class"),"wc","text");h+=inp(L("Evento","Event"),"ev","text");
+h+=`<div style="margin-bottom:10px"><label class="lbl">${L("RESULTADO","RESULT")}</label><div style="display:flex;gap:6px">${(tl.lang==="es"?["Victoria","Derrota","Empate","Próxima"]:["Win","Loss","Draw","Upcoming"]).map((r,i)=>{const cs=["#1a6b3c","#8b1a1a","#4a4a1a","#1a4a7a"];return`<button onclick="setFR(${i})" id="fr${i}" style="flex:1;background:${i===0?cs[0]:"#0f1e35"};border:none;color:#fff;border-radius:8px;padding:10px 4px;font-weight:700;font-size:11px">${esc(r).toUpperCase()}</button>`}).join("")}</div></div>`;
+h+=`<div style="margin-bottom:14px"><label class="lbl">${L("NOTAS","NOTES")}</label><textarea class="note-area" id="f-fn" rows="2"></textarea></div>`;
+h+=`<button onclick="saveFight()" class="btn btn-g">${L("GUARDAR PELEA","SAVE FIGHT")}</button>`;
+} else if(type==="editAth"&&id){
+openAth(id);return;
+}
+document.getElementById("modal-wrap").innerHTML=mwrap(h);
+}
+function closeM(){document.getElementById("modal-wrap").innerHTML="";}
+function closeMBG(e){if(e.target.classList.contains("modal-bg"))closeM();}
+function setFR(i){_fres=i;[0,1,2,3].forEach(j=>{const b=document.getElementById("fr"+j);if(b)b.style.background=j===i?["#1a6b3c","#8b1a1a","#4a4a1a","#1a4a7a"][j]:"#0f1e35";});}
+function gv(id){const e=document.getElementById(id);return e?e.value:"";}
+function saveAth(existId){
+const a={name:gv("f-name"),dob:gv("f-dob"),weight:parseFloat(gv("f-wt"))||0,category:gv("f-cat"),group:gv("f-grp"),status:gv("f-st"),notes:gv("f-nt"),phase:parseInt(gv("f-ph"))||1,week:parseInt(gv("f-wk"))||1,wins:parseInt(gv("f-wn"))||0,losses:parseInt(gv("f-wl"))||0,draws:parseInt(gv("f-wd"))||0,pin:gv("f-pin")||"1234"};
+if(!a.name.trim()){alert(L("Ingresa un nombre","Enter a name"));return;}
+if(existId){ST.athletes=ST.athletes.map(x=>x.id===existId?{...x,...a}:x);}
+else{ST.athletes=[...ST.athletes,{...a,id:uid()}];}
+sv("cba_athletes",ST.athletes);closeM();reRender();
+}
+function saveFight(){
+const results=L(["Victoria","Derrota","Empate","Próxima"],["Win","Loss","Draw","Upcoming"]);
+const f={athleteId:gv("f-ath"),opponent:gv("f-opp"),date:gv("f-date"),result:results[_fres]||results[0],weightClass:gv("f-wc"),event:gv("f-ev"),notes:gv("f-fn"),id:uid()};
+ST.fights=[...ST.fights,f];sv("cba_fights",ST.fights);closeM();reRender();
+}
+function advAth(id){
+const a=ST.athletes.find(x=>x.id===id);if(!a)return;
+const mw=WP[a.phase]?Object.keys(WP[a.phase]).length:4;
+let np=a.phase,nw=a.week+1;
+if(nw>mw){nw=1;np=Math.min(np+1,5);}
+ST.athletes=ST.athletes.map(x=>x.id===id?{...x,phase:np,week:nw}:x);
+sv("cba_athletes",ST.athletes);closeM();reRender();
+}
+function setTP(id){ST.trainPick=id;renderTab("training");}
+function setTD(d){ST.trainDay=d;renderTab("training");}
+function setOP(p){ST.openPhase=ST.openPhase===p?null:p;ST.openWeek=null;ST.openDay=null;renderTab("tactics");}
+function setOW(k){ST.openWeek=ST.openWeek===k?null:k;ST.openDay=null;renderTab("tactics");}
+function setOD(k){ST.openDay=ST.openDay===k?null:k;renderTab("tactics");}
+function setOS(i){ST.openStyle=ST.openStyle===i?null:i;renderTab("tactics");}
+function saveNote(){
+if(!ST.user)return;
+const txt=gv("note-txt");if(!txt.trim())return;
+const msgs=ld(MESSAGES_KEY+ST.user.id,[]);
+const today=new Date().toISOString().split("T")[0];
+const filtered=msgs.filter(m=>!(m.type==="note"&&m.date===today));
+filtered.push({type:"note",text:txt,date:today,from:"athlete"});
+sv(MESSAGES_KEY+ST.user.id,filtered);renderTab("notes");
+}
+function sendQ(){
+if(!ST.user)return;
+const txt=gv("q-txt");if(!txt.trim())return;
+const msgs=ld(MESSAGES_KEY+ST.user.id,[]);
+msgs.push({type:"question",text:txt,date:new Date().toISOString().split("T")[0],from:"athlete",read:false});
+sv(MESSAGES_KEY+ST.user.id,msgs);
+const msg=encodeURIComponent(`Hola Coach Osvimer, soy ${ST.user.name}: ${txt}`);
+window.open(`https://wa.me/17027234009?text=${msg}`,"_blank");
+renderTab("notes");
+}
+function sendReply(athId){
+const txt=document.getElementById("rep-"+athId);if(!txt||!txt.value.trim())return;
+const msgs=ld(MESSAGES_KEY+athId,[]);
+msgs.push({type:"reply",text:txt.value,date:new Date().toISOString().split("T")[0],from:"coach"});
+sv(MESSAGES_KEY+athId,msgs);renderTab("notes");
+}
+let _pinBuf="",_pinMode="",_pinAthId="";
+const COACH_PIN_KEY="cba_coach_pin";
+function showLogin(){
+const tl=t();
+const coachPin=ld(COACH_PIN_KEY,"1967");
+const app=document.getElementById("app");
+const shell=document.getElementById("main-shell");
+app.style.display="block";shell.style.display="none";
+app.innerHTML=`<div style="min-height:100vh;background:#070d1a;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px">
+${logoSVG(100)}
+<div style="font-weight:900;font-size:26px;letter-spacing:3px;color:#fff;margin-top:16px">CUBAN BOXING</div>
+<div style="font-size:13px;color:#D4A017;letter-spacing:2px;font-weight:700;margin-bottom:30px">OSVIMER COACH</div>
+<div style="width:100%;max-width:340px">
+<div class="g2" style="margin-bottom:20px">
+<button onclick="startLogin('coach')" class="btn btn-g" style="padding:15px;font-size:14px">${tl.coachMode}</button>
+<button onclick="startLogin('athlete')" class="btn btn-d" style="padding:15px;font-size:14px">${tl.athMode}</button>
+</div>
+<button onclick="startLogin('pro')" style="width:100%;background:linear-gradient(135deg,#8b1a1a,#5b0000);border:2px solid #e74c3c;color:#fff;border-radius:10px;padding:15px;font-weight:800;font-size:14px;cursor:pointer;margin-bottom:8px">🥊 SOY ATLETA PRO</button>
+<div style="text-align:center;margin-bottom:10px">
+<button onclick="toggleLang()" style="background:none;border:1px solid #D4A017;color:#D4A017;border-radius:20px;padding:8px 20px;font-weight:800;font-size:13px;letter-spacing:1px">${ST.lang==="es"?"🇺🇸 ENGLISH":"🇪🇸 ESPAÑOL"}</button>
+</div>
+<div style="border-top:1px solid #1e3050;padding-top:16px;margin-top:4px">
+  <div style="font-size:10px;color:#D4A017;font-weight:900;letter-spacing:2px;text-align:center;margin-bottom:10px">💳 PLANES Y PRECIOS</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
+    <div style="background:#0a1628;border:2px solid #D4A017;border-radius:12px;padding:12px;text-align:center">
+      <div style="font-size:10px;color:#D4A017;font-weight:700;margin-bottom:4px">📅 MENSUAL</div>
+      <div style="font-size:26px;font-weight:900;color:#fff">$200</div>
+      <div style="font-size:10px;color:#7a9ab5;font-family:Barlow">/ mes</div>
+      <div style="font-size:10px;color:#ccc;font-family:Barlow;margin-top:4px;line-height:1.4">Gym ilimitado<br>App + Nutrición</div>
+    </div>
+    <div style="background:#0a1628;border:2px solid #3b82f6;border-radius:12px;padding:12px;text-align:center">
+      <div style="font-size:10px;color:#3b82f6;font-weight:700;margin-bottom:4px">🎯 1 A 1</div>
+      <div style="font-size:26px;font-weight:900;color:#fff">$80</div>
+      <div style="font-size:10px;color:#7a9ab5;font-family:Barlow">/ hora</div>
+      <div style="font-size:10px;color:#ccc;font-family:Barlow;margin-top:4px;line-height:1.4">Privado<br>Técnica Sagarra</div>
+    </div>
+  </div>
+  <a href="https://buy.stripe.com/fZubJ18wxfsY5Vz0nw8so01" target="_blank" style="display:block;width:100%;background:linear-gradient(135deg,#D4A017,#f0c040);color:#070d1a;border-radius:12px;padding:13px;font-weight:900;font-size:14px;text-align:center;text-decoration:none;margin-bottom:8px;letter-spacing:.5px">💳 INSCRIBIRME — $200/MES</a>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+    <a href="tel:17027234009" style="background:#0a1628;border:1px solid #27ae60;color:#27ae60;border-radius:10px;padding:9px;font-size:12px;font-weight:700;text-align:center;text-decoration:none">📞 LLAMAR</a>
+    <a href="https://wa.me/17027234009" target="_blank" style="background:#0a1628;border:1px solid #25D366;color:#25D366;border-radius:10px;padding:9px;font-size:12px;font-weight:700;text-align:center;text-decoration:none">💬 WHATSAPP</a>
+  </div>
+  <div style="text-align:center;font-size:10px;color:#4a6a8a;font-family:Barlow;margin-top:8px">Nemea Boxing · Henderson, NV · Coach Osvimer Rodriguez</div>
+</div>
+<div style="text-align:center;font-size:10px;color:#4a6a8a;font-family:Barlow">${L("Basado en Metodología Sagarra — 30+ años","Based on Sagarra Methodology — 30+ years")}</div>
+</div></div>`;
+}
+function startLogin(mode){
+const tl=t();
+const app=document.getElementById("app");
+_pinBuf="";_pinMode=mode;_pinAthId="";
+let content="";
+if(mode==="athlete"){
+content=`<div style="margin-bottom:16px"><label class="lbl" style="text-align:center;display:block;font-size:14px">${tl.selectAth}</label>
+<select class="inp" id="ath-sel" style="border-color:#D4A017;font-size:16px">${ST.athletes.map(a=>`<option value="${a.id}">${esc(a.name)}</option>`).join("")}</select></div>`;
+}
+if(mode==="pro"){
+content=`<div style="margin-bottom:16px;text-align:center">
+<div style="font-size:13px;font-weight:900;color:#e74c3c;margin-bottom:4px">🥊 ACCESO PRO</div>
+<div style="font-size:11px;color:#7a9ab5;font-family:Barlow">Coach agrega atletas adentro</div>
+</div>`;
+}
+content+=`<div style="font-size:14px;color:#7a9ab5;text-align:center;margin-bottom:8px;font-family:Barlow">${mode==="coach"?tl.enterCoachPin:tl.enterPin}</div>`;
+content+=`<div class="pin-box" id="pin-display">${[0,1,2,3].map(()=>`<div class="pin-dot"></div>`).join("")}</div>`;
+content+=`<div class="pin-num-grid">${[1,2,3,4,5,6,7,8,9,"",0,"⌫"].map(n=>`<button class="pin-btn" onclick="pinInput('${n}')">${n}</button>`).join("")}</div>`;
+content+=`<div id="pin-err" style="text-align:center;color:#c0392b;font-size:13px;margin-top:8px;height:20px"></div>`;
+content+=`<button onclick="showLogin()" style="width:100%;background:none;border:none;color:#7a9ab5;margin-top:16px;font-size:13px;font-family:Barlow;cursor:pointer">← ${L("Volver","Back")}</button>`;
+app.innerHTML=`<div style="min-height:100vh;background:#070d1a;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px">${logoSVG(70)}<div style="font-weight:900;font-size:20px;color:#fff;margin:12px 0 24px;letter-spacing:2px">${mode==="coach"?tl.coachMode:tl.athMode}</div><div style="width:100%;max-width:320px">${content}</div></div>`;
+}
+function pinInput(v){
+if(v==="")return;
+if(v==="⌫"){_pinBuf=_pinBuf.slice(0,-1);}
+else if(_pinBuf.length<4){_pinBuf+=String(v);}
+const dots=document.querySelectorAll(".pin-dot");
+dots.forEach((d,i)=>d.classList.toggle("filled",i<_pinBuf.length));
+if(_pinBuf.length===4)setTimeout(checkPin,150);
+}
+function checkPin(){
+const tl=t();
+const err=document.getElementById("pin-err");
+if(_pinMode==="coach"){
+const coachPin=ld(COACH_PIN_KEY,"1967");
+if(_pinBuf===coachPin){loginCoach();}
+else{if(err)err.textContent=tl.wrongPin;_pinBuf="";document.querySelectorAll(".pin-dot").forEach(d=>d.classList.remove("filled"));}
+} else if(_pinMode==="pro"){
+const PRO_ACCESS="9001";
+if(_pinBuf===PRO_ACCESS){loginProCoach();}
+else{
+// Check if it matches any pro athlete PIN
+const proAth=(ST.proAthletes||[]).find(a=>_pinBuf===(a.pin||""));
+if(proAth){loginProAthlete(proAth);}
+else{if(err)err.textContent=L("PIN incorrecto","Wrong PIN");_pinBuf="";document.querySelectorAll(".pin-dot").forEach(d=>d.classList.remove("filled"));}
+}
+} else {
+const athSel=document.getElementById("ath-sel");
+const athId=athSel?athSel.value:ST.athletes[0]?.id;
+const ath=ST.athletes.find(a=>a.id===athId);
+if(ath&&_pinBuf===(ath.pin||"1234")){loginAthlete(ath);}
+else{if(err)err.textContent=tl.wrongPin;_pinBuf="";document.querySelectorAll(".pin-dot").forEach(d=>d.classList.remove("filled"));}
+}
+}
+function loginCoach(){
+ST.isCoach=true;ST.user=null;
+sv("cba_session",{isCoach:true,userId:null});
+launchApp();
+}
+function loginProCoach(){
+  ST.isCoach=false;ST.user=null;ST.proUser={id:"coach_pro",name:"Coach Pro",isCoachPro:true};
+  launchApp();
+}
+function loginProAthlete(ath){
+  ST.isCoach=false;ST.user=null;ST.proUser=ath;
+  launchApp();
+}
+function loginAthlete(ath){
+ST.isCoach=false;ST.user=ath;
+sv("cba_session",{isCoach:false,userId:ath.id});
+launchApp();
+}
+function launchApp(){
+const app=document.getElementById("app");
+const shell=document.getElementById("main-shell");
+app.style.display="none";shell.style.display="block";
+injectLogo();
+updateHdr();goTab("home");
+}
+function showSwitchModal(){
+const who=ST.isCoach?"COACH":ST.proUser?"PRO: "+ST.proUser.name.split(" ")[0]:(ST.user?ST.user.name.split(" ")[0]:"");
+document.getElementById("modal-wrap").innerHTML=mwrap(`<div style="text-align:center">
+<div style="font-size:36px;margin-bottom:12px">⇄</div>
+<div style="font-size:18px;font-weight:900;color:#e74c3c;margin-bottom:6px">${L("CAMBIAR USUARIO","SWITCH USER")}</div>
+<div style="font-size:13px;color:#7a9ab5;font-family:Barlow;margin-bottom:20px">${L("Sesión:","Session:")} <span style="color:#D4A017;font-weight:700">${esc(who)}</span></div>
+<div style="display:flex;flex-direction:column;gap:10px">
+<button onclick="logout()" class="btn btn-r">${L("🔓 SALIR Y CAMBIAR","🔓 EXIT & SWITCH")}</button>
+<button onclick="closeM()" class="btn btn-d">${L("← CANCELAR","← CANCEL")}</button>
+</div>
+</div>`);
+}
+function logout(){sv("cba_session",null);ST.user=null;ST.proUser=null;ST.isCoach=false;showLogin();}
+function logoSVG(sz){
+return`<svg width="${sz}" height="${sz}" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" style="border-radius:${sz*.18}px;overflow:hidden">
+<defs><clipPath id="rnd"><rect width="512" height="512" rx="90"/></clipPath><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#0d1f3c"/><stop offset="100%" stop-color="#060e1c"/></linearGradient><linearGradient id="gld" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#f5c842"/><stop offset="100%" stop-color="#c48b00"/></linearGradient></defs>
+<rect width="512" height="512" rx="90" fill="url(#bg)"/>
+<g clip-path="url(#rnd)" opacity="0.3"><rect y="0" width="512" height="103" fill="#1356A2"/><rect y="103" width="512" height="103" fill="#fff"/><rect y="206" width="512" height="100" fill="#1356A2"/><rect y="306" width="512" height="103" fill="#fff"/><rect y="409" width="512" height="103" fill="#1356A2"/></g>
+<polygon points="0,0 0,512 215,256" fill="#CF142B" clip-path="url(#rnd)" opacity="0.95"/>
+<polygon points="73,214 83,242.2 112.9,243 89.2,261.3 97.7,290 73,273 48.3,290 56.8,261.3 33.1,243 63,242.2" fill="#fff"/>
+<rect x="200" y="0" width="312" height="512" fill="rgba(5,12,25,0.5)" clip-path="url(#rnd)"/>
+<rect x="210" y="125" width="260" height="3" rx="1.5" fill="url(#gld)" opacity="0.8"/>
+<text x="342" y="295" font-family="'Arial Black',Impact,sans-serif" font-size="168" font-weight="900" fill="url(#gld)" text-anchor="middle" letter-spacing="-4">CBA</text>
+<text x="342" y="338" font-family="Arial,sans-serif" font-size="28" font-weight="700" fill="#fff" text-anchor="middle" letter-spacing="5">CUBAN BOXING</text>
+<text x="342" y="370" font-family="Arial,sans-serif" font-size="20" font-weight="400" fill="#D4A017" text-anchor="middle" letter-spacing="6" opacity="0.9">OSVIMER COACH</text>
+<rect x="210" y="385" width="260" height="3" rx="1.5" fill="url(#gld)" opacity="0.8"/>
+<rect width="512" height="512" rx="90" fill="none" stroke="rgba(212,160,23,0.3)" stroke-width="5"/>
+</svg>`;
+}
+function injectLogo(){const el=document.getElementById("hdr-logo");if(el)el.innerHTML=logoSVG(42);}
+function init(){
+const a=ld("cba_athletes",[]);
+const f=ld("cba_fights",[]);
+ST.athletes=a.length>0?a:DA;
+ST.fights=f.length>0?f:DF;
+if(a.length===0)sv("cba_athletes",DA);
+if(f.length===0)sv("cba_fights",DF);
+ST.lang=ld("cba_lang","es")||"es";
+const sess=ld("cba_session",null);
+if(sess&&sess.isCoach){ST.isCoach=true;ST.user=null;launchApp();}
+else if(sess&&sess.userId){const ath=ST.athletes.find(a=>a.id===sess.userId);if(ath){ST.isCoach=false;ST.user=ath;launchApp();}else showLogin();}
+else{showLogin();}
+}
+window.addEventListener("DOMContentLoaded",init);
+
+// ══════════════════════════════════════════════════════════
+// EXTENSIONES: CONTROL DE RENDIMIENTO + SEMÁFORO DE PESO
+// ══════════════════════════════════════════════════════════
+
+function showReporteRendimiento() {
+  const ath = ST.isCoach ? null : ST.user;
+  const fecha = new Date().toISOString().split("T")[0];
+  const saved = ld("cba_reporte_" + fecha, null);
+
+  let h = `<div style="font-size:20px;font-weight:900;color:#D4A017;margin-bottom:4px">📊 CONTROL DIARIO</div>`;
+  h += `<div style="font-size:11px;color:#7a9ab5;font-family:Barlow;margin-bottom:16px">${fecha} · ${esc(ath ? ath.name : "Coach")}</div>`;
+
+  h += `<div style="margin-bottom:12px"><label class="lbl">PESO DE HOY (lbs)</label>
+    <input type="number" class="inp" id="rep-peso" step="0.1" placeholder="Ej: 147.5" value="${esc(saved?.peso||"")}"></div>`;
+
+  h += `<div style="margin-bottom:12px"><label class="lbl">HORAS DE SUEÑO ANOCHE</label>
+    <input type="number" class="inp" id="rep-sueno" min="0" max="24" placeholder="Ej: 8" value="${esc(saved?.sueno||"")}"></div>`;
+
+  h += `<div style="margin-bottom:16px"><label class="lbl">NIVEL DE FATIGA CORPORAL</label>
+    <div style="display:grid;grid-template-columns:1fr;gap:6px" id="fatiga-btns">`;
+  
+  const fatigas = [
+    {v:"1", label:"1 — FRESCO / Listo para la guerra", color:"#1a6b3c"},
+    {v:"2", label:"2 — NORMAL", color:"#1a4a7a"},
+    {v:"3", label:"3 — Cansancio moderado", color:"#D4A017"},
+    {v:"4", label:"4 — Muy fatigado", color:"#c0392b"},
+    {v:"5", label:"5 — AGOTAMIENTO EXTREMO / Riesgo lesión", color:"#8b1a1a"}
+  ];
+  const selFat = saved?.fatiga || "2";
+  fatigas.forEach(f => {
+    h += `<button onclick="selFatiga('${f.v}')" id="fat-${f.v}" style="background:${f.v===selFat?f.color:"#0f1e35"};border:2px solid ${f.color};color:#fff;border-radius:8px;padding:10px;font-size:12px;font-weight:700;cursor:pointer;text-align:left">${f.label}</button>`;
+  });
+  h += `</div></div>`;
+
+  h += `<div style="margin-bottom:14px"><label class="lbl">NOTAS DEL DÍA (opcional)</label>
+    <textarea class="inp" id="rep-notas" rows="2" style="resize:none">${esc(saved?.notas||"")}</textarea></div>`;
+
+  h += `<button onclick="guardarReporte()" class="btn btn-g" style="margin-bottom:8px">💾 GUARDAR REPORTE</button>`;
+  
+  // WhatsApp button if athlete
+  if (ath) {
+    h += `<button onclick="enviarReporteWA()" style="width:100%;background:#25D366;border:none;color:#fff;border-radius:10px;padding:12px;font-weight:900;font-size:14px;cursor:pointer;margin-top:4px">📲 ENVIAR AL COACH POR WHATSAPP</button>`;
+  }
+  h += `<div id="rep-msg" style="text-align:center;font-size:12px;margin-top:8px;min-height:16px"></div>`;
+
+  document.getElementById("modal-wrap").innerHTML = mwrap(h);
+
+  // Set selected fatigue
+  setTimeout(() => {
+    window._fatSel = selFat;
+    fatigas.forEach(f => {
+      const btn = document.getElementById("fat-" + f.v);
+      if (btn) btn.style.background = f.v === selFat ? f.color : "#0f1e35";
+    });
+  }, 50);
+}
+
+const _fatigas = [
+  {v:"1",color:"#1a6b3c"},{v:"2",color:"#1a4a7a"},{v:"3",color:"#D4A017"},
+  {v:"4",color:"#c0392b"},{v:"5",color:"#8b1a1a"}
+];
+window._fatSel = "2";
+
+function selFatiga(v) {
+  window._fatSel = v;
+  _fatigas.forEach(f => {
+    const btn = document.getElementById("fat-" + f.v);
+    if (btn) btn.style.background = f.v === v ? f.color : "#0f1e35";
+  });
+}
+
+function guardarReporte() {
+  const peso = document.getElementById("rep-peso")?.value;
+  const sueno = document.getElementById("rep-sueno")?.value;
+  const notas = document.getElementById("rep-notas")?.value || "";
+  const msg = document.getElementById("rep-msg");
+
+  if (!peso || !sueno) {
+    if (msg) msg.innerHTML = '<span style="color:#e74c3c">Ingresa peso y horas de sueño</span>';
+    return;
+  }
+
+  const fecha = new Date().toISOString().split("T")[0];
+  const datos = {
+    peso: parseFloat(peso),
+    sueno: parseInt(sueno),
+    fatiga: window._fatSel,
+    notas: notas.trim(),
+    fecha,
+    atleta: ST.user ? ST.user.name : "Coach",
+    ts: Date.now()
+  };
+
+  sv("cba_reporte_" + fecha, datos);
+
+  // Save to history
+  const hist = ld("cba_reportes_hist", []);
+  hist.push(datos);
+  if (hist.length > 30) hist.shift();
+  sv("cba_reportes_hist", hist);
+
+  if (msg) msg.innerHTML = '<span style="color:#1a8f4c">✅ Reporte guardado correctamente</span>';
+}
+
+function enviarReporteWA() {
+  const peso = document.getElementById("rep-peso")?.value || "—";
+  const sueno = document.getElementById("rep-sueno")?.value || "—";
+  const notas = document.getElementById("rep-notas")?.value || "";
+  const fatLabels = {
+    "1":"Fresco ✅","2":"Normal ✅","3":"Cansancio moderado ⚠️",
+    "4":"Muy fatigado 🔴","5":"Agotamiento extremo ❌"
+  };
+  const fecha = new Date().toISOString().split("T")[0];
+  const nombre = ST.user ? ST.user.name : "Coach";
+  const msg = `🥊 REPORTE DIARIO — ${nombre}\n📅 ${fecha}\n⚖️ Peso: ${peso} lbs\n😴 Sueño: ${sueno} hrs\n💪 Fatiga: ${fatLabels[window._fatSel]||window._fatSel}${notas?"\n📝 "+notas:""}`;
+  window.open("https://wa.me/17027234009?text=" + encodeURIComponent(msg), "_blank");
+}
+
+function showSemaforoPeso() {
+  const ath = ST.user;
+  const pesoAtleta = ath ? ath.weight : 0;
+
+  let h = `<div style="font-size:20px;font-weight:900;color:#D4A017;margin-bottom:4px">⚖️ SEMÁFORO DE PESO</div>`;
+  h += `<div style="font-size:11px;color:#7a9ab5;font-family:Barlow;margin-bottom:16px">Control de categoría de pelea</div>`;
+
+  h += `<div style="margin-bottom:12px"><label class="lbl">PESO OBJETIVO DE PELEA (lbs)</label>
+    <input type="number" class="inp" id="sem-objetivo" value="${esc(pesoAtleta||"147")}" step="0.1"></div>`;
+
+  h += `<div style="margin-bottom:16px"><label class="lbl">PESO DE HOY (lbs)</label>
+    <input type="number" class="inp" id="sem-actual" step="0.1" placeholder="Ej: 151.2"></div>`;
+
+  h += `<button onclick="evaluarSemaforo()" class="btn btn-g" style="margin-bottom:14px">📊 EVALUAR ESTADO</button>`;
+
+  h += `<div id="semaforo-resultado" style="display:none;border-radius:12px;padding:16px;text-align:center;margin-bottom:10px"></div>`;
+
+  h += `<div style="background:#0a1628;border-radius:10px;padding:12px;font-size:11px;color:#7a9ab5;font-family:Barlow;line-height:1.6">
+    <div style="color:#D4A017;font-weight:700;margin-bottom:6px">📋 REFERENCIA</div>
+    🟢 0–2 lbs arriba → En categoría<br>
+    🟡 3–6 lbs arriba → Alerta — ajustar dieta<br>
+    🔴 +6 lbs arriba → Fuera de categoría<br>
+    🔵 Debajo del objetivo → Revisar energía
+  </div>`;
+
+  document.getElementById("modal-wrap").innerHTML = mwrap(h);
+}
+
+function evaluarSemaforo() {
+  const objetivo = parseFloat(document.getElementById("sem-objetivo")?.value);
+  const actual = parseFloat(document.getElementById("sem-actual")?.value);
+  const res = document.getElementById("semaforo-resultado");
+
+  if (!actual || isNaN(actual)) {
+    alert("Ingresa tu peso actual");
+    return;
+  }
+
+  const dif = actual - objetivo;
+  res.style.display = "block";
+
+  if (dif >= -2 && dif <= 2) {
+    res.style.background = "#1a4a00";
+    res.style.border = "2px solid #27ae60";
+    res.innerHTML = `<div style="font-size:32px;margin-bottom:8px">🟢</div>
+      <div style="font-size:18px;font-weight:900;color:#27ae60">EN CATEGORÍA</div>
+      <div style="font-size:14px;color:#fff;margin-top:4px">${actual} lbs · objetivo: ${objetivo} lbs</div>
+      <div style="font-size:12px;color:#ccc;font-family:Barlow;margin-top:8px">¡Excelente! Mantén la dieta y la intensidad. Listo para la báscula.</div>`;
+  } else if (dif > 2 && dif <= 6) {
+    res.style.background = "#2a2000";
+    res.style.border = "2px solid #D4A017";
+    res.innerHTML = `<div style="font-size:32px;margin-bottom:8px">🟡</div>
+      <div style="font-size:18px;font-weight:900;color:#D4A017">ALERTA DE PESO</div>
+      <div style="font-size:14px;color:#fff;margin-top:4px">+${dif.toFixed(1)} lbs sobre el objetivo</div>
+      <div style="font-size:12px;color:#ccc;font-family:Barlow;margin-top:8px">Ajusta cardio al final de la sesión y cuida el consumo de agua y sodio.</div>`;
+  } else if (dif > 6) {
+    res.style.background = "#2a0000";
+    res.style.border = "2px solid #e74c3c";
+    res.innerHTML = `<div style="font-size:32px;margin-bottom:8px">🔴</div>
+      <div style="font-size:18px;font-weight:900;color:#e74c3c">FUERA DE CATEGORÍA</div>
+      <div style="font-size:14px;color:#fff;margin-top:4px">+${dif.toFixed(1)} lbs sobre el objetivo</div>
+      <div style="font-size:12px;color:#ccc;font-family:Barlow;margin-top:8px">¡Alerta! Doble sesión cardio, sin sodio ni azúcar. Revisar plan alimentario con el Coach.</div>`;
+  } else {
+    res.style.background = "#0a1628";
+    res.style.border = "2px solid #4a8aff";
+    res.innerHTML = `<div style="font-size:32px;margin-bottom:8px">🔵</div>
+      <div style="font-size:18px;font-weight:900;color:#4a8aff">DEBAJO DEL OBJETIVO</div>
+      <div style="font-size:14px;color:#fff;margin-top:4px">${Math.abs(dif).toFixed(1)} lbs por debajo</div>
+      <div style="font-size:12px;color:#ccc;font-family:Barlow;margin-top:8px">Revisa niveles de energía y carga carbohidratos limpios. Consulta al Coach.</div>`;
+  }
+}
+
+
+// ══════════════════════════════════════════════════════════
+// SUITE DE INTELIGENCIA DEL ATLETA
+// ══════════════════════════════════════════════════════════
+
+function showSuiteInteligencia() {
+  let h = `<div style="font-size:20px;font-weight:900;color:#D4A017;margin-bottom:4px">🧠 SUITE DEL ATLETA</div>`;
+  h += `<div style="font-size:11px;color:#7a9ab5;font-family:Barlow;margin-bottom:16px">Diagnóstico · Sparring · Rivales</div>`;
+
+  // TABS
+  h += `<div style="display:flex;gap:4px;background:#070d1a;border-radius:12px;padding:4px;margin-bottom:14px">
+    <button onclick="suiteTab('disp')" id="stab-disp" style="flex:1;background:#1a4a7a;color:#fff;border:none;border-radius:8px;padding:8px 2px;font-size:10px;font-weight:700;cursor:pointer">🧠 ESTADO</button>
+    <button onclick="suiteTab('spar')" id="stab-spar" style="flex:1;background:#0f1e35;color:#4a6a8a;border:none;border-radius:8px;padding:8px 2px;font-size:10px;font-weight:700;cursor:pointer">🥊 SPARRING</button>
+    <button onclick="suiteTab('rival')" id="stab-rival" style="flex:1;background:#0f1e35;color:#4a6a8a;border:none;border-radius:8px;padding:8px 2px;font-size:10px;font-weight:700;cursor:pointer">👁️ RIVAL</button>
+  </div>`;
+
+  h += `<div id="suite-content">` + suiteTabContent("disp") + `</div>`;
+  document.getElementById("modal-wrap").innerHTML = mwrap(h);
+}
+
+function suiteTab(tab) {
+  ["disp","spar","rival"].forEach(t => {
+    const btn = document.getElementById("stab-" + t);
+    if (btn) {
+      btn.style.background = t === tab ? (t==="disp"?"#1a4a7a":t==="spar"?"#1a6b3c":"#5b2c8d") : "#0f1e35";
+      btn.style.color = t === tab ? "#fff" : "#4a6a8a";
+    }
+  });
+  const cont = document.getElementById("suite-content");
+  if (cont) cont.innerHTML = suiteTabContent(tab);
+}
+
+function suiteTabContent(tab) {
+  if (tab === "disp") {
+    return `
+      <div style="font-size:14px;font-weight:900;color:#4a8aff;margin-bottom:12px">🧠 DIAGNÓSTICO PRE-ENTRENO</div>
+      <div style="font-size:11px;color:#7a9ab5;font-family:Barlow;margin-bottom:12px">Completa esto antes de cambiarte</div>
+
+      <div style="margin-bottom:12px"><label class="lbl">¿ALMORZASTE AL MENOS 2 HRS ANTES?</label>
+        <select class="inp" id="disp-nutricion">
+          <option value="buena">✅ Sí, almorcé bien y a tiempo</option>
+          <option value="ligera">⚠️ Comí algo muy ligero</option>
+          <option value="ayunas">❌ No he comido nada adecuado</option>
+        </select></div>
+
+      <div style="margin-bottom:12px"><label class="lbl">¿CÓMO ESTÁ TU ESTADO ANÍMICO HOY?</label>
+        <select class="inp" id="disp-mente">
+          <option value="enfocado">🎯 Al 100% — Concentrado en la batalla</option>
+          <option value="estresado">⚠️ Estresado / Cansancio mental</option>
+          <option value="preocupado">🔴 Preocupado / Problemas personales</option>
+        </select></div>
+
+      <div style="margin-bottom:16px"><label class="lbl">¿TIENES MOLESTIA O DOLOR FÍSICO?</label>
+        <select class="inp" id="disp-dolor">
+          <option value="ninguno">✅ Ninguno — Al 100%</option>
+          <option value="moderado">⚠️ Molestia leve (soportable)</option>
+          <option value="alto">🔴 Dolor fuerte (muñeca, hombro, rodilla)</option>
+        </select></div>
+
+      <button onclick="calcularDisposicion()" class="btn btn-g">🔍 EVALUAR MI ESTADO</button>
+      <div id="resultado-disp" style="display:none;margin-top:12px;border-radius:10px;padding:14px;text-align:center"></div>`;
+  }
+
+  if (tab === "spar") {
+    // Load recent sparring logs
+    const hist = ld("cba_sparring_log", []);
+    let histHtml = "";
+    if (hist.length > 0) {
+      histHtml = `<div style="margin-top:14px;border-top:1px solid #1e3050;padding-top:12px">
+        <div style="font-size:10px;color:#D4A017;font-weight:700;letter-spacing:1px;margin-bottom:8px">📋 ÚLTIMAS SESIONES</div>`;
+      hist.slice(-3).reverse().forEach(s => {
+        histHtml += `<div style="background:#070d1a;border-radius:8px;padding:10px;margin-bottom:6px">
+          <div style="font-size:11px;color:#D4A017;font-weight:700">${esc(s.fecha||"")} · ${esc(s.rival)}</div>
+          <div style="font-size:11px;color:#27ae60;font-family:Barlow;margin-top:3px">✅ ${esc(s.positivo)}</div>
+          <div style="font-size:11px;color:#e74c3c;font-family:Barlow;margin-top:2px">⚠️ ${esc(s.error)}</div>
+        </div>`;
+      });
+      histHtml += `</div>`;
+    }
+
+    return `
+      <div style="font-size:14px;font-weight:900;color:#27ae60;margin-bottom:12px">🥊 BITÁCORA DE SPARRING</div>
+
+      <div style="margin-bottom:10px"><label class="lbl">¿CUÁNTOS ROUNDS Y CON QUIÉN?</label>
+        <input type="text" class="inp" id="spar-rival" placeholder="Ej: 4 rounds con El Toro"></div>
+
+      <div style="margin-bottom:10px"><label class="lbl">¿QUÉ GOLPE O COMBO TE FUNCIONÓ MEJOR?</label>
+        <textarea class="inp" id="spar-positivo" rows="2" style="resize:none" placeholder="Ej: Jab abajo + cruzado de derecha"></textarea></div>
+
+      <div style="margin-bottom:14px"><label class="lbl">¿QUÉ ERROR COMETISTE O QUÉ TE ENTRÓ?</label>
+        <textarea class="inp" id="spar-error" rows="2" style="resize:none" placeholder="Ej: Me bajé la mano izquierda al atacar"></textarea></div>
+
+      <button onclick="guardarSparringLog()" class="btn btn-gr">💾 GUARDAR REPORTE DE COMBATE</button>
+      <div id="msj-spar" style="text-align:center;font-size:12px;margin-top:8px;min-height:16px"></div>
+      ${histHtml}`;
+  }
+
+  if (tab === "rival") {
+    const rivales = ld("cba_rivales", []);
+    let rivHtml = "";
+    if (rivales.length > 0) {
+      rivHtml = `<div style="margin-top:14px;border-top:1px solid #1e3050;padding-top:12px">
+        <div style="font-size:10px;color:#D4A017;font-weight:700;letter-spacing:1px;margin-bottom:8px">📁 RIVALES ANALIZADOS</div>`;
+      rivales.slice(-3).reverse().forEach(r => {
+        rivHtml += `<div style="background:#070d1a;border-radius:8px;padding:8px;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center">
+          <div><div style="font-size:12px;font-weight:700;color:#fff">${esc(r.nombre)}</div>
+          <div style="font-size:10px;color:#7a9ab5;font-family:Barlow">${esc(r.estilo)}</div></div>
+          <div style="font-size:9px;color:#D4A017;font-weight:700">${esc(r.fecha||"")}</div>
+        </div>`;
+      });
+      rivHtml += `</div>`;
+    }
+
+    return `
+      <div style="font-size:14px;font-weight:900;color:#5b2c8d;margin-bottom:12px">👁️ RADAR DE RIVALES</div>
+
+      <div style="margin-bottom:10px"><label class="lbl">NOMBRE DEL RIVAL / GUARDIA</label>
+        <input type="text" class="inp" id="rival-nombre" placeholder="Ej: Juan Pérez (Zurdo)"></div>
+
+      <div style="margin-bottom:10px"><label class="lbl">ESTILO DE PELEA</label>
+        <select class="inp" id="rival-estilo">
+          <option value="estilista">🎯 Estilista (Distancia, rápido de piernas)</option>
+          <option value="fajador">💥 Fajador / Presión (Busca el choque)</option>
+          <option value="contragolpe">⚡ Contragolpeador (Espera el error)</option>
+        </select></div>
+
+      <div style="margin-bottom:14px"><label class="lbl">DEBILIDADES OBSERVADAS</label>
+        <textarea class="inp" id="rival-debilidad" rows="2" style="resize:none" placeholder="Ej: Baja la mano izquierda cuando tira el jab"></textarea></div>
+
+      <button onclick="analizarRival()" class="btn" style="background:#5b2c8d;color:#fff;border:none;border-radius:10px;padding:13px;font-weight:800;font-size:14px">🎯 GENERAR ESTRATEGIA</button>
+      <div id="resultado-rival" style="display:none;margin-top:12px;background:#0a1628;border-radius:10px;padding:14px"></div>
+      ${rivHtml}`;
+  }
+  return "";
+}
+
+function calcularDisposicion() {
+  const nutr = document.getElementById("disp-nutricion")?.value;
+  const mente = document.getElementById("disp-mente")?.value;
+  const dolor = document.getElementById("disp-dolor")?.value;
+  const res = document.getElementById("resultado-disp");
+  if (!res) return;
+  res.style.display = "block";
+
+  if (dolor === "alto") {
+    res.style.background = "#2a0000"; res.style.border = "2px solid #e74c3c";
+    res.innerHTML = `<div style="font-size:24px;margin-bottom:8px">🔴</div>
+      <div style="font-size:16px;font-weight:900;color:#e74c3c">RIESGO DE LESIÓN</div>
+      <div style="font-size:12px;color:#ccc;font-family:Barlow;margin-top:8px;line-height:1.6">Con dolor físico fuerte, hoy toca sesión de descarga técnica, soga suave y estiramientos profundos. Sin intensidad. Habla con el Coach.</div>`;
+  } else if (nutr === "ayunas") {
+    res.style.background = "#2a1a00"; res.style.border = "2px solid #D4A017";
+    res.innerHTML = `<div style="font-size:24px;margin-bottom:8px">🟡</div>
+      <div style="font-size:16px;font-weight:900;color:#D4A017">ALERTA NUTRICIONAL</div>
+      <div style="font-size:12px;color:#ccc;font-family:Barlow;margin-top:8px;line-height:1.6">No has comido adecuadamente. Esto cataboliza tu músculo. Recarga rápida: granola, miel o plátano antes de empezar.</div>`;
+  } else if (mente === "preocupado" || mente === "estresado") {
+    res.style.background = "#1a1a00"; res.style.border = "2px solid #D4A017";
+    res.innerHTML = `<div style="font-size:24px;margin-bottom:8px">🟡</div>
+      <div style="font-size:16px;font-weight:900;color:#D4A017">MENTE DISTRAÍDA</div>
+      <div style="font-size:12px;color:#ccc;font-family:Barlow;margin-top:8px;line-height:1.6">Tu cuerpo puede, pero la mente está en otra parte. Descarga el estrés en el saco. Hoy prohibido el sparring duro. Guardia arriba.</div>`;
+  } else {
+    res.style.background = "#0a2a0a"; res.style.border = "2px solid #27ae60";
+    res.innerHTML = `<div style="font-size:24px;margin-bottom:8px">🟢</div>
+      <div style="font-size:16px;font-weight:900;color:#27ae60">¡LISTO PARA LA GUERRA!</div>
+      <div style="font-size:12px;color:#ccc;font-family:Barlow;margin-top:8px;line-height:1.6">Nutrición y mente en su punto. Hoy el entrenamiento construye al 100%. Exígete al máximo.</div>`;
+  }
+}
+
+function guardarSparringLog() {
+  const rival = document.getElementById("spar-rival")?.value;
+  const positivo = document.getElementById("spar-positivo")?.value;
+  const error = document.getElementById("spar-error")?.value;
+  const msg = document.getElementById("msj-spar");
+
+  if (!rival || !rival.trim()) {
+    if (msg) msg.innerHTML = '<span style="color:#e74c3c">Ingresa con quién hiciste sparring</span>';
+    return;
+  }
+
+  const entrada = {
+    fecha: new Date().toLocaleDateString("es-US"),
+    rival: rival.trim(),
+    positivo: (positivo||"").trim(),
+    error: (error||"").trim(),
+    atleta: ST.user ? ST.user.name : "Coach",
+    ts: Date.now()
+  };
+
+  const hist = ld("cba_sparring_log", []);
+  hist.push(entrada);
+  if (hist.length > 50) hist.shift();
+  sv("cba_sparring_log", hist);
+
+  if (msg) msg.innerHTML = '<span style="color:#27ae60">✅ ¡Bitácora guardada! Buen trabajo campeón.</span>';
+
+  // Clear inputs
+  setTimeout(() => {
+    ["spar-rival","spar-positivo","spar-error"].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.value = "";
+    });
+  }, 1500);
+
+  // Send to WhatsApp if athlete
+  if (ST.user && positivo) {
+    const waMsg = encodeURIComponent(`🥊 BITÁCORA SPARRING - ${ST.user.name}\n📅 ${entrada.fecha}\nRounds: ${rival}\n✅ Funcionó: ${positivo}\n⚠️ Error: ${error||"N/A"}`);
+    setTimeout(() => {
+      if (confirm("¿Enviar reporte al Coach por WhatsApp?")) {
+        window.open("https://wa.me/17027234009?text=" + waMsg, "_blank");
+      }
+    }, 500);
+  }
+}
+
+function analizarRival() {
+  const nombre = document.getElementById("rival-nombre")?.value;
+  const estilo = document.getElementById("rival-estilo")?.value;
+  const debilidad = document.getElementById("rival-debilidad")?.value;
+  const res = document.getElementById("resultado-rival");
+
+  if (!nombre || !nombre.trim()) {
+    alert("Pon el nombre o alias del rival");
+    return;
+  }
+
+  const estrategias = {
+    estilista: {
+      plan: "Cortar las salidas con pasos diagonales — no perseguir en línea recta. Trabajar fuerte al cuerpo para quitarle piernas y obligarlo a pararse a cambiar golpes.",
+      clave: ["Paso diagonal — nunca perseguir en línea recta", "Golpe al cuerpo para restarle movilidad", "Jab constante para controlar la distancia", "Presión hacia las esquinas"]
+    },
+    fajador: {
+      plan: "Paso lateral constante. Jab de freno para mantener distancia larga. Contragolpear con uppers y ganchos cuando entra agachado.",
+      clave: ["Paso lateral — nunca absorber la carga frontal", "Jab de freno cuando cierra distancia", "Upper y gancho cuando la cabeza baja", "Salida inmediata después del contragolpe"]
+    },
+    contragolpe: {
+      plan: "Fintear para obligarlo a tirar primero. Entrar después de su contragolpe. Combinaciones cortas de 2 golpes y salir con guardia arriba.",
+      clave: ["Fintas para provocar la reacción", "Entrar DESPUÉS de que lanza — nunca al mismo tiempo", "Cambiar el ritmo — rápido y lento", "Combinaciones cortas — salir siempre"]
+    }
+  };
+
+  const e = estrategias[estilo] || estrategias.fajador;
+
+  // Save to localStorage
+  const rivales = ld("cba_rivales", []);
+  rivales.push({
+    nombre: nombre.trim(), estilo,
+    debilidad: (debilidad||"").trim(),
+    fecha: new Date().toLocaleDateString("es-US"),
+    ts: Date.now()
+  });
+  if (rivales.length > 20) rivales.shift();
+  sv("cba_rivales", rivales);
+
+  res.style.display = "block";
+  res.innerHTML = `
+    <div style="font-size:12px;font-weight:900;color:#D4A017;margin-bottom:8px;letter-spacing:1px">📋 PLAN CONTRA: ${esc(nombre.toUpperCase())}</div>
+    <div style="font-size:12px;color:#fff;font-family:Barlow;line-height:1.6;margin-bottom:12px">${esc(e.plan)}</div>
+    <div style="font-size:10px;color:#D4A017;font-weight:700;margin-bottom:6px">🎯 LOS 3 PUNTOS CLAVE:</div>
+    ${e.clave.map((p,i) => `<div style="display:flex;gap:8px;margin-bottom:6px;align-items:flex-start">
+      <div style="background:#5b2c8d;color:#fff;border-radius:50%;width:18px;height:18px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;flex-shrink:0;margin-top:1px">${i+1}</div>
+      <div style="font-size:11px;color:#fff;font-family:Barlow;line-height:1.4">${esc(p)}</div>
+    </div>`).join("")}
+    ${debilidad ? `<div style="background:#1a0a2a;border-left:3px solid #5b2c8d;border-radius:0 8px 8px 0;padding:8px 12px;margin-top:8px">
+      <div style="font-size:10px;color:#7a9ab5;font-weight:700;margin-bottom:4px">⚠️ DEBILIDAD ANOTADA:</div>
+      <div style="font-size:11px;color:#fff;font-family:Barlow">${esc(debilidad)}</div>
+    </div>` : ""}`;
+}
+
+} catch(e) { window.onerror(e.message,'runtime',0,0,e); }</script>
+</body>
+</html>
