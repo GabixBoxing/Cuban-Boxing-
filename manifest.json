@@ -1,0 +1,25 @@
+{
+  "name": "Cuban Boxing App",
+  "short_name": "CBA Boxing",
+  "description": "Metodologia Sagarra \u2014 Coach Osvimer Rodriguez",
+  "start_url": "/Cuban-Boxing-app/",
+  "scope": "/Cuban-Boxing-app/",
+  "display": "standalone",
+  "background_color": "#070d1a",
+  "theme_color": "#D4A017",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/Cuban-Boxing-app/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/Cuban-Boxing-app/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
