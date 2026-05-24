@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#070d1a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Cuban Boxing">
+<title>Cuban Boxing App</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Barlow:wght@400;600&display=swap" rel="stylesheet">
+<style>*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}body{background:#070d1a;color:#fff;font-family:'Barlow Condensed','Impact',sans-serif;min-height:100vh;overflow-x:hidden}#root{max-width:480px;margin:0 auto;position:relative}input,select,textarea{font-family:'Barlow',sans-serif;font-size:14px}button{cursor:pointer;font-family:'Barlow Condensed',sans-serif;transition:all .12s}button:active{transform:scale(.96);opacity:.82}.page{display:none;padding:14px 14px 90px;animation:fi .25s ease}.page.on{display:block}@keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}#hdr{background:linear-gradient(135deg,#0a1628,#0f1e35);border-bottom:2px solid #D4A017;padding:11px 16px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}#nav{position:fixed;bottom:0;left:0;right:0;background:#0a1628;border-top:2px solid #D4A017;display:flex;z-index:50;max-width:480px;margin:0 auto}.nb{flex:1;background:none;border:none;color:#4a6a8a;padding:10px 4px 6px;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:9px;font-weight:700;letter-spacing:1px}.nb.on{color:#D4A017}.nb .ic{font-size:20px;line-height:1}.nb .bar{width:24px;height:2px;background:#D4A017;border-radius:1px;margin-top:2px}.card{background:#0f1e35;border-radius:12px;padding:14px;margin-bottom:10px;border:1px solid #1e3050}.card-g{border-color:#D4A017}.btn{width:100%;border:none;border-radius:10px;padding:13px;font-weight:800;font-size:15px;letter-spacing:1px;cursor:pointer}.btn-g{background:#D4A017;color:#070d1a}.btn-d{background:#1e3050;color:#D4A017}.btn-gr{background:#1a6b3c;color:#fff}.btn-r{background:#8b1a1a;color:#fff}.inp{width:100%;background:#0f1e35;border:1px solid #1e3050;border-radius:8px;padding:10px 12px;color:#fff;font-size:14px;outline:none}.inp:focus{border-color:#D4A017}.lbl{font-size:11px;color:#7a9ab5;display:block;margin-bottom:4px;letter-spacing:.5px;font-family:'Barlow'}.av{border-radius:25%;display:flex;align-items:center;justify-content:center;font-weight:900;color:#fff;flex-shrink:0}.sh{display:flex;align-items:center;gap:8px;margin-bottom:8px}.sh span:first-child{font-size:14px}.sh .st{font-size:13px;color:#D4A017;font-weight:800;letter-spacing:2px}.sh .sl{flex:1;height:1px;background:#1e3050}.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:100;display:flex;align-items:flex-end}.modal-box{background:#0a1628;border-radius:20px 20px 0 0;padding:20px 16px;width:100%;max-height:92vh;overflow-y:auto;border:1px solid #1e3050;animation:fi .2s ease}.prog-wrap{background:#1e3050;border-radius:4px;height:6px;overflow:hidden}.prog-fill{height:100%;background:#D4A017;border-radius:4px}.frow{display:flex;gap:8px;margin-bottom:10px}.fcol{flex:1}.g2{display:grid;grid-template-columns:1fr 1fr;gap:8px}.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}.filter-row{display:flex;gap:6px;margin-bottom:14px;overflow-x:auto;padding-bottom:4px}.fb{border:none;border-radius:20px;padding:5px 12px;font-size:11px;font-weight:700;white-space:nowrap;cursor:pointer}.pin-box{display:flex;justify-content:center;gap:8px;margin:16px 0}.pin-dot{width:16px;height:16px;border-radius:50%;background:#1e3050;border:2px solid #D4A017;transition:background .15s}.pin-dot.filled{background:#D4A017}.pin-num-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;max-width:260px;margin:0 auto}.pin-btn{background:#0f1e35;border:1px solid #1e3050;border-radius:12px;padding:18px;font-size:24px;font-weight:800;color:#fff;cursor:pointer}.pin-btn:active{background:#D4A017;color:#070d1a}.style-card{border-left:4px solid;margin-bottom:8px}.style-hdr{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;cursor:pointer}.style-body{padding:0 14px 12px;display:none}.style-body.on{display:block}.note-area{width:100%;background:#0a1628;border:1px solid #1e3050;border-radius:8px;padding:10px;color:#fff;resize:none;font-family:'Barlow',sans-serif;font-size:13px;margin-top:6px}.msg-bubble{border-radius:10px;padding:10px 12px;margin-bottom:8px;max-width:90%}.msg-ath{background:#1e3050;align-self:flex-start;border-bottom-left-radius:2px}.msg-coach{background:#1a6b3c;align-self:flex-end;border-bottom-right-radius:2px;margin-left:auto}::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:#D4A017;border-radius:2px}</style>
+<script>(function(){
+var manifest={name:"Cuban Boxing App",short_name:"CBA Boxing",description:"Metodologia Sagarra — Coach Osvimer Rodriguez",start_url:"./",scope:"./",display:"standalone",background_color:"#070d1a",theme_color:"#D4A017",orientation:"portrait-primary",icons:[{src:"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='90' fill='%230d1f3c'/%3E%3Ctext x='256' y='340' font-family='Arial Black' font-size='200' font-weight='900' fill='%23D4A017' text-anchor='middle'%3ECBA%3C/text%3E%3C/svg%3E",sizes:"512x512",type:"image/svg+xml",purpose:"any maskable"}]};
+var blob=new Blob([JSON.stringify(manifest)],{type:"application/manifest+json"});
+var l=document.createElement("link");l.rel="manifest";l.href=URL.createObjectURL(blob);document.head.appendChild(l);
+var ai=document.createElement("link");ai.rel="apple-touch-icon";ai.href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='90' fill='%230d1f3c'/%3E%3Ctext x='256' y='340' font-family='Arial Black' font-size='200' font-weight='900' fill='%23D4A017' text-anchor='middle'%3ECBA%3C/text%3E%3C/svg%3E";document.head.appendChild(ai);
+})();</script>
+</head>
+<body>
+<div id="root">
+<div id="app"></div>
+<div id="main-shell" style="display:none">
+<div id="hdr">
+<div style="display:flex;align-items:center;gap:10px">
+<div id="hdr-logo" style="width:44px;height:44px;flex-shrink:0"></div>
+<div><div style="font-weight:900;font-size:15px;letter-spacing:1.5px;color:#fff;line-height:1.1">CUBAN BOXING APP</div><div style="font-size:9px;color:#D4A017;letter-spacing:1px;font-family:Barlow;font-weight:600">OSVIMER COACH</div></div>
+</div>
+<div style="display:flex;align-items:center;gap:6px">
+<div style="text-align:right"><div id="hdr-date" style="font-size:10px;color:#7a9ab5;font-family:Barlow"></div><div id="hdr-user" style="font-size:9px;color:#D4A017;font-family:Barlow"></div></div>
+<button onclick="toggleLang()" id="lang-btn" style="background:linear-gradient(135deg,#D4A017,#f0c040);border:none;color:#070d1a;border-radius:8px;padding:7px 8px;font-weight:900;font-size:12px;letter-spacing:1px">EN</button>
+<button onclick="showSwitchModal()" style="background:#8b1a1a;border:2px solid #e74c3c;color:#fff;border-radius:8px;padding:7px 10px;font-weight:900;font-size:12px">SALIR</button>
+</div>
+</div>
+<div id="pages">
+<div id="pg-home" class="page on"></div>
+<div id="pg-athletes" class="page"></div>
+<div id="pg-training" class="page"></div>
+<div id="pg-fights" class="page"></div>
+<div id="pg-tactics" class="page"></div>
+<div id="pg-nutrition" class="page"></div>
+<div id="pg-store" class="page"></div>
+<div id="pg-notes" class="page"></div><div id="pg-pricing" class="page"></div>
+</div>
+<nav id="nav"></nav>
+</div>
+<div id="modal-wrap"></div>
+</div>
+<script>window.onerror = function(msg, src, line, col, err) {
+document.body.innerHTML = '<div style="background:#070d1a;color:#fff;padding:20px;font-family:sans-serif;min-height:100vh">' +
+'<div style="color:#D4A017;font-size:20px;font-weight:bold;margin-bottom:16px">⚠ ERROR</div>' +
+'<div style="color:#ff6b6b;font-size:14px;margin-bottom:8px">' + msg + '</div>' +
+'<div style="color:#7a9ab5;font-size:12px">Line: ' + line + '</div>' +
+'<div style="color:#7a9ab5;font-size:12px;margin-top:8px">File: ' + src + '</div>' +
+'<div style="color:#7a9ab5;font-size:11px;margin-top:16px">Send this screenshot to Coach</div>' +
+'</div>';
+return true;
+};
+try {
+
+let ST={lang:"es",tab:"home",athletes:[],fights:[],user:null,isParent:false,parentUser:null,proUser:null,proAthletes:[],isCoach:false,athFilter:"Todos",openPhase:null,openWeek:null,openDay:null,trainPick:null,trainDay:null,openStyle:null,openNut:"n1",openProPhase:1,openProWeek:1};
+const PC={1:"#1a4a7a",2:"#1a6b3c",3:"#5b2c8d",4:"#8b1a1a",5:"#4a4a1a"};
+const AVC=["#1a4a7a","#1a6b3c","#5b2c8d","#8b1a1a","#4a3a1a"];
+const DA=[
+{id:"a1",name:"Gabriel Rodriguez",dob:"2009-04-04",weight:132,category:"Youth (15-16)",group:"Mayores 16",phase:2,week:1,status:"Activo",notes:"",wins:1,losses:1,draws:0,pin:"1204"},
+{id:"a2",name:"Marisol Mendoza",dob:"",weight:132,category:"Elite Amateur",group:"Mayores 16",phase:2,week:1,status:"Activo",notes:"Trabajar el jab constante",wins:0,losses:0,draws:0,pin:"0202"},
+{id:"a3",name:"Naomy Lozano",dob:"",weight:114,category:"Elite Amateur",group:"Mayores 16",phase:1,week:1,status:"Activo",notes:"",wins:0,losses:0,draws:0,pin:"0303"},
+{id:"a4",name:"Israel Jackson",dob:"",weight:132,category:"Youth (15-16)",group:"Mayores 16",phase:1,week:1,status:"Activo",notes:"",wins:0,losses:0,draws:0,pin:"0404"},
+{id:"a5",name:"Vítor",dob:"2013-05-06",weight:95,category:"Intermediate (13-14)",group:"Grupo C (13-14)",phase:1,week:7,status:"Activo",notes:"CAMPEONA 1 Mayo 2026",wins:1,losses:0,draws:0,pin:"0506"},
+{id:"a6",name:"Fernando",dob:"",weight:300,category:"Elite Amateur",group:"Mayores 18",phase:1,week:1,status:"Activo",notes:"Dolor lumbar — sin saco — cuclillas sin peso",wins:0,losses:0,draws:0,pin:"0606"},
+];
+const DF=[
+{id:"f1",athleteId:"a1",opponent:"Por confirmar",date:"2026-07-25",result:"Próxima",weightClass:"132 lbs",event:"Mike Tyson Invitational 2",notes:""},
+{id:"f2",athleteId:"a2",opponent:"Por confirmar",date:"2026-07-25",result:"Próxima",weightClass:"132 lbs",event:"Mike Tyson Invitational 2",notes:""},
+{id:"f3",athleteId:"a3",opponent:"Por confirmar",date:"2026-07-25",result:"Próxima",weightClass:"114 lbs",event:"Mike Tyson Invitational 2",notes:""},
+{id:"f4",athleteId:"a4",opponent:"Por confirmar",date:"2026-07-25",result:"Próxima",weightClass:"132 lbs",event:"Mike Tyson Invitational 2",notes:""},
+{id:"f5",athleteId:"a1",opponent:"Rival desconocido",date:"2026-05-01",result:"Derrota",weightClass:"145 lbs",event:"Nemea Fight Night",notes:"Decisión injusta — dominó los 3 asaltos"},
+{id:"f6",athleteId:"a5",opponent:"Rival Intermediate",date:"2026-05-01",result:"Victoria",weightClass:"Intermediate",event:"Nemea Fight Night",notes:"Primera victoria — CAMPEONA"},
+];
+const MESSAGES_KEY="cba_msgs_";
+const T={
+es:{pf:["","Preparación General","Preparación Específica","Automatismo","Pre-Competencia","Mantenimiento"],pn:p=>"Fase "+p,wn:w=>"Sem "+w,yrs:"años",rest:"Descanso",sts:["Activo","Lesionado","Recuperación","Fuera de temporada"],sc:{"Activo":"#1a8f4c","Lesionado":"#c0392b","Recuperación":"#D4A017","Fuera de temporada":"#4a6a8a"},cats:["Youth (15-16)","Junior (17-18)","Elite Amateur","Intermediate (13-14)","Bantam (11-12)"],grps:["Grupo B (11-12)","Grupo C (13-14)","Mayores 16","Mayores 18"],days:["LUN","MAR","MIÉ","JUE","VIE","SÁB","DOM"],stit:["Cuerda + Construcción","Carrera + Escuela","Cuerda + Aplicación","Carrera + Sparring","Tramos + Evaluación","Descanso Activo","Descanso Completo"],nav:["INICIO","ATLETAS","ENTRENO","PELEAS","TÁCTICAS","NUTRICIÓN","TIENDA","NOTAS"],w:"Victorias",l:"Derrotas",d:"Empates",vs:"vs",up:"Próxima",today:"Entrenamiento Hoy",upF:"Próximas Peleas",recF:"Últimas Peleas",act:"Acciones Rápidas",noA:"Sin atletas activos.",wk:"Semana",of:"de",done:"completado",rec:"Récord",noF:"Sin peleas.",addFB:"+ Registrar Pelea",maint:"Mantenimiento indefinido — 3 días/semana.",nwk:"semanas",coachMode:"MODO COACH",athMode:"MODO ATLETA",enterPin:"Ingresa tu PIN",wrongPin:"PIN incorrecto",selectAth:"Selecciona tu nombre:",enterCoachPin:"PIN del Coach:",notesTitle:"Notas y Comunicación",myNotes:"Mis notas del día",myQ:"Pregunta al Coach",sendWA:"Enviar por WhatsApp",coachRep:"Respuesta del Coach",noNotes:"Sin notas todavía.",writeNote:"Escribe aquí...",saveNote:"GUARDAR NOTA",sendQ:"ENVIAR PREGUNTA",tacticsTitle:"Módulo Táctico",style1:"Presionador Frontal",style2:"Buscador del Cuerpo",style3:"Contragolpeador",style4:"Rival Zurdo",style5:"Alto con Jab Largo",style6:"Buscador de Combinaciones",style7:"Defensivo / Evasivo",planA:"PLAN A",planB:"PLAN B",pts3:"LOS 3 PUNTOS",roundXR:"ASALTO POR ASALTO",logoutBtn:"CERRAR SESIÓN"},
+en:{pf:["","General Prep","Specific Prep","Automatism","Pre-Competition","Maintenance"],pn:p=>"Phase "+p,wn:w=>"Wk "+w,yrs:"yrs",rest:"Rest",sts:["Active","Injured","Recovery","Off Season"],sc:{"Active":"#1a8f4c","Activo":"#1a8f4c","Injured":"#c0392b","Lesionado":"#c0392b","Recovery":"#D4A017","Recuperación":"#D4A017","Off Season":"#4a6a8a","Fuera de temporada":"#4a6a8a"},cats:["Youth (15-16)","Junior (17-18)","Elite Amateur","Intermediate (13-14)","Bantam (11-12)"],grps:["Group B (11-12)","Group C (13-14)","Over 16","Over 18"],days:["MON","TUE","WED","THU","FRI","SAT","SUN"],stit:["Rope + Build","Run + Drills","Rope + Apply","Run + Sparring","Sprints + Eval","Active Rest","Full Rest"],nav:["HOME","ATHLETES","TRAINING","FIGHTS","TACTICS","NUTRITION","STORE","NOTES"],w:"Wins",l:"Losses",d:"Draws",vs:"vs",up:"Upcoming",today:"Today's Training",upF:"Upcoming Fights",recF:"Recent Fights",act:"Quick Actions",noA:"No active athletes.",wk:"Week",of:"of",done:"completed",rec:"Record",noF:"No fights.",addFB:"+ Log Fight",maint:"Indefinite maintenance — 3 days/week.",nwk:"weeks",coachMode:"COACH MODE",athMode:"ATHLETE MODE",enterPin:"Enter your PIN",wrongPin:"Wrong PIN",selectAth:"Select your name:",enterCoachPin:"Coach PIN:",notesTitle:"Notes & Communication",myNotes:"Today's notes",myQ:"Ask the Coach",sendWA:"Send via WhatsApp",coachRep:"Coach Response",noNotes:"No notes yet.",writeNote:"Write here...",saveNote:"SAVE NOTE",sendQ:"SEND QUESTION",tacticsTitle:"Tactical Module",style1:"Frontal Pressure Fighter",style2:"Body Puncher",style3:"Counter-Puncher",style4:"Southpaw",style5:"Tall with Long Jab",style6:"Combination Puncher",style7:"Defensive / Evasive",planA:"PLAN A",planB:"PLAN B",pts3:"THE 3 POINTS",roundXR:"ROUND BY ROUND",logoutBtn:"LOG OUT"},
+};
+const WP={
+1:{1:{es:"Guardia + pasos + jab",en:"Guard + footwork + jab",re:"Rival estático",rn:"Static opponent",p:65},2:{es:"Jab + retorno + guardia",en:"Jab + return + guard",re:"Rival que retrocede",rn:"Retreating opponent",p:67},3:{es:"1-2 (jab + directo)",en:"1-2 (jab + straight)",re:"Rival que retrocede",rn:"Retreating opponent",p:70},4:{es:"1-2 + salida lateral",en:"1-2 + lateral exit",re:"Rival que responde",rn:"Responding opponent",p:72},5:{es:"Gancho",en:"Hook",re:"Rival que baja guardia",rn:"Drops guard",p:74},6:{es:"Cruzado",en:"Cross",re:"Rival zurdo básico",rn:"Basic southpaw",p:76},7:{es:"Combinaciones de 3 golpes",en:"3-punch combos",re:"Rival activo",rn:"Active opponent",p:78},8:{es:"Ángulo zurdo",en:"Southpaw angle",re:"Zurdo activo",rn:"Active southpaw",p:80},9:{es:"Acortar distancia",en:"Closing distance",re:"Rival alto",rn:"Tall opponent",p:82},10:{es:"Falsa entrada + lectura",en:"False attack + reading",re:"Contragolpeador",rn:"Counter-puncher",p:84},11:{es:"Sistema completo",en:"Full system",re:"Rival impredecible",rn:"Unpredictable",p:86},12:{es:"EVALUACIÓN FINAL",en:"FINAL EVALUATION",re:"Libre",rn:"Free",p:88}},
+2:{1:{es:"Jab de sondeo + respuesta al presionador",en:"Probing jab + response to pressure",re:"Presionador frontal",rn:"Frontal pressure fighter",p:80},2:{es:"Protección del cuerpo + cintura + contragolpe arriba",en:"Body protection + waist + upstairs counter",re:"Buscador del cuerpo",rn:"Body puncher",p:82},3:{es:"Ángulo zurdo + respuesta desde el ángulo",en:"Southpaw angle + response",re:"Zurdo activo",rn:"Active southpaw",p:83},4:{es:"Falsa entrada + 3 respuestas según reacción",en:"False attack + 3 responses per reaction",re:"Contragolpeador",rn:"Counter-puncher",p:84},5:{es:"Acortar distancia + combinación adentro",en:"Closing distance + inside combo",re:"Rival alto",rn:"Tall opponent",p:85},6:{es:"Presión constante + control del ring",en:"Constant pressure + ring control",re:"Rival que retrocede",rn:"Retreating opponent",p:86},7:{es:"Adaptación a cambios de estilo",en:"Adaptation to style changes",re:"Rival cambia estilo",rn:"Style changer",p:87},8:{es:"Sistema completo bajo presión máxima",en:"Full system under max pressure",re:"Todos los estilos",rn:"All styles",p:89},9:{es:"Evaluación completa del sistema",en:"Full system evaluation",re:"Todos los estilos",rn:"All styles",p:90},10:{es:"EVALUACIÓN FINAL FASE 2",en:"PHASE 2 FINAL EVAL",re:"Libre",rn:"Free",p:91}},
+3:{1:{es:"Sistema completo vs presionador — respuesta automática",en:"Full system vs pressure — automatic response",re:"Presionador frontal",rn:"Frontal pressure",p:88},2:{es:"Defensa cuerpo + ángulo zurdo integrados",en:"Body defense + southpaw angle integrated",re:"Doble amenaza",rn:"Double threat",p:89},3:{es:"Presionador zurdo — sistema completo",en:"Southpaw pressure — full system",re:"Presionador zurdo",rn:"Southpaw pressure",p:90},4:{es:"Falsa entrada avanzada — nivel élite",en:"Advanced false attack — elite level",re:"Contragolpeador avanzado",rn:"Advanced counter-puncher",p:91},5:{es:"Lectura de ritmo + acortar exacto",en:"Rhythm reading + precise closing",re:"Alto con cambio ritmo",rn:"Tall rhythm changer",p:92},6:{es:"Adaptación táctica total",en:"Full tactical adaptation",re:"Todos los estilos",rn:"All styles",p:93},7:{es:"EVALUACIÓN PREVIA — identificar debilidades",en:"PRE-EVAL — identify weaknesses",re:"Libre",rn:"Free",p:95},8:{es:"EVALUACIÓN FINAL FASE 3",en:"PHASE 3 FINAL EVAL",re:"Libre",rn:"Free",p:95}},
+4:{1:{es:"ÚLTIMA CARGA — plan de pelea activo",en:"PEAK LOAD — active fight plan",re:"Rival de la pelea",rn:"Fight opponent",p:88},2:{es:"REDUCCIÓN — plan fijo definitivo",en:"TAPER — final fixed plan",re:"Rival de la pelea",rn:"Fight opponent",p:80},3:{es:"AFILADO — sesiones cortas de activación",en:"SHARPENING — short activation sessions",re:"Plan fijo",rn:"Fixed plan",p:70},4:{es:"ACTIVACIÓN + DÍA DE PELEA",en:"ACTIVATION + FIGHT DAY",re:"Combate real",rn:"Real fight",p:65}},
+};
+const STYLES=[
+{color:"#5b2c8d",
+es:{name:"Presionador Frontal",desc:"Avanza constantemente — esquinas — quita la distancia",problem:"Si retrocedes en línea recta te acorrala",tell:"Hombros hundiéndose — rodillas flexionando antes de avanzar",planA:"Jab control + retroceso lateral + pivote 45° + contragolpe cuando pasa + salida",planB:"Cerrar distancia + ráfaga corta 4-6 golpes adentro + salida lateral",pts:["Jab constante — yo controlo la distancia — no lo dejo cerrar","Cuando avanza — retroceso lateral + pivote — NUNCA en línea recta","Después del pivote — contragolpe + salida — no quedarme a forcejear"],r1:"Usar jab para medir — ver cómo avanza — identificar la señal",r2:"Plan A confirmado — ejecutar con confianza — retroceso lateral automático",r3:"Si cansado — contrapresión — si no — mantener Plan A"},
+en:{name:"Frontal Pressure Fighter",desc:"Constantly advances — corners you — takes away distance",problem:"If you retreat in a straight line they corner you",tell:"Shoulders hunching — knees bending before advancing",planA:"Jab control + lateral retreat + 45° pivot + counter when they pass + exit",planB:"Close distance + short 4-6 punch burst inside + lateral exit",pts:["Constant jab — I control the distance — don't let them close","When they advance — lateral retreat + pivot — NEVER straight back","After the pivot — counter + exit — don't stay to grapple"],r1:"Use jab to measure — see how they advance — identify the tell",r2:"Plan A confirmed — execute with confidence — automatic lateral retreat",r3:"If tired — counter-pressure — if not — maintain Plan A"}},
+{color:"#8b1a1a",
+es:{name:"Buscador del Cuerpo",desc:"Entra agachado — golpea al hígado y plexo — exige cintura y protección baja",problem:"Los golpes al cuerpo se acumulan — si llegan muchos el cuerpo se cierra",tell:"Ojos bajando hacia el cuerpo — rodillas flexionan más de lo normal",planA:"Jab desde arriba para interrumpir + rotación de cadera en impacto + gancho arriba (la cabeza baja está en rango) + salida lateral",planB:"Cerrar distancia + clinch defensivo + salida — no dejarlo plantarse",pts:["Cuando la cabeza baja — gancho desde arriba — la cabeza está en rango","Rotación activa de cadera — no absorber recto — cintura en el impacto","Salida lateral siempre — no quedarme donde quiere trabajar"],r1:"Identificar señal cuando va al cuerpo — preparar gancho arriba",r2:"Gancho desde arriba cuando baja la cabeza — si funciona — repetir siempre",r3:"Si lastimamos arriba — va menos al cuerpo — más espacio para dominar"},
+en:{name:"Body Puncher",desc:"Comes in crouching — targets body — demands waist and low protection",problem:"Body shots accumulate — if too many land the body shuts down",tell:"Eyes drop toward body — knees bend more than normal",planA:"Jab from above to interrupt + hip rotation on impact + upstairs hook (lowered head is in range) + lateral exit",planB:"Close distance + defensive clinch + exit — don't let them get set",pts:["When head drops — hook from above — the head is in range","Active hip rotation — don't absorb straight — waist on impact","Lateral exit always — don't stay where they want to work"],r1:"Identify tell when going to body — prepare upstairs hook",r2:"Hook from above when head drops — if working — repeat every time",r3:"If we hurt upstairs — they go to body less — more space to dominate"}},
+{color:"#1a4a7a",
+es:{name:"Contragolpeador",desc:"Espera el ataque para responder — paciente — pega en la entrada",problem:"Si atacas en línea recta tiene tu contragolpe esperando",tell:"Peso en pie de atrás — guardia alta cerrada — ojos fijos esperando",planA:"Falsa entrada + esperar la reacción + entrar con combinación DESPUÉS de que lance el contragolpe",planB:"Jab constante para romper concentración + cambio de ritmo + entrada rápida cuando menos espera",pts:["Falsa entrada primero — ver cómo reacciona — leer el plan","Entrar DESPUÉS de que lance — nunca al mismo tiempo","Cambiar el ritmo — rápido y lento — no puede esperar si no sabe cuándo"],r1:"Testear con falsas entradas — ver su respuesta preferida",r2:"Usar su respuesta preferida para predecirla y contrarrestarla",r3:"Más presión — si cansado — el contragolpeador pierde velocidad de reacción"},
+en:{name:"Counter-Puncher",desc:"Waits for your attack to respond — patient — lands on entry",problem:"If you attack in a straight line they have your counter ready",tell:"Weight on back foot — high closed guard — eyes fixed waiting",planA:"False attack + wait for reaction + enter with combination AFTER they throw the counter",planB:"Constant jab to break concentration + rhythm change + quick entry when least expected",pts:["False attack first — see how they react — read the plan","Enter AFTER they throw — never at the same time","Change the rhythm — fast and slow — they can't wait if they don't know when"],r1:"Test with false attacks — see their preferred response",r2:"Use their preferred response to predict and counter it",r3:"More pressure — if tired — counter-puncher loses reaction speed"}},
+{color:"#2c5f7a",
+es:{name:"Rival Zurdo",desc:"El cruzado zurdo llega desde un ángulo inesperado — desorienta a quienes no lo conocen",problem:"El cruzado zurdo llega exactamente donde no esperas — desde el lado derecho",tell:"Hombro derecho sube ligeramente antes de tirar el cruzado",planA:"Jab + paso a la DERECHA del rival + el cruzado pasa por afuera + combinación desde el ángulo + salida",planB:"Cerrar distancia + trabajo adentro — el cruzado zurdo pierde potencia en distancia corta",pts:["Paso a la derecha SIEMPRE — el cruzado zurdo pasa por afuera","Combinación desde el ángulo derecho — no puede responder bien desde ahí","NUNCA en línea recta — el ángulo siempre"],r1:"Confirmar el paso a la derecha — ver que el cruzado pasa por afuera",r2:"Combinar desde el ángulo derecho — se desorienta cuando el cruzado falla",r3:"Si dominamos desde el ángulo — más confianza — si no — cerrar distancia"},
+en:{name:"Southpaw",desc:"The southpaw cross comes from an unexpected angle — disorients those who don't know it",problem:"The southpaw cross arrives exactly where you don't expect — from the right side",tell:"Right shoulder rises slightly before throwing the cross",planA:"Jab + step to the RIGHT of opponent + cross passes outside + combination from the angle + exit",planB:"Close distance + inside work — the southpaw cross loses power at close range",pts:["Step to the right ALWAYS — the southpaw cross passes outside","Combination from the right angle — they can't respond well from there","NEVER straight — the angle always"],r1:"Confirm the right step — see that the cross passes outside",r2:"Combine from the right angle — they get disoriented when the cross fails",r3:"If we dominate from the angle — more confidence — if not — close distance"}},
+{color:"#1a6b3c",
+es:{name:"Alto con Jab Largo",desc:"Controla la distancia con jab largo — previene la entrada — domina desde lejos",problem:"Si respetas su distancia dominan toda la pelea sin que puedas alcanzarlos",tell:"El peso se mueve hacia atrás antes de tirar el jab — listo para escapar",planA:"Esquivar el jab (cabeza afuera) + cerrar distancia en el mismo movimiento + combinación adentro donde la ventaja de altura desaparece + salida lateral",planB:"Propio jab para medir + falsa entrada + cerrar cuando reacciona al amago",pts:["No respetar su distancia — cerrar activamente — adentro desaparece la ventaja de altura","Esquivar el jab — cabeza afuera — nunca absorber recto","Salida lateral después de la combinación — no quedarse donde puede usar el jab"],r1:"Medir el jab — ver velocidad y timing — preparar el esquive",r2:"Esquivar + cerrar — si funciona — pierde su arma principal",r3:"Si cerramos bien — se frustra — más presión adentro"},
+en:{name:"Tall Opponent with Long Jab",desc:"Controls distance with long jab — prevents entry — dominates from far out",problem:"If you respect their distance they dominate the whole fight without you reaching them",tell:"Weight moves back before throwing the jab — ready to escape",planA:"Slip the jab (head outside) + close distance in same motion + combination inside where height advantage disappears + lateral exit",planB:"Own jab to measure + false attack + close when they react to the feint",pts:["Don't respect their distance — close actively — inside the height advantage disappears","Slip the jab — head outside — never absorb straight","Lateral exit after the combination — don't stay where they can use the jab"],r1:"Measure the jab — see speed and timing — prepare the slip",r2:"Slip + close — if working — they lose their main weapon",r3:"If we've closed well — they're frustrated — more inside pressure"}},
+{color:"#5a3a1a",
+es:{name:"Buscador de Combinaciones",desc:"Lanza combinaciones largas de 4-8 golpes — intenta abrumar con volumen",problem:"Si no te mueves las combinaciones acumulan daño aunque no todas sean limpias",tell:"Respiración corta antes de la combinación — peso centra para estabilidad",planA:"Movimiento lateral constante + desviar primer golpe de la combinación + entrar DURANTE la combinación (después del 3-4 golpe están más débiles) + contragolpe + salida",planB:"Esperar el final de la combinación + contragolpe cuando están en el punto ciego + salida",pts:["Movimiento lateral constante — nunca quieto — necesitan base estable para combinar","Entrar cuando la combinación lleva 3-4 golpes — ese es su punto más débil","Salida lateral siempre — no quedarse donde pueden tirar la siguiente combinación"],r1:"Ver cuántos golpes tiene su combinación favorita — identificar el punto débil",r2:"Contragolpe en el punto débil de la combinación — los sorprende",r3:"Si acostumbrado a contrarrestar ahí — empiezan a dudar antes de combinar"},
+en:{name:"Combination Puncher",desc:"Throws long combinations of 4-8 punches — tries to overwhelm with volume",problem:"If you don't move the combinations accumulate damage even if not all clean",tell:"Short breath before combination — weight centers for stability",planA:"Constant lateral movement + deflect first punch + enter DURING combination (after 3-4 punches they're weakest) + counter + exit",planB:"Wait for end of combination + counter when in blind spot + exit",pts:["Constant lateral movement — never still — they need stable base to combine","Enter when combination is 3-4 punches in — that's their weakest point","Lateral exit always — don't stay where they can throw the next combination"],r1:"See how many punches in their favorite combination — identify weak point",r2:"Counter at the weak point — it surprises them",r3:"If used to countering there — they start doubting before combining"}},
+{color:"#2a4a6a",
+es:{name:"Defensivo / Evasivo",desc:"Siempre en movimiento — difícil de pegar — espera tu error para atacar",problem:"Si lo persigues sin plan gastas energía sin pegarle y espera tu error",tell:"Siempre en las puntas de los pies — listo para moverse — ojos activos",planA:"Cortar el ring (moverse en ángulos no en línea recta) + presión con jab + forzar la esquina + combinación cuando no tiene salida + salida",planB:"Jab constante para marcar + seguir sin perseguir + combinación cuando se detiene para responder",pts:["Cortar el ring — ángulos — no perseguir en línea recta","Jab constante para obligarlo a parar — sin jab no hay presión","Combinación cuando para o llega a la esquina — ahí no puede escapar"],r1:"Aprender su movimiento — qué lado se mueve más — cortar ese lado",r2:"Forzar la esquina — una vez cortado — la pelea cambia completamente",r3:"Si cansado — la evasión baja — presión final"},
+en:{name:"Defensive / Evasive Fighter",desc:"Always moving — hard to hit — waits for your mistake to attack",problem:"If you chase without a plan you waste energy without hitting them",tell:"Always on balls of feet — ready to move — active eyes",planA:"Cut the ring (move at angles not straight lines) + jab pressure + force the corner + combination when they have no exit + exit",planB:"Constant jab to mark + follow without chasing + combination when they stop to respond",pts:["Cut the ring — angles — don't chase in straight line","Constant jab to force them to stop — without jab there's no pressure","Combination when they stop or reach corner — there they can't escape"],r1:"Learn their movement — which way they move most — cut that side",r2:"Force the corner — once cut — the fight changes completely",r3:"If tired — evasion drops — final pressure"}}
+];
+const ld=(k,d)=>{try{const r=localStorage.getItem(k);return r?JSON.parse(r):d;}catch(e){return d;}};
+const sv=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}};
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2);
+function age(d){if(!d)return"—";const b=new Date(d),t=new Date();let a=t.getFullYear()-b.getFullYear();if(t<new Date(t.getFullYear(),b.getMonth(),b.getDate()))a--;return a;}
+function fD(d){if(!d)return"—";try{return new Date(d).toLocaleDateString(ST.lang==="es"?"es-ES":"en-US",{day:"2-digit",month:"short",year:"numeric"});}catch(e){return d;}}
+function ini(n){return n.split(" ").slice(0,2).map(x=>x[0]||"").join("").toUpperCase();}
+function esc(s){return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
+function avC(n){return AVC[n.charCodeAt(0)%AVC.length];}
+function t(){return T[ST.lang];}
+function L(es,en){return ST.lang==="es"?es:en;}
+function B(n,d,tm){return{n,d,t:tm};} // session block
+function av(name,sz){const c=avC(name);const r=Math.round(sz/4);return`<div class="av" style="width:${sz}px;height:${sz}px;border-radius:${r}px;background:${c};font-size:${Math.round(sz*.35)}px">${esc(ini(name))}</div>`;}
+function badge(ph,wk,sm){const c=PC[ph]||PC[1];const p=t().pn(ph),w=t().wn(wk);const pad=sm?"2px 8px":"4px 10px";const fs=sm?11:13;return`<div style="display:inline-flex;align-items:center;gap:4px;background:${c};border-radius:6px;padding:${pad}"><span style="font-size:${fs}px;color:#fff">${esc(p)}</span><span style="font-size:${sm?10:12}px;color:rgba(255,255,255,.7)">${esc(w)}</span></div>`;}
+function sdot(st){const c=t().sc[st]||"#7a9ab5";return`<span style="display:inline-flex;align-items:center;gap:4px"><span style="width:6px;height:6px;border-radius:50%;background:${c};display:inline-block"></span><span style="font-size:10px;color:${c};font-family:Barlow;font-weight:600">${esc(st||"").toUpperCase()}</span></span>`;}
+function sh(title,icon){return`<div class="sh"><span>${icon}</span><span class="st">${esc(title).toUpperCase()}</span><div class="sl"></div></div>`;}
+function ec(msg){return`<div class="card" style="text-align:center;color:#4a6a8a;font-family:Barlow;font-size:13px">${esc(msg)}</div>`;}
+function mwrap(content){return`<div class="modal-bg" onclick="closeMBG(event)"><div class="modal-box" onclick="event.stopPropagation()"><div style="display:flex;justify-content:flex-end;margin-bottom:12px"><button onclick="closeM()" class="btn btn-d" style="width:auto;padding:6px 14px;font-size:13px">✕ ${L("CERRAR","CLOSE")}</button></div>${content}</div></div>`;}
+function inp(lb,k,tp,val,ext){return`<div style="margin-bottom:10px"><label class="lbl">${esc(lb).toUpperCase()}</label><input type="${tp}" class="inp" id="f-${k}" value="${esc(val||"")}" ${ext||""}></div>`;}
+function sel(lb,k,opts,val){return`<div style="margin-bottom:10px"><label class="lbl">${esc(lb).toUpperCase()}</label><select class="inp" id="f-${k}">${opts.map(o=>`<option value="${esc(o)}"${o===val?" selected":""}>${esc(o)}</option>`).join("")}</select></div>`;}
+function p1Session(week, dow, is90) {
+const di = dow===0?6:dow-1;
+if(di>=5) return null; // rest
+const hm = week>=7;
+const wk = WP[1][week]||WP[1][1];
+const el = L(wk.es,wk.en), ri = L(wk.re,wk.rn), pct = wk.p;
+const pc = PC[1];
+if(di===0||di===2) { // Mon/Wed - Cuerda+Técnica
+const isMon = di===0;
+const tecTime = is90?(hm?"18 min":"20 min"):"10 min";
+let blocks = [
+B(L("Calentamiento dinámico","Dynamic warm-up"), L("Movilidad completa","Full mobility"), is90?"15 min":"10 min"),
+B(L("Cuerda imaginaria","Shadow rope"), "15 min — "+ri+" — "+pct+"%", is90?"15 min":"12 min"),
+B("Shadow Sagarra", L("Sistema completo — ","Full system — ")+ri+" — "+pct+"%", is90?"10 min":"8 min"),
+B(L("Técnica dirigida","Directed technique"), (isMon?L("Construcción: ","Build: "):L("Aplicación: ","Apply: "))+el, tecTime),
+B(L("Saco táctico","Tactical bag"), is90?L("3 asaltos × 3 min / 1 min = 11 min","3 rounds × 3 min / 1 min = 11 min"):L("3 asaltos × 2 min / 1 min = 8 min","3 rounds × 2 min / 1 min = 8 min"), is90?"11 min":"8 min"),
+];
+if(hm) blocks.push(B(L("Mascota","Pad work"), is90?L("2 asaltos × 3 min / 1 min = 7 min","2 rounds × 3 min / 1 min = 7 min"):L("2 asaltos × 2 min / 1 min = 5 min","2 rounds × 2 min / 1 min = 5 min"), is90?"7 min":"5 min"));
+blocks.push(B(L("Físico","Physical"), L("Ver protocolo Bloque ","See Block ")+(week<=3?"1":week<=6?"2":week<=9?"3":"4")+" Fase 1", is90?(hm?"9 min":"14 min"):"7 min"));
+blocks.push(B(L("Estiramiento","Stretching"), L("Completo","Full"), "5 min"));
+const title = isMon?L("Cuerda + Construcción","Rope + Build"):L("Cuerda + Aplicación","Rope + Apply");
+return {title,blocks,el,ri,pct,pc,type:"lx"};
+}
+if(di===1||di===3) { // Tue/Thu - Carrera+Escuela
+const isThu = di===3;
+const hasSpar = hm&&isThu;
+let blocks = [
+B(L("Calentamiento dinámico","Dynamic warm-up"), L("Movilidad completa","Full mobility"), is90?"15 min":"10 min"),
+B(L("Carrera continua","Continuous run"), is90?L("20 min suave conversacional","20 min easy conversational"):L("15 min suave conversacional","15 min easy conversational"), is90?"20 min":"15 min"),
+B("Shadow Sagarra", L("Plan activo — ","Active plan — ")+ri+" — "+pct+"%", is90?"10 min":"7 min"),
+B(L("Escuela de combate","Combat school"), L("Corrección del punto débil — ","Weak point — ")+el, is90?(hasSpar?"15 min":"20 min"):"10 min"),
+B(L("Saco técnico","Technical bag"), is90?L("2 asaltos × 3 min / 1 min = 7 min","2 rounds × 3 min / 1 min = 7 min"):L("2 asaltos × 2 min / 1 min = 5 min","2 rounds × 2 min / 1 min = 5 min"), is90?"7 min":"5 min"),
+];
+if(hasSpar) blocks.push(B(L("Sparring condicionado","Conditioned sparring"), is90?L("2 asaltos × 3 min / 1 min = 7 min","2 rounds × 3 min / 1 min = 7 min"):L("2 asaltos × 2 min / 1 min = 5 min","2 rounds × 2 min / 1 min = 5 min"), is90?"7 min":"5 min"));
+else blocks.push(B(L("Shadow recuperación","Recovery shadow"), L("Suave — manos arriba","Easy — hands up"), is90?"8 min":"8 min"));
+blocks.push(B(L("Físico","Physical"), L("Ver protocolo Bloque ","See Block ")+(week<=3?"1":week<=6?"2":week<=9?"3":"4")+" Fase 1", is90?(hasSpar?"11 min":"13 min"):"8 min"));
+blocks.push(B(L("Estiramiento","Stretching"), L("Completo","Full"), "5 min"));
+const title = isThu?L("Carrera + Sparring","Run + Sparring"):L("Carrera + Escuela","Run + Drills");
+return {title,blocks,el,ri,pct,pc,type:"mj"};
+}
+let blocks = [
+B(L("Calentamiento dinámico","Dynamic warm-up"), L("Movilidad completa","Full mobility"), is90?"15 min":"10 min"),
+B(L("4 tramos × 50m","4 × 50m sprints"), is90?L("80-88% velocidad / trote de regreso","80-88% speed / jog back"):L("80% velocidad / trote de regreso","80% speed / jog back"), is90?"10 min":"8 min"),
+B(L("Shadow libre evaluado","Free evaluated shadow"), L("Entrenador registra sin intervenir","Coach records without intervening"), is90?"15 min":"12 min"),
+B(L("Saco evaluación","Evaluation bag"), is90?L("3 asaltos × 3 min / 1 min = 11 min","3 rounds × 3 min / 1 min = 11 min"):L("3 asaltos × 2 min / 1 min = 8 min","3 rounds × 2 min / 1 min = 8 min"), is90?"11 min":"8 min"),
+];
+if(hm) blocks.push(B(L("Mascota evaluada","Evaluated pad work"), is90?L("2 asaltos × 3 min / 1 min = 7 min","2 rounds × 3 min / 1 min = 7 min"):L("2 asaltos × 2 min / 1 min = 5 min","2 rounds × 2 min / 1 min = 5 min"), is90?"7 min":"5 min"));
+blocks.push(B(L("Físico","Physical"), L("Ver protocolo Bloque ","See Block ")+(week<=3?"1":week<=6?"2":week<=9?"3":"4")+" Fase 1", is90?(hm?"15 min":"25 min"):"10 min"));
+blocks.push(B(L("Evaluación semanal","Weekly evaluation"), L("2 positivos + 1 a mejorar","2 positives + 1 to improve"), is90?(hm?"12 min":"9 min"):"7 min"));
+blocks.push(B(L("Estiramiento","Stretching"), L("Completo","Full"), "5 min"));
+return {title:L("Tramos + Evaluación","Sprints + Eval"),blocks,el,ri,pct,pc,type:"v"};
+}
+function p2Session(week, dow, is90) {
+const di = dow===0?6:dow-1;
+if(di>=5) return null;
+const wk = WP[2][week]||WP[2][1];
+const el = L(wk.es,wk.en), ri = L(wk.re,wk.rn), pct = wk.p;
+const pc = PC[2];
+const b1 = week<=3; // Bloque 1:lighter sparring (2 min rounds)
+const sparStr = is90?(b1?L("5 asaltos × 2 min / 1 min = 14 min — solo rectos","5 rounds × 2 min / 1 min = 14 min — straights only"):L("5 asaltos × 3 min / 1 min = 19 min","5 rounds × 3 min / 1 min = 19 min")):(b1?L("4 asaltos × 2 min / 1 min = 11 min — solo rectos","4 rounds × 2 min / 1 min = 11 min — straights only"):L("4 asaltos × 3 min / 1 min = 15 min","4 rounds × 3 min / 1 min = 15 min"));
+const sparT = is90?(b1?"14 min":"19 min"):(b1?"11 min":"15 min");
+const mascStr = is90?L("5 asaltos × 3 min / 1.5 min = 21 min","5 rounds × 3 min / 1.5 min = 21 min"):L("4 asaltos × 3 min / 1.5 min = 17 min","4 rounds × 3 min / 1.5 min = 17 min");
+const mascT = is90?"21 min":"17 min";
+const sacoStr = is90?L("4 asaltos × 2 min / 1 min = 11 min","4 rounds × 2 min / 1 min = 11 min"):L("3 asaltos × 2 min / 1 min = 8 min","3 rounds × 2 min / 1 min = 8 min");
+const sacoT = is90?"11 min":"8 min";
+if(di===0||di===2) { // Mon/Wed:Cuerda + Tramos + Mascota + Saco (VERIFIED)
+const blocks = [
+B(L("Calentamiento dinámico","Dynamic warm-up"), L("Movilidad completa","Full mobility"), is90?"12 min":"10 min"),
+B(L("Cuerda imaginaria","Shadow rope"), (is90?"20 min":"18 min")+L(" — rival "+ri+" — ráfaga "+(is90?"12":"8")+" rectos cada 2:30"," — "+ri+" — "+( is90?"12":"8")+" straights every 2:30"), is90?"20 min":"18 min"),
+B(L("4 tramos × 50m","4 × 50m sprints"), L(pct+"% / trote de regreso",pct+"% / jog back"), "7 min"),
+B("Shadow Sagarra", ri+" — "+L("plan activo","active plan")+" — "+pct+"%", is90?"10 min":"8 min"),
+B(L("Mascota educativa","Educational pad work"), mascStr+" — 70%", mascT),
+B(L("Saco técnico","Technical bag"), sacoStr, sacoT),
+B(L("Físico","Physical"), L("Ver protocolo Bloque ","See Block ")+(week<=3?"1":week<=7?"2":"3")+" Fase 2", is90?"9 min":"7 min"),
+];
+const title = di===0?L("Cuerda + Mascota + Saco","Rope + Pads + Bag"):L("Cuerda + Mascota + Saco (Var)","Rope + Pads + Bag (Var)");
+return {title,blocks,el,ri,pct,pc,type:"lx"};
+}
+if(di===1||di===3) { // Tue/Thu:Carrera + Escuela + SPARRING (VERIFIED - BOTH DAYS)
+const isThu = di===3;
+const escTime = is90?(b1?"15 min":"12 min"):"10 min";
+const recupTime = is90?(b1?"10 min":"8 min"):"8 min";
+const blocks = [
+B(L("Calentamiento dinámico","Dynamic warm-up"), L("Movilidad completa","Full mobility"), is90?"12 min":"10 min"),
+B(L("Carrera continua","Continuous run"), is90?L("22 min conversacional","22 min conversational"):L("20 min conversacional","20 min conversational"), is90?"22 min":"20 min"),
+B("Shadow Sagarra", ri+" — "+pct+"%", is90?"10 min":"8 min"),
+B(L("Escuela de combate","Combat school"), L("Corrección individual — ","Individual correction — ")+el, escTime),
+B(L("Sparring condicionado","Conditioned sparring"), sparStr, sparT),
+B(L("Shadow recuperación","Recovery shadow"), L("Ritmo suave — manos ARRIBA","Easy rhythm — hands UP"), recupTime),
+B(L("Físico","Physical"), L("Ver protocolo Bloque ","See Block ")+(week<=3?"1":week<=7?"2":"3")+" Fase 2", is90?"7 min":"4 min"),
+];
+const title = isThu?L("Carrera + Sparring + Análisis","Run + Sparring + Analysis"):L("Carrera + Escuela + Sparring","Run + Drills + Sparring");
+return {title,blocks,el,ri,pct,pc,type:"mj"};
+}
+const sacoVStr = is90?L("5 asaltos × 3 min / 1.5 min = 21 min — sistema completo","5 rounds × 3 min / 1.5 min = 21 min — full system"):L("4 asaltos × 3 min / 1.5 min = 17 min — sistema completo","4 rounds × 3 min / 1.5 min = 17 min — full system");
+const blocks = [
+B(L("Calentamiento dinámico","Dynamic warm-up"), L("Movilidad completa","Full mobility"), is90?"12 min":"10 min"),
+B(L("6 tramos × 50m + 2 × 100m","6 × 50m + 2 × 100m sprints"), L((is90?"83":"80")+"% / trote de regreso",(is90?"83":"80")+"% / jog back"), "14 min"),
+B(L("Shadow libre evaluado","Free evaluated shadow"), L("Entrenador evalúa sin intervenir","Coach evaluates without intervening"), is90?"18 min":"15 min"),
+B(L("Saco táctico","Tactical bag"), sacoVStr, is90?"21 min":"17 min"),
+B(L("Físico","Physical"), L("Ver protocolo Bloque ","See Block ")+(week<=3?"1":week<=7?"2":"3")+" Fase 2", is90?"10 min":"8 min"),
+B(L("Evaluación individual","Individual evaluation"), L("2 positivos + 1 a mejorar","2 positives + 1 to improve"), is90?"15 min":"11 min"),
+];
+return {title:L("Tramos + Shadow + Evaluación","Sprints + Shadow + Eval"),blocks,el,ri,pct,pc,type:"v"};
+}
+function p3Session(week, dow, is90) {
+const di = dow===0?6:dow-1;
+if(di>=5) return null;
+const wk = WP[3][week]||WP[3][1];
+const el = L(wk.es,wk.en), ri = L(wk.re,wk.rn), pct = wk.p;
+const pc = PC[3];
+const mascStr = is90?L("5 asaltos × 3 min / 1 min = 19 min","5 rounds × 3 min / 1 min = 19 min"):L("4 asaltos × 3 min / 1 min = 15 min","4 rounds × 3 min / 1 min = 15 min");
+const mascT = is90?"19 min":"15 min";
+const sacoStr = is90?L("4 asaltos × 3 min / 1 min = 15 min","4 rounds × 3 min / 1 min = 15 min"):L("3 asaltos × 3 min / 1 min = 11 min","3 rounds × 3 min / 1 min = 11 min");
+const sacoT = is90?"15 min":"11 min";
+const sparStr = is90?L("5 asaltos × 3 min / 1 min = 19 min — sistema completo","5 rounds × 3 min / 1 min = 19 min — full system"):L("4 asaltos × 3 min / 1 min = 15 min — sistema completo","4 rounds × 3 min / 1 min = 15 min — full system");
+const sparT = is90?"19 min":"15 min";
+if(di===0||di===2) {
+const blocks = [
+B(L("Calentamiento dinámico","Dynamic warm-up"), L("Movilidad completa","Full mobility"), is90?"12 min":"10 min"),
+B(L("Cuerda imaginaria","Shadow rope"), (is90?"20 min":"18 min")+L(" — "+ri+" — ráfaga "+(is90?"12":"10")+" rectos cada 2:30"," — "+ri+" — "+(is90?"12":"10")+" straights every 2:30"), is90?"20 min":"18 min"),
+B(L("4 tramos × 50m","4 × 50m sprints"), L(pct+"% / trote de regreso",pct+"% / jog back"), "7 min"),
+B("Shadow Sagarra", ri+" — "+L("sin instrucción","no instruction")+" — "+pct+"%", is90?"10 min":"8 min"),
+B(L("Mascota de asfixia","Intensive pad work"), mascStr, mascT),
+B(L("Saco táctico","Tactical bag"), sacoStr, sacoT),
+B(L("Físico","Physical"), L("Ver protocolo Bloque ","See Block ")+(week<=4?"1":"2")+" Fase 3", is90?"7 min":"6 min"),
+];
+return {title:L("Cuerda + Mascota Asfixia","Rope + Intensive Pads"),blocks,el,ri,pct,pc,type:"lx"};
+}
+if(di===1||di===3) {
+const blocks = [
+B(L("Calentamiento dinámico","Dynamic warm-up"), L("Movilidad completa","Full mobility"), is90?"12 min":"10 min"),
+B(L("Carrera continua","Continuous run"), is90?L("22 min conversacional","22 min conversational"):L("20 min conversacional","20 min conversational"), is90?"22 min":"20 min"),
+B("Shadow Sagarra", ri+" — "+L("sistema completo","full system")+" — "+pct+"%", is90?"10 min":"8 min"),
+B(L("Escuela de combate","Combat school"), L("Corrección automática — ","Auto correction — ")+el, is90?"12 min":"10 min"),
+B(L("Sparring condicionado","Conditioned sparring"), sparStr, sparT),
+B(L("Shadow recuperación","Recovery shadow"), L("Ritmo suave — manos ARRIBA","Easy rhythm — hands UP"), is90?"8 min":"7 min"),
+B(L("Físico","Physical"), L("Ver protocolo Bloque ","See Block ")+(week<=4?"1":"2")+" Fase 3", is90?"7 min":"5 min"),
+];
+const isThu = di===3;
+return {title:isThu?L("Carrera + Sparring + Análisis","Run + Sparring + Analysis"):L("Carrera + Escuela + Sparring","Run + Drills + Sparring"),blocks,el,ri,pct,pc,type:"mj"};
+}
+const sacoEvalStr = is90?L("5 asaltos × 3 min / 1.5 min = 21 min — sistema completo","5 rounds × 3 min / 1.5 min = 21 min — full system"):L("4 asaltos × 3 min / 1.5 min = 17 min — sistema completo","4 rounds × 3 min / 1.5 min = 17 min — full system");
+const blocks = [
+B(L("Calentamiento dinámico","Dynamic warm-up"), L("Movilidad completa","Full mobility"), is90?"12 min":"10 min"),
+B(L("6 tramos × 50m + 2 × 100m","6 × 50m + 2 × 100m sprints"), L(pct+"% / trote de regreso",pct+"% / jog back"), "14 min"),
+B(L("Shadow libre evaluado","Free evaluated shadow"), L("Entrenador evalúa sin intervenir","Coach evaluates without intervening"), is90?"18 min":"15 min"),
+B(L("Saco evaluación","Evaluation bag"), sacoEvalStr, is90?"21 min":"17 min"),
+B(L("Físico","Physical"), L("Ver protocolo Bloque ","See Block ")+(week<=4?"1":"2")+" Fase 3", is90?"10 min":"8 min"),
+B(L("Evaluación individual","Individual evaluation"), L("2 positivos + 1 a mejorar","2 positives + 1 to improve"), is90?"13 min":"10 min"),
+];
+return {title:L("Shadow Evaluado + Saco","Evaluated Shadow + Bag"),blocks,el,ri,pct,pc,type:"v"};
+}
+function p4Session(week, dow, is90) {
+const di = dow===0?6:dow-1;
+if(di>=5) return null;
+const wk = WP[4][week]||WP[4][1];
+const el = L(wk.es,wk.en), ri = L(wk.re,wk.rn), pct = wk.p;
+const pc = PC[4];
+if(week===1) { // ÚLTIMA CARGA - 4 min rounds
+const mascStr = is90?L("5 asaltos × 4 min / 1 min = 24 min — 90%","5 rounds × 4 min / 1 min = 24 min — 90%"):L("4 asaltos × 4 min / 1 min = 19 min — 90%","4 rounds × 4 min / 1 min = 19 min — 90%");
+const sacoStr = is90?L("4 asaltos × 3 min / 1 min = 15 min","4 rounds × 3 min / 1 min = 15 min"):L("3 asaltos × 3 min / 1 min = 11 min","3 rounds × 3 min / 1 min = 11 min");
+const sparStr = is90?L("5 asaltos × 4 min / 1 min = 24 min — plan específico","5 rounds × 4 min / 1 min = 24 min — specific plan"):L("4 asaltos × 4 min / 1 min = 19 min — plan específico","4 rounds × 4 min / 1 min = 19 min — specific plan");
+if(di===0||di===2) {
+const blocks = [
+B(L("Calentamiento dinámico","Dynamic warm-up"), L("Movilidad completa","Full mobility"), is90?"12 min":"10 min"),
+B(L("Cuerda imaginaria","Shadow rope"), is90?"20 min":"18 min", is90?"20 min":"18 min"),
+B(L("4 tramos × 50m","4 × 50m sprints"), L(pct+"% / trote de regreso",pct+"% / jog back"), "7 min"),
+B("Shadow Sagarra", ri+" — "+L("sistema completo activo","full system active")+" — "+pct+"%", is90?"10 min":"8 min"),
+B(L("Mascota de asfixia","Intensive pad work"), mascStr, is90?"24 min":"19 min"),
+B(L("Saco táctico","Tactical bag"), sacoStr, is90?"15 min":"11 min"),
+B(L("Físico","Physical"), L("Ver protocolo Semana 1 Fase 4","See Week 1 Phase 4 protocol"), is90?"2 min":"4 min"),
+];
+return {title:L("ÚLTIMA CARGA — Mascota Asfixia","PEAK LOAD — Intensive Pads"),blocks,el,ri,pct,pc,type:"lx"};
+}
+if(di===1||di===3) {
+const blocks = [
+B(L("Calentamiento dinámico","Dynamic warm-up"), L("Movilidad completa","Full mobility"), is90?"12 min":"10 min"),
+B(L("Carrera continua","Continuous run"), is90?L("22 min conversacional","22 min conversational"):L("20 min conversacional","20 min conversational"), is90?"22 min":"20 min"),
+B("Shadow Sagarra", ri+" — "+L("plan de pelea activo","active fight plan")+" — "+pct+"%", is90?"10 min":"8 min"),
+B(L("Técnica específica","Specific technique"), L("Plan de pelea — corrección final","Fight plan — final correction"), is90?"10 min":"8 min"),
+B(L("Sparring condicionado","Conditioned sparring"), sparStr, is90?"24 min":"19 min"),
+B(L("Shadow recuperación","Recovery shadow"), L("Ritmo suave — manos ARRIBA","Easy rhythm — hands UP"), is90?"5 min":"5 min"),
+B(L("Físico","Physical"), L("Ver protocolo Semana 1 Fase 4","See Week 1 Phase 4 protocol"), is90?"7 min":"5 min"),
+];
+return {title:L("ÚLTIMA CARGA — Sparring Específico","PEAK LOAD — Specific Sparring"),blocks,el,ri,pct,pc,type:"mj"};
+}
+const blocks = [
+B(L("Calentamiento dinámico","Dynamic warm-up"), L("Movilidad completa","Full mobility"), is90?"12 min":"10 min"),
+B(L("6 tramos × 50m + 2 × 100m","6 × 50m + 2 × 100m sprints"), pct+"% / "+L("trote de regreso","jog back"), "14 min"),
+B(L("Shadow libre evaluado","Free evaluated shadow"), L("Entrenador evalúa sin intervenir","Coach evaluates without intervening"), is90?"18 min":"15 min"),
+B(L("Saco evaluación","Evaluation bag"), is90?L("5 asaltos × 3 min / 1 min = 19 min — máxima potencia","5 rounds × 3 min / 1 min = 19 min — maximum power"):L("4 asaltos × 3 min / 1 min = 15 min — máxima potencia","4 rounds × 3 min / 1 min = 15 min — maximum power"), is90?"19 min":"15 min"),
+B(L("Físico","Physical"), L("Ver protocolo Semana 1 Fase 4","See Week 1 Phase 4 protocol"), is90?"12 min":"10 min"),
+B(L("Evaluación final semana 1","Week 1 final evaluation"), L("Análisis del plan de pelea","Fight plan analysis"), is90?"15 min":"15 min"),
+];
+return {title:L("ÚLTIMA CARGA — Evaluación","PEAK LOAD — Evaluation"),blocks,el,ri,pct,pc,type:"v"};
+}
+if(week===2) { // REDUCCIÓN
+const mascStr = is90?L("4 asaltos × 4 min / 1 min = 19 min — plan fijo 90%","4 rounds × 4 min / 1 min = 19 min — fixed plan 90%"):L("3 asaltos × 4 min / 1.5 min = 15 min — plan fijo 90%","3 rounds × 4 min / 1.5 min = 15 min — fixed plan 90%");
+const sacoStr = is90?L("4 asaltos × 3 min / 1 min = 15 min","4 rounds × 3 min / 1 min = 15 min"):L("3 asaltos × 3 min / 1 min = 11 min","3 rounds × 3 min / 1 min = 11 min");
+const sparStr = is90?L("4 asaltos × 4 min / 1 min = 19 min — plan ejecutado","4 rounds × 4 min / 1 min = 19 min — plan executed"):L("3 asaltos × 4 min / 1 min = 14 min — plan ejecutado","3 rounds × 4 min / 1 min = 14 min — plan executed");
+if(di===0||di===2) {
+const blocks = [
+B(L("Calentamiento dinámico","Dynamic warm-up"), L("Movilidad completa","Full mobility"), is90?"12 min":"10 min"),
+B(L("Cuerda imaginaria","Shadow rope"), is90?"20 min":"18 min", is90?"20 min":"18 min"),
+B("Shadow Sagarra", ri+" — "+L("plan de pelea 80%","fight plan 80%"), is90?"10 min":"8 min"),
+B(L("Mascota táctica","Tactical pad work"), mascStr, is90?"19 min":"15 min"),
+B(L("Saco táctico","Tactical bag"), sacoStr, is90?"15 min":"11 min"),
+B(L("Físico","Physical"), L("Ver protocolo Semana 2","See Week 2 protocol"), is90?"8 min":"7 min"),
+B(L("Estiramiento profundo","Deep stretching"), L("Profundo","Deep"), "6 min"),
+];
+return {title:L("REDUCCIÓN — Mascota Táctica","TAPER — Tactical Pads"),blocks,el,ri,pct,pc,type:"lx"};
+}
+if(di===1||di===3) {
+const blocks = [
+B(L("Calentamiento dinámico","Dynamic warm-up"), L("Movilidad completa","Full mobility"), is90?"12 min":"10 min"),
+B(L("Tramos de velocidad","Speed sprints"), is90?L("10×50m + 4×100m / 92-95% / trote de regreso","10×50m + 4×100m / 92-95% / jog back"):L("10×50m + 4×100m / 92% / trote de regreso","10×50m + 4×100m / 92% / jog back"), "18 min"),
+B(L("Situaciones críticas","Critical situations"), L("Las 3 situaciones — respuesta automática","The 3 situations — automatic response"), is90?"12 min":"10 min"),
+B(L("Sparring condicionado","Conditioned sparring"), sparStr, is90?"19 min":"14 min"),
+B(L("Shadow recuperación","Recovery shadow"), L("Ritmo suave — manos ARRIBA","Easy rhythm — hands UP"), is90?"15 min":"12 min"),
+B(L("Físico","Physical"), L("Ver protocolo Semana 2","See Week 2 protocol"), is90?"8 min":"5 min"),
+B(L("Estiramiento profundo","Deep stretching"), L("Profundo","Deep"), "6 min"),
+];
+return {title:L("REDUCCIÓN — Sparring Condicionado","TAPER — Conditioned Sparring"),blocks,el,ri,pct,pc,type:"mj"};
+}
+const blocks = [
+B(L("Calentamiento dinámico","Dynamic warm-up"), L("Movilidad completa","Full mobility"), is90?"12 min":"10 min"),
+B(L("8 tramos × 50m + 2 × 100m","8 × 50m + 2 × 100m sprints"), L("88% / trote de regreso","88% / jog back"), "16 min"),
+B(L("Shadow libre evaluado","Free evaluated shadow"), L("Entrenador evalúa sin intervenir","Coach evaluates without intervening"), is90?"15 min":"12 min"),
+B(L("Saco evaluación","Evaluation bag"), is90?L("4 asaltos × 3 min / 1 min = 15 min","4 rounds × 3 min / 1 min = 15 min"):L("3 asaltos × 3 min / 1 min = 11 min","3 rounds × 3 min / 1 min = 11 min"), is90?"15 min":"11 min"),
+B(L("Físico","Physical"), L("Ver protocolo Semana 2","See Week 2 protocol"), is90?"15 min":"12 min"),
+B(L("Evaluación semana 2","Week 2 evaluation"), L("Ajuste final del plan de pelea","Final fight plan adjustment"), is90?"17 min":"14 min"),
+];
+return {title:L("REDUCCIÓN — Shadow + Saco","TAPER — Shadow + Bag"),blocks,el,ri,pct,pc,type:"v"};
+}
+if(week===3) { // AFILADO - solo lunes
+if(di===0) {
+const blocks = [
+B(L("Calentamiento dinámico","Dynamic warm-up"), L("Movilidad completa","Full mobility"), is90?"12 min":"10 min"),
+B(L("Cuerda imaginaria","Shadow rope"), is90?L("15 min — ritmo de combate","15 min — fight rhythm"):L("12 min — ritmo de combate","12 min — fight rhythm"), is90?"15 min":"12 min"),
+B("Shadow Sagarra", L("Plan de pelea — sin instrucción","Fight plan — no instruction"), is90?"15 min":"12 min"),
+B(L("Mascota afilado","Sharpening pads"), is90?L("3 asaltos × 3 min / 1.5 min = 11 min — plan fijo","3 rounds × 3 min / 1.5 min = 11 min — fixed plan"):L("3 asaltos × 2 min / 1 min = 8 min — plan fijo","3 rounds × 2 min / 1 min = 8 min — fixed plan"), is90?"11 min":"8 min"),
+B(L("Saco afilado","Sharpening bag"), is90?L("3 asaltos × 3 min / 1 min = 11 min","3 rounds × 3 min / 1 min = 11 min"):L("2 asaltos × 3 min / 1 min = 7 min","2 rounds × 3 min / 1 min = 7 min"), is90?"11 min":"7 min"),
+B(L("Estiramiento profundo","Deep stretching"), L("Recuperación total","Full recovery"), is90?"26 min":"26 min"),
+];
+return {title:L("AFILADO — Sesión Única","SHARPENING — Single Session"),blocks,el,ri,pct,pc,type:"lx"};
+}
+if(di===1||di===2||di===3||di===4) {
+const blocks = [
+B(L("Descanso activo","Active rest"), L("Movilidad suave + visualización del plan","Light mobility + plan visualization"), "30-45 min"),
+B(L("Sin contacto","No contact"), L("Solo movilidad y visualización","Only mobility and visualization"), "—"),
+];
+return {title:L("AFILADO — Descanso Activo","SHARPENING — Active Rest"),blocks,el,ri,pct,pc,type:"rest"};
+}
+}
+if(week===4) { // DÍA DE PELEA
+const blocks = [
+B(L("Activación matutina","Morning activation"), L("15 min movilidad suave + 5 min shadow suave","15 min light mobility + 5 min light shadow"), "20 min"),
+B(L("Visualización","Visualization"), L("Plan de pelea — los 3 puntos declarados en voz alta","Fight plan — the 3 points declared out loud"), "10 min"),
+B(L("PELEA","FIGHT"), L("Combate real — ejecutar el plan","Real fight — execute the plan"), "—"),
+];
+return {title:L("ACTIVACIÓN + PELEA","ACTIVATION + FIGHT"),blocks,el,ri,pct,pc,type:"fight"};
+}
+return null;
+}
+function getSessData(phase, week, dow, group) {
+const di = dow===0?6:dow-1;
+if(di>=5) return {title:L("Descanso Completo","Full Rest"),blocks:[],el:"",ri:"",pct:0,pc:"#1e3050",type:"rest"};
+const is90 = !(group&&(group.includes("C")||group.includes("Grupo C")||group.includes("Group C")||group.includes("B")||group.includes("Grupo B")||group.includes("Group B")));
+let result;
+if(phase===1) result = p1Session(week,dow,is90);
+else if(phase===2) result = p2Session(week,dow,is90);
+else if(phase===3) result = p3Session(week,dow,is90);
+else if(phase===4) result = p4Session(week,dow,is90);
+else result = null;
+if(!result) return {title:L("Descanso Activo","Active Rest"),blocks:[],el:L("Mantenimiento","Maintenance"),ri:"",pct:70,pc:PC[5]||"#4a4a1a",type:"rest"};
+result.dur = result.blocks.reduce((s,b)=>s+(parseInt(b.t)||0),0);
+return result;
+}
+function sessCard(s,id,open){
+const isR=s.type==="rest"||s.type==="fight";
+const dur=s.dur||0;
+let h=`<div class="card" style="padding:0;overflow:hidden;${open?`border-color:${s.pc}`:""}">`;
+h+=`<div onclick="toggleSC('${id}')" style="padding:13px 14px;display:flex;justify-content:space-between;align-items:center;cursor:pointer">`;
+h+=`<div style="flex:1"><div style="font-weight:800;font-size:17px;color:#fff">${esc(s.title)}</div>`;
+if(s.el&&s.type!=="rest")h+=`<div style="font-size:11px;color:#D4A017;font-family:Barlow;font-weight:600;margin-top:2px">${esc(s.el)}</div>`;
+h+=`</div><div style="display:flex;align-items:center;gap:8px">`;
+h+=`<div style="background:${isR?"#1e3050":s.pc};border-radius:6px;padding:4px 10px;font-weight:700;font-size:13px;color:#fff">${isR?L("Descanso","Rest"):dur+" min"}</div>`;
+h+=`<span id="arr-${id}" style="color:#D4A017;font-size:14px">${open?"▲":"▼"}</span></div></div>`;
+h+=`<div id="bd-${id}" style="${open?"":"display:none"}">`;
+if(!isR&&s.blocks.length>0){
+h+=`<div style="padding:8px 14px;background:#0a1628;display:flex;gap:16px;flex-wrap:wrap">`;
+h+=`<div><span style="font-size:10px;color:#7a9ab5;font-family:Barlow">${L("Rival:","Opponent:")} </span><span style="font-size:10px;color:#fff;font-family:Barlow;font-weight:600">${esc(s.ri||s.rival||"")}</span></div>`;
+h+=`<div><span style="font-size:10px;color:#7a9ab5;font-family:Barlow">${L("Intensidad:","Intensity:")} </span><span style="font-size:10px;color:#D4A017;font-family:Barlow;font-weight:600">${s.pct||0}%</span></div></div>`;
+s.blocks.forEach((b,i)=>{
+h+=`<div style="display:flex;align-items:flex-start;gap:10px;padding:7px 14px;border-top:1px solid #0f1e35;background:${i%2===0?"#0a1420":"transparent"}">`;
+h+=`<div style="width:44px;text-align:right;font-size:12px;color:#D4A017;font-weight:700;flex-shrink:0;padding-top:2px">${esc(b.t)}</div>`;
+h+=`<div style="flex:1"><div style="font-weight:700;font-size:13px;color:#fff">${esc(b.n)}</div><div style="font-size:11px;color:#7a9ab5;font-family:Barlow;line-height:1.3">${esc(b.d)}</div></div></div>`;
+});
+h+=`<div style="padding:8px 14px;background:linear-gradient(135deg,#1a2744,#0f1e35);display:flex;justify-content:space-between"><span style="font-size:13px;color:#7a9ab5;font-weight:700">TOTAL</span><span style="font-size:15px;color:#D4A017;font-weight:800">${dur} min</span></div>`;
+}
+h+=`</div></div>`;
+return h;
+}
+function toggleSC(id){const bd=document.getElementById("bd-"+id);const ar=document.getElementById("arr-"+id);if(!bd)return;const vis=bd.style.display!=="none";bd.style.display=vis?"none":"block";if(ar)ar.textContent=vis?"▼":"▲";}
+function goTab(tab){
+ST.tab=tab;
+document.querySelectorAll(".page").forEach(p=>p.classList.remove("on"));
+const pg=document.getElementById("pg-"+tab);
+if(pg)pg.classList.add("on");
+document.querySelectorAll(".nb").forEach(b=>{b.classList.remove("on");const bar=b.querySelector(".bar");if(bar)bar.remove();});
+const nb=document.getElementById("nb-"+tab);
+if(nb){nb.classList.add("on");if(!nb.querySelector(".bar")){const d=document.createElement("div");d.className="bar";nb.appendChild(d);}}
+renderTab(tab);
+}
+function renderTab(tab){
+const el=document.getElementById("pg-"+tab);
+if(!el)return;
+el.classList.remove("fi");void el.offsetWidth;el.classList.add("fi");
+if(tab==="home")el.innerHTML=renderHome();
+else if(tab==="athletes")el.innerHTML=renderAthletes();
+else if(tab==="training")el.innerHTML=renderTraining();
+else if(tab==="fights")el.innerHTML=renderFights();
+else if(tab==="tactics")el.innerHTML=renderTactics();
+else if(tab==="notes")el.innerHTML=renderNotes();
+else if(tab==="nutrition")el.innerHTML=renderNutrition();
+else if(tab==="store")el.innerHTML=renderStore();
+updateHdr();
+}
+function reRender(){renderTab(ST.tab);}
+function updateHdr(){
+const d=document.getElementById("hdr-date");
+const u=document.getElementById("hdr-user");
+const lb=document.getElementById("lang-btn");
+if(d)d.textContent=new Date().toLocaleDateString(ST.lang==="es"?"es-ES":"en-US",{weekday:"short",day:"2-digit",month:"short"}).toUpperCase();
+if(u)u.textContent=ST.isCoach?L("COACH OSVIMER","COACH OSVIMER"):(ST.isParent&&ST.parentUser?("PADRE — "+ST.parentUser.name.split(" ")[0].toUpperCase()):(ST.proUser?"PRO: "+(ST.proUser.name.split(" ")[0].toUpperCase()):(ST.user?ST.user.name.split(" ")[0].toUpperCase():"")))
+if(lb)lb.textContent=ST.lang==="es"?"EN":"ES";
+const icons=["🏠","🥊","📋","🏆","🎯","🥗","🛒","💬"];
+const nav=document.getElementById("nav");
+if(nav){
+  if(ST.isParent){
+    nav.innerHTML=`<button class="nb on" id="nb-home" onclick="goTab('home')"><span class="ic">🏠</span><span>${L("INICIO","HOME")}</span><div class="bar"></div></button>`;
+  } else {
+    nav.innerHTML=["home","athletes","training","fights","tactics","nutrition","store","notes"].map((id,i)=>`<button class="nb${ST.tab===id?" on":""}" id="nb-${id}" onclick="goTab('${id}')"><span class="ic">${icons[i]}</span><span>${t().nav[i]}</span>${ST.tab===id?'<div class="bar"></div>':""}</button>`).join("");
+  }
+}
+}
+function toggleLang(){const nl=ST.lang==="es"?"en":"es";ST.lang=nl;sv("cba_lang",nl);updateHdr();reRender();}
+
+function renderProWeeklyPlan() {
+  if (!ST.proUser || ST.proUser.isCoachPro) return "<div class='card'>Acceso solo para atletas PRO</div>";
+  const fase = ST.proUser.proPhase || 1;
+  const semana = ST.proUser.proWeek || 1;
+  let progreso;
+  try { progreso = JSON.parse(localStorage.getItem("pro_progress_" + ST.proUser.id)) || { completados: [] }; }
+  catch(e) { progreso = { completados: [] }; }
+  const phase = ProPhases.find(p=>p.id===fase)||ProPhases[0];
+  let html = `<div class="card" style="background:#0a1628;margin-bottom:16px;">
+    <div style="font-size:18px;font-weight:900;color:#D4A017;">📅 SEMANA ${semana} · FASE ${fase} — ${esc(phase.name)}</div>
+    <div style="font-size:12px;color:#fff;font-family:Barlow;margin-top:4px;">🎯 ${esc(phase.focus)}</div>
+    <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;">
+      <span style="background:#1e3050;padding:4px 12px;border-radius:20px;font-size:11px;">🇨🇺 Técnica Sagarra</span>
+      <span style="background:#1e3050;padding:4px 12px;border-radius:20px;font-size:11px;">🇺🇸 Potencia/Sparring</span>
+      <span style="background:#1e3050;padding:4px 12px;border-radius:20px;font-size:11px;">🇲🇽 Cuerpo/Presión</span>
+    </div>
+    <div style="font-size:11px;color:#D4A017;margin-top:6px;">✅ 4 días: LUN · MAR · JUE · VIE</div>
+  </div>`;
+  const days = ["mon","tue","thu","fri"];
+  const dayNames = {mon:"🗓 LUN",tue:"🗓 MAR",thu:"🗓 JUE",fri:"🗓 VIE"};
+  days.forEach(d=>{
+    const session = phase.sessions&&phase.sessions[d];
+    const completado = progreso.completados.includes(d);
+    if(!session)return;
+    html += `<div class="card" style="margin-bottom:12px;border-left:4px solid ${completado?"#1a8f4c":phase.color};">
+      <div style="font-weight:800;font-size:17px;color:#fff;">${dayNames[d]} · ${esc(session.title)}</div>
+      <div style="font-size:11px;color:#7a9ab5;font-family:Barlow;">~${session.dur||90} min · 🇨🇺🇺🇸🇲🇽</div>
+      <div style="background:#0a1628;border-radius:8px;margin-top:8px;">`;
+    session.blocks.forEach((b,i)=>{
+      html+=`<div style="display:flex;gap:10px;padding:7px 10px;border-top:${i>0?"1px solid #0f1e35":"none"};">
+        <div style="width:46px;text-align:right;font-size:11px;color:#D4A017;font-weight:700;flex-shrink:0;">${esc(b.t)}</div>
+        <div><div style="font-weight:700;font-size:13px;color:#fff;">${esc(b.n)}</div>
+        <div style="font-size:11px;color:#7a9ab5;font-family:Barlow;">${esc(b.d||"")}</div></div></div>`;
+    });
+    html+=`</div>
+      <div style="display:flex;justify-content:space-between;padding-top:8px;margin-top:4px;border-top:1px solid #1e3050;">
+       
